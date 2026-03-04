@@ -929,7 +929,7 @@
     /* QS page header */
     .qs-page-topbar {
       flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 28px 16px; border-bottom: 1px solid var(--nebula);
+      padding: 20px 28px 16px;
     }
     .qs-page-title { font-size: 17px; font-weight: 600; color: var(--dark-teal); }
     .qs-page-sub { font-size: 12px; color: var(--cutty-sark); margin-top: 2px; }
@@ -1394,6 +1394,194 @@
     }
     .dash-tile-remove:hover { opacity: 1; color: #E57373; }
     .dash-tile-viz { flex: 1; background: var(--teal-10); border-radius: 6px; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       DASHBOARD VIEW (opened dashboard page)
+    ═══════════════════════════════════════════════════════════════ */
+    #dashboard-view { animation: fadeIn 0.2s ease; }
+
+    /* Control bar */
+    .dv-controls {
+      flex-shrink: 0; display: flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-bottom: 1px solid var(--nebula);
+      background: rgba(255,255,255,0.55); backdrop-filter: blur(8px);
+      flex-wrap: wrap;
+    }
+    .dv-date-group {
+      display: flex; align-items: center;
+      background: var(--aqua-haze); border-radius: 8px; padding: 3px; gap: 2px;
+    }
+    .dv-date-btn {
+      display: flex; align-items: center; gap: 5px;
+      padding: 5px 12px; border-radius: 6px; border: none; background: transparent;
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+      color: var(--cutty-sark); cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    }
+    .dv-date-btn.active {
+      background: #fff; color: var(--dark-teal);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.09);
+    }
+    .dv-divider { width: 1px; height: 22px; background: var(--nebula); flex-shrink: 0; }
+    .dv-ctl-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 8px; border: 1px solid var(--nebula);
+      background: rgba(255,255,255,0.8); font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 500; color: var(--cutty-sark);
+      cursor: pointer; transition: all 0.12s; white-space: nowrap;
+    }
+    .dv-ctl-btn:hover { border-color: var(--teal-30); background: #fff; color: var(--dark-teal); }
+    .dv-filter-badge {
+      background: var(--teal); color: #fff; border-radius: 10px;
+      font-size: 10px; font-weight: 600; padding: 1px 5px; line-height: 14px;
+    }
+    .dv-select {
+      height: 32px; border: 1px solid var(--nebula); border-radius: 8px;
+      background: rgba(255,255,255,0.8); padding: 0 10px;
+      font-family: 'Inter', sans-serif; font-size: 12px; color: var(--cutty-sark);
+      cursor: pointer; outline: none;
+    }
+    .dv-search {
+      display: flex; align-items: center; gap: 7px;
+      padding: 6px 10px; border-radius: 8px; border: 1px solid var(--nebula);
+      background: rgba(255,255,255,0.8);
+    }
+    .dv-search input {
+      border: none; background: transparent; outline: none;
+      font-family: 'Inter', sans-serif; font-size: 12px; color: var(--dark-teal); width: 150px;
+    }
+    .dv-search input::placeholder { color: var(--cutty-sark); opacity: 0.5; }
+    .dv-btn-primary {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 8px; border: none;
+      background: var(--teal); font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 500; color: #fff;
+      cursor: pointer; transition: opacity 0.12s; white-space: nowrap;
+    }
+    .dv-btn-primary:hover { opacity: 0.88; }
+
+    /* Body */
+    .dv-body {
+      flex: 1; overflow-y: auto; padding: 20px 24px 24px;
+      display: flex; flex-direction: column; gap: 14px; min-height: 0;
+    }
+    .dv-body::-webkit-scrollbar { width: 4px; }
+    .dv-body::-webkit-scrollbar-thumb { background: var(--nebula); border-radius: 2px; }
+
+    /* KPI row */
+    .dv-kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; flex-shrink: 0; }
+    .dv-kpi-card {
+      background: rgba(255,255,255,0.86); border: 1px solid var(--nebula);
+      border-radius: var(--radius-md); padding: 16px 18px 14px;
+      display: flex; flex-direction: column; gap: 0;
+      backdrop-filter: blur(6px); transition: box-shadow 0.18s, border-color 0.18s;
+    }
+    .dv-kpi-card:hover { border-color: var(--teal-30); box-shadow: 0 4px 16px rgba(77,182,172,0.10); }
+    .dv-kpi-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .dv-kpi-label {
+      font-size: 11px; font-weight: 500; color: var(--cutty-sark);
+      display: flex; align-items: center; gap: 5px; letter-spacing: 0.1px;
+    }
+    .dv-kpi-label svg { flex-shrink: 0; }
+    .dv-kpi-delta {
+      display: inline-flex; align-items: center; gap: 2px;
+      font-size: 11px; font-weight: 600;
+      padding: 2px 7px; border-radius: 20px; flex-shrink: 0;
+    }
+    .dv-kpi-delta.up   { color: #15803D; background: rgba(22,163,74,0.10); }
+    .dv-kpi-delta.down { color: #B91C1C; background: rgba(220,38,38,0.10); }
+    .dv-kpi-val { font-size: 26px; font-weight: 700; color: var(--dark-teal); line-height: 1.15; flex: 1; }
+    .dv-kpi-footer {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 10px; margin-top: 10px;
+    }
+    .dv-kpi-compare { font-size: 10px; color: var(--cutty-sark); opacity: 0.50; padding-bottom: 2px; }
+    .dv-kpi-spark-wrap { flex-shrink: 0; width: 88px; }
+
+    /* Chart rows */
+    .dv-charts-row { display: grid; gap: 12px; flex-shrink: 0; }
+    .dv-charts-row.two-one { grid-template-columns: 2fr 1fr; }
+    .dv-charts-row.half { grid-template-columns: 1fr 1fr; }
+    .dv-chart-card {
+      background: rgba(255,255,255,0.86); border: 1px solid var(--nebula);
+      border-radius: var(--radius-md); padding: 16px 18px;
+      display: flex; flex-direction: column; gap: 10px;
+      backdrop-filter: blur(6px); transition: box-shadow 0.18s, border-color 0.18s;
+    }
+    .dv-chart-card:hover { border-color: var(--teal-20); box-shadow: 0 2px 12px rgba(77,182,172,0.07); }
+    .dv-chart-hd { display: flex; align-items: flex-start; justify-content: space-between; flex-shrink: 0; }
+    .dv-chart-title { font-size: 13px; font-weight: 600; color: var(--dark-teal); }
+    .dv-chart-sub { font-size: 11px; color: var(--cutty-sark); margin-top: 2px; opacity: 0.8; }
+    .dv-chart-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; flex-wrap: wrap; }
+    .dv-chart-btn {
+      width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--nebula);
+      background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--cutty-sark); transition: background 0.12s; flex-shrink: 0;
+    }
+    .dv-chart-btn:hover { background: var(--aqua-haze); }
+
+    /* Legend */
+    .dv-legend { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .dv-legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--cutty-sark); }
+    .dv-legend-line { width: 16px; height: 2px; border-radius: 1px; flex-shrink: 0; }
+    .dv-legend-dashed { width: 16px; flex-shrink: 0; border-top: 2px dashed; }
+
+    /* X-axis labels */
+    .dv-chart-xaxis { display: flex; justify-content: space-between; padding: 0 2px; margin-top: 2px; }
+    .dv-chart-xaxis span { font-size: 10px; color: var(--cutty-sark); opacity: 0.50; }
+
+    /* Donut breakdown */
+    .dv-donut-wrap { display: flex; align-items: center; justify-content: center; gap: 20px; flex: 1; min-height: 0; }
+    .dv-donut-legend { display: flex; flex-direction: column; gap: 10px; }
+    .dv-donut-leg-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+    .dv-donut-leg-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dv-donut-leg-val { font-weight: 600; color: var(--dark-teal); min-width: 34px; }
+    .dv-donut-leg-lbl { color: var(--cutty-sark); }
+
+    /* Horizontal bar chart */
+    .dv-hbar-chart { display: flex; flex-direction: column; gap: 9px; flex: 1; }
+    .dv-hbar-row { display: flex; align-items: center; gap: 10px; }
+    .dv-hbar-name {
+      font-size: 11px; color: var(--cutty-sark); width: 118px; flex-shrink: 0;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .dv-hbar-track {
+      flex: 1; height: 8px; background: var(--teal-10); border-radius: 4px; overflow: hidden;
+    }
+    .dv-hbar-fill {
+      height: 100%; border-radius: 4px;
+      background: linear-gradient(to right, var(--teal), rgba(77,182,172,0.65));
+      transition: width 0.55s cubic-bezier(.4,0,.2,1);
+    }
+    .dv-hbar-val { font-size: 11px; font-weight: 600; color: var(--dark-teal); width: 30px; text-align: right; flex-shrink: 0; }
+
+    /* Activity table */
+    .dv-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .dv-table th {
+      font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--cutty-sark); border-bottom: 1px solid var(--aqua-haze);
+      padding: 0 8px 8px; text-align: left; white-space: nowrap;
+    }
+    .dv-table td { padding: 7px 8px; border-bottom: 1px solid rgba(0,0,0,0.035); color: var(--dark-teal); white-space: nowrap; }
+    .dv-table tr:last-child td { border-bottom: none; }
+    .dv-table tr:hover td { background: var(--teal-10); }
+    .dv-status-badge {
+      display: inline-flex; align-items: center;
+      padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; white-space: nowrap;
+    }
+    .dv-status-badge.open     { background: rgba(77,182,172,0.12); color: var(--teal); }
+    .dv-status-badge.resolved { background: rgba(22,163,74,0.10);  color: #16A34A; }
+    .dv-status-badge.pending  { background: rgba(234,179,8,0.12);   color: #B45309; }
+    .dv-status-badge.escalated{ background: rgba(220,38,38,0.10);   color: #DC2626; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .dv-kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .dv-charts-row.two-one, .dv-charts-row.half { grid-template-columns: 1fr; }
+      .dv-controls { gap: 6px; }
+    }
 
     @media (max-width: 1024px) {
       .dash-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1873,7 +2061,7 @@
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <path d="M6 1v10M1 6h10" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-            + New Question
+            New Question
           </button>
           <button class="qs-primary-btn" onclick="showCreateDashboardModal()">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -1882,7 +2070,7 @@
               <rect x="1" y="7" width="4" height="4" rx="1" fill="white" opacity=".9"/>
               <rect x="7" y="7" width="4" height="4" rx="1" fill="white" opacity=".9"/>
             </svg>
-            + Create New Dashboard
+            Create New Dashboard
           </button>
         </div>
       </div>
@@ -1946,6 +2134,103 @@
       </div>
 
     </div><!-- /ds-home -->
+
+    <!-- ══ Dashboard View (full-page opened dashboard) ════════════════ -->
+    <div id="dashboard-view" style="display:none; flex:1; flex-direction:column; min-height:0; overflow:hidden;">
+
+      <!-- Controls bar -->
+      <div class="dv-controls">
+        <!-- Date range -->
+        <div class="dv-date-group" id="dv-date-group">
+          <button class="dv-date-btn active" onclick="dvSetRange(this,'7d')">7D</button>
+          <button class="dv-date-btn" onclick="dvSetRange(this,'30d')">30D</button>
+          <button class="dv-date-btn" onclick="dvSetRange(this,'90d')">90D</button>
+          <button class="dv-date-btn" onclick="dvSetRange(this,'custom')">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <rect x="0.5" y="1" width="9" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M3 0v2M7 0v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M3 5.5h4M3 7.5h2" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".6"/>
+            </svg>
+            Custom
+          </button>
+        </div>
+
+        <div class="dv-divider"></div>
+
+        <!-- Filters -->
+        <button class="dv-ctl-btn" onclick="dvToggleFilter()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M1 2.5h10M3 6h6M5 9.5h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          Filters
+          <span class="dv-filter-badge" id="dv-filter-count">3</span>
+        </button>
+
+        <!-- Sort -->
+        <select class="dv-select" id="dv-sort" onchange="dvSort(this.value)">
+          <option value="latest">Sort: Latest first</option>
+          <option value="oldest">Sort: Oldest first</option>
+          <option value="highest">Sort: Highest value</option>
+          <option value="lowest">Sort: Lowest value</option>
+        </select>
+
+        <div style="flex:1;min-width:8px"></div>
+
+        <!-- Search -->
+        <div class="dv-search">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <circle cx="5.5" cy="5.5" r="3.5" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M8.5 8.5L11 11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          <input id="dv-search-input" placeholder="Search metrics…" oninput="dvSearch(this.value)" />
+        </div>
+
+        <div class="dv-divider"></div>
+
+        <!-- Refresh -->
+        <button class="dv-ctl-btn" title="Refresh data" onclick="dvRefresh()">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path d="M1.5 6.5A5 5 0 0 1 10 2.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <path d="M11.5 6.5A5 5 0 0 1 3 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <path d="M9 0.5v2H11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 10.5v2H2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Refresh
+        </button>
+
+        <!-- Share -->
+        <button class="dv-ctl-btn" onclick="dvShare()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <circle cx="9.5" cy="2.5" r="1.5" stroke="currentColor" stroke-width="1.2"/>
+            <circle cx="9.5" cy="9.5" r="1.5" stroke="currentColor" stroke-width="1.2"/>
+            <circle cx="2.5" cy="6"   r="1.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M4 5.2L8.1 3.3M4 6.8l4.1 1.9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          Share
+        </button>
+
+        <!-- Export -->
+        <button class="dv-ctl-btn" onclick="dvExport()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 1v7M3.5 5.5L6 8l2.5-2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1 9v1.5A1.5 1.5 0 0 0 2.5 12h7A1.5 1.5 0 0 0 11 10.5V9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          Export
+        </button>
+
+        <!-- Edit (primary) -->
+        <button class="dv-btn-primary" onclick="dvEdit()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M8.5 1.5L10.5 3.5L4 10H2v-2L8.5 1.5Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Edit
+        </button>
+      </div>
+
+      <!-- Dashboard body — rendered dynamically -->
+      <div class="dv-body" id="dv-body"></div>
+
+    </div><!-- /dashboard-view -->
 
     <!-- Page header + mode toggle -->
     <div class="ds-page-header">
@@ -2531,6 +2816,66 @@ const SVGS = {
     <text x="33" y="37" text-anchor="middle" font-size="12" font-weight="700"
       fill="#1F4141" font-family="Inter,sans-serif">68%</text>
   </svg>`,
+
+  hbar: `<svg width="100%" height="66" viewBox="0 0 180 66" preserveAspectRatio="none">
+    <line x1="30" y1="2" x2="30" y2="64" stroke="rgba(77,182,172,0.18)" stroke-width="1"/>
+    <rect x="32" y="5"  width="118" height="10" rx="2.5" fill="#4DB6AC"/>
+    <rect x="32" y="20" width="82"  height="10" rx="2.5" fill="rgba(77,182,172,0.68)"/>
+    <rect x="32" y="35" width="104" height="10" rx="2.5" fill="rgba(77,182,172,0.52)"/>
+    <rect x="32" y="50" width="58"  height="10" rx="2.5" fill="rgba(77,182,172,0.38)"/>
+    <rect x="2" y="7"  width="22" height="4" rx="2" fill="rgba(77,182,172,0.20)"/>
+    <rect x="2" y="22" width="18" height="4" rx="2" fill="rgba(77,182,172,0.16)"/>
+    <rect x="2" y="37" width="20" height="4" rx="2" fill="rgba(77,182,172,0.16)"/>
+    <rect x="2" y="52" width="16" height="4" rx="2" fill="rgba(77,182,172,0.13)"/>
+  </svg>`,
+
+  scatter: `<svg width="100%" height="66" viewBox="0 0 180 66" preserveAspectRatio="none">
+    <defs>
+      <radialGradient id="rg1" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#4DB6AC" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0.3"/>
+      </radialGradient>
+    </defs>
+    <line x1="0" y1="16" x2="180" y2="16" stroke="rgba(77,182,172,0.07)" stroke-width="1"/>
+    <line x1="0" y1="33" x2="180" y2="33" stroke="rgba(77,182,172,0.07)" stroke-width="1"/>
+    <line x1="0" y1="50" x2="180" y2="50" stroke="rgba(77,182,172,0.07)" stroke-width="1"/>
+    <circle cx="18"  cy="50" r="5"   fill="rgba(77,182,172,0.32)"/>
+    <circle cx="42"  cy="37" r="7.5" fill="rgba(77,182,172,0.50)"/>
+    <circle cx="62"  cy="56" r="3.5" fill="rgba(77,182,172,0.28)"/>
+    <circle cx="80"  cy="20" r="9"   fill="url(#rg1)"/>
+    <circle cx="102" cy="43" r="5.5" fill="rgba(77,182,172,0.44)"/>
+    <circle cx="120" cy="10" r="7.5" fill="rgba(77,182,172,0.68)"/>
+    <circle cx="140" cy="30" r="4"   fill="rgba(77,182,172,0.38)"/>
+    <circle cx="160" cy="50" r="6"   fill="#4DB6AC"/>
+    <circle cx="172" cy="18" r="3"   fill="rgba(77,182,172,0.48)"/>
+  </svg>`,
+
+  multiline: `<svg width="100%" height="66" viewBox="0 0 200 66" preserveAspectRatio="none">
+    <line x1="0" y1="22" x2="200" y2="22" stroke="rgba(77,182,172,0.07)" stroke-width="1"/>
+    <line x1="0" y1="44" x2="200" y2="44" stroke="rgba(77,182,172,0.07)" stroke-width="1"/>
+    <path d="M0 50 C30 47 52 34 82 28 C112 23 132 38 162 20 L200 13"
+      stroke="#4DB6AC" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M0 58 C28 54 46 49 76 44 C102 39 132 53 166 38 L200 33"
+      stroke="rgba(77,182,172,0.42)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 3"/>
+    <circle cx="82"  cy="28" r="2.5" fill="#4DB6AC"/>
+    <circle cx="162" cy="20" r="2.5" fill="#4DB6AC"/>
+    <circle cx="200" cy="13" r="3"   fill="#4DB6AC"/>
+    <circle cx="76"  cy="44" r="2"   fill="rgba(77,182,172,0.55)"/>
+    <circle cx="200" cy="33" r="2"   fill="rgba(77,182,172,0.55)"/>
+  </svg>`,
+
+  step: `<svg width="100%" height="66" viewBox="0 0 180 66" preserveAspectRatio="none">
+    <line x1="0" y1="62" x2="180" y2="62" stroke="rgba(77,182,172,0.20)" stroke-width="1"/>
+    <rect x="4"   y="54" width="21" height="8"  rx="1.5" fill="rgba(77,182,172,0.22)"/>
+    <rect x="29"  y="40" width="21" height="22" rx="1.5" fill="rgba(77,182,172,0.38)"/>
+    <rect x="54"  y="22" width="21" height="40" rx="1.5" fill="rgba(77,182,172,0.60)"/>
+    <rect x="79"  y="10" width="21" height="52" rx="1.5" fill="#4DB6AC"/>
+    <rect x="104" y="26" width="21" height="36" rx="1.5" fill="rgba(77,182,172,0.52)"/>
+    <rect x="129" y="46" width="21" height="16" rx="1.5" fill="rgba(77,182,172,0.32)"/>
+    <rect x="154" y="57" width="22" height="5"  rx="1.5" fill="rgba(77,182,172,0.18)"/>
+    <path d="M4 56 C30 46 55 16 90 10 C120 10 150 44 176 59"
+      stroke="rgba(77,182,172,0.30)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  </svg>`,
 };
 
 function kpiSVG(val, trend, up) {
@@ -2548,12 +2893,12 @@ const CARDS = [
   { id: 'avg-response',   name: 'Avg Response Time',       desc: 'Mean first response time across all agents and queues',     category: 'Performance', preview: 'bar'  },
   { id: 'sentiment',      name: 'Customer Sentiment',      desc: 'CSAT & NPS rolling 30-day score trend',                    category: 'Experience',  preview: 'area' },
   { id: 'sla-breach',     name: 'SLA Breach Rate',         desc: 'Percentage of tickets that breached their SLA target',     category: 'Compliance',  preview: 'kpi',   kpiVal: '4.2%',  kpiTrend: '+0.8%',  kpiUp: false },
-  { id: 'agent-perf',     name: 'Agent Performance',       desc: 'Tickets resolved per agent per day across all teams',      category: 'Performance', preview: 'bar2' },
-  { id: 'fcr',            name: 'First Call Resolution',   desc: 'Issues fully resolved on the first customer contact',      category: 'Quality',     preview: 'donut73'},
+  { id: 'agent-perf',     name: 'Agent Performance',       desc: 'Tickets resolved per agent per day across all teams',      category: 'Performance', preview: 'hbar'     },
+  { id: 'fcr',            name: 'First Call Resolution',   desc: 'Issues fully resolved on the first customer contact',      category: 'Quality',     preview: 'donut73'  },
   { id: 'csat',           name: 'CSAT Score',              desc: 'Overall customer satisfaction rating this month',          category: 'Experience',  preview: 'kpi',   kpiVal: '87',    kpiTrend: '+3 pts', kpiUp: true  },
-  { id: 'volume-trend',   name: 'Volume Trends',           desc: 'Ticket intake over time broken down by channel',           category: 'Volume',      preview: 'area2'},
-  { id: 'queue',          name: 'Queue Analytics',         desc: 'Queue depth, wait times and throughput by queue',          category: 'Operations',  preview: 'bar2' },
-  { id: 'resolution',     name: 'Resolution Time',         desc: 'End-to-end time from ticket open to final close',         category: 'Performance', preview: 'area' },
+  { id: 'volume-trend',   name: 'Volume Trends',           desc: 'Ticket intake over time broken down by channel',           category: 'Volume',      preview: 'multiline'},
+  { id: 'queue',          name: 'Queue Analytics',         desc: 'Queue depth, wait times and throughput by queue',          category: 'Operations',  preview: 'scatter'  },
+  { id: 'resolution',     name: 'Resolution Time',         desc: 'End-to-end time from ticket open to final close',         category: 'Performance', preview: 'step'     },
   { id: 'escalations',    name: 'Escalation Rate',         desc: 'Tickets escalated to a higher support tier',              category: 'Quality',     preview: 'kpi',   kpiVal: '8.1%',  kpiTrend: '+1.2%',  kpiUp: false },
   { id: 'agent-util',     name: 'Agent Utilization',       desc: 'Workload balance, capacity and availability by team',      category: 'Operations',  preview: 'donut68'},
 ];
@@ -2636,14 +2981,14 @@ const QB_MOCK_ROWS = {
   ],
 };
 const DASHBOARDS_DATA = [
-  { id:'d1', name:'Agent Performance Overview',   desc:'Call volume, handle time, and resolution metrics', tiles:4, updated:'2h ago',   mode:'manual'  },
-  { id:'d2', name:'CSAT & Quality Tracker',       desc:'Customer satisfaction scores and quality audit results', tiles:3, updated:'yesterday', mode:'manual'  },
-  { id:'d3', name:'Volume & Trend Analysis',      desc:'Call volume patterns over time by channel', tiles:3, updated:'6h ago',   mode:'manual'  },
-  { id:'d4', name:'AI-Powered Insights',          desc:'AI-generated trend analysis and predictions', tiles:5, updated:'3d ago',   mode:'ai'      },
-  { id:'d5', name:'Smart Escalation Monitor',     desc:'AI-detected escalation patterns and risk scores', tiles:3, updated:'1w ago',   mode:'ai'      },
-  { id:'d6', name:'Operations Command Center',    desc:'Real-time hybrid view of operations and AI signals', tiles:6, updated:'5h ago',   mode:'hybrid'  },
-  { id:'d7', name:'Compliance & Audit Board',     desc:'Regulation adherence with AI flagging assistance', tiles:4, updated:'2d ago',   mode:'hybrid'  },
-  { id:'d8', name:'Team Productivity Mix',        desc:'Manual KPIs combined with AI workload predictions', tiles:5, updated:'4d ago',   mode:'hybrid'  },
+  { id:'d1', name:'Agent Performance Overview',   desc:'Call volume, handle time, and resolution metrics',          tiles:4, updated:'2h ago',   mode:'manual', thumb:'hbar'      },
+  { id:'d2', name:'CSAT & Quality Tracker',       desc:'Customer satisfaction scores and quality audit results',    tiles:3, updated:'yesterday', mode:'manual', thumb:'donut73'   },
+  { id:'d3', name:'Volume & Trend Analysis',      desc:'Call volume patterns over time by channel',                tiles:3, updated:'6h ago',   mode:'manual', thumb:'area'      },
+  { id:'d4', name:'AI-Powered Insights',          desc:'AI-generated trend analysis and predictions',              tiles:5, updated:'3d ago',   mode:'ai',     thumb:'multiline'  },
+  { id:'d5', name:'Smart Escalation Monitor',     desc:'AI-detected escalation patterns and risk scores',          tiles:3, updated:'1w ago',   mode:'ai',     thumb:'scatter'    },
+  { id:'d6', name:'Operations Command Center',    desc:'Real-time hybrid view of operations and AI signals',       tiles:6, updated:'5h ago',   mode:'hybrid', thumb:'bar'        },
+  { id:'d7', name:'Compliance & Audit Board',     desc:'Regulation adherence with AI flagging assistance',         tiles:4, updated:'2d ago',   mode:'hybrid', thumb:'step'       },
+  { id:'d8', name:'Team Productivity Mix',        desc:'Manual KPIs combined with AI workload predictions',        tiles:5, updated:'4d ago',   mode:'hybrid', thumb:'area2'      },
 ];
 
 /* ── QB state ─────────────────────────────────────────────── */
@@ -2664,7 +3009,9 @@ function setDsSection(section) {
 
   const aiBtn = document.getElementById('nq-ai-toggle-btn');
 
-  // Hide all content areas
+  // Hide all content areas (including dashboard view)
+  const dashView = document.getElementById('dashboard-view');
+  if (dashView) dashView.style.display = 'none';
   [header, manualMode, aiMode, actionBar, dsHome, dsNewQ].forEach(el => { if (el) el.style.display = 'none'; });
   if (backBtn) backBtn.style.display = 'none';
   if (aiBtn) aiBtn.style.display = 'none';
@@ -3082,7 +3429,7 @@ function renderHome() {
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 3.5h9M5 3.5V2h3v1.5M5.5 6v4M7.5 6v4M2.5 3.5l.5 7.5a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1l.5-7.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
-      <div class="dash-card-thumb">${SVGS.bar || ''}</div>
+      <div class="dash-card-thumb">${SVGS[d.thumb] || SVGS.bar || ''}</div>
       <div class="dash-card-title">${d.name}</div>
       <div class="dash-card-desc">${d.desc}</div>
       <div class="dash-card-meta">
@@ -3103,10 +3450,378 @@ function setHomeTab(tab) {
   renderHome();
 }
 
+/* ══════════════════════════════════════════════════════════════
+   DASHBOARD VIEW — open / close / render
+══════════════════════════════════════════════════════════════ */
+
+/* Per-dashboard config data */
+const DV_CONFIGS = {
+  default: {
+    kpis: [
+      { icon:'ticket', label:'Total Tickets',   val:'2,847', delta:'+12%',  up:true,  compare:'vs prev period', sparkData:[60,70,65,82,78,90,95] },
+      { icon:'clock',  label:'Avg Handle Time', val:'4m 32s',delta:'−8s',   up:true,  compare:'vs prev period', sparkData:[90,85,88,82,79,76,74] },
+      { icon:'star',   label:'CSAT Score',      val:'87%',   delta:'+3 pts',up:true,  compare:'vs prev period', sparkData:[78,80,82,82,84,85,87] },
+      { icon:'alert',  label:'SLA Breach Rate', val:'4.2%',  delta:'+0.8%', up:false, compare:'vs prev period', sparkData:[3,3.2,3.5,3.8,4,4.1,4.2] },
+    ],
+    areaTitle:'Ticket Volume Over Time', areaSub:'Daily intake vs previous period · all channels',
+    donutTitle:'Channel Breakdown', donutSub:'Tickets by source channel',
+    donutData:[
+      { label:'Chat',  val:'42%', color:'#4DB6AC' },
+      { label:'Email', val:'28%', color:'#80CBC4' },
+      { label:'Voice', val:'18%', color:'#B2DFDB' },
+      { label:'Other', val:'12%', color:'#CFE8E6' },
+    ],
+    barTitle:'Agent Performance', barSub:'Tickets resolved · last 7 days',
+    barData:[
+      { name:'Gurram Triveni',      val:142 },
+      { name:'Kattoju Usha Rani',   val:118 },
+      { name:'Swetha Neerudu',      val:105 },
+      { name:'Laxmi Singh',         val:98  },
+      { name:'Patangey V. Kumar',   val:87  },
+      { name:'Ravi Shankar',        val:76  },
+    ],
+    tableTitle:'Recent Ticket Activity', tableSub:'Latest updates across all queues',
+  },
+  ai: {
+    kpis: [
+      { icon:'ticket', label:'AI-Resolved',        val:'1,203',  delta:'+34%',  up:true,  compare:'vs prev period', sparkData:[500,620,700,820,900,1100,1203] },
+      { icon:'star',   label:'Prediction Accuracy', val:'94.1%',  delta:'+2.3%', up:true,  compare:'vs prev period', sparkData:[88,89,90,91,92,93,94] },
+      { icon:'clock',  label:'Avg Resolution',      val:'6m 10s', delta:'−42s',  up:true,  compare:'vs prev period', sparkData:[9,8.8,8.5,8,7.5,7,6.2] },
+      { icon:'alert',  label:'Escalation Risk',     val:'2.8%',   delta:'−0.5%', up:true,  compare:'vs prev period', sparkData:[4.5,4.2,4,3.8,3.5,3.1,2.8] },
+    ],
+    areaTitle:'AI Resolution Trend', areaSub:'AI-handled vs human-escalated tickets over time',
+    donutTitle:'Resolution Method', donutSub:'Auto-resolved vs handoff breakdown',
+    donutData:[
+      { label:'AI Resolved',  val:'57%', color:'#4DB6AC' },
+      { label:'Human Handoff',val:'25%', color:'#80CBC4' },
+      { label:'Hybrid',       val:'13%', color:'#B2DFDB' },
+      { label:'Escalated',    val:'5%',  color:'#CFE8E6' },
+    ],
+    barTitle:'AI Confidence by Category', barSub:'Classification confidence score per category',
+    barData:[
+      { name:'Billing',   val:156 },
+      { name:'Technical', val:138 },
+      { name:'Returns',   val:122 },
+      { name:'Account',   val:109 },
+      { name:'General',   val:86  },
+      { name:'Other',     val:60  },
+    ],
+    tableTitle:'AI Activity Log', tableSub:'Recent automated ticket resolutions',
+  },
+  hybrid: {
+    kpis: [
+      { icon:'ticket', label:'Total Tickets',    val:'3,412', delta:'+9%',   up:true,  compare:'vs prev period', sparkData:[50,60,72,68,85,90,100] },
+      { icon:'clock',  label:'Hybrid Resolution',val:'5m 14s',delta:'−22s',  up:true,  compare:'vs prev period', sparkData:[95,90,88,85,82,80,78] },
+      { icon:'star',   label:'Satisfaction',     val:'91%',   delta:'+5 pts',up:true,  compare:'vs prev period', sparkData:[80,82,85,86,88,90,91] },
+      { icon:'alert',  label:'Escalations',      val:'3.1%',  delta:'−0.4%', up:true,  compare:'vs prev period', sparkData:[4,3.9,3.7,3.5,3.4,3.2,3.1] },
+    ],
+    areaTitle:'Combined Volume Trend', areaSub:'Manual + AI ticket flow over time',
+    donutTitle:'Handling Mode Split', donutSub:'How tickets were resolved this period',
+    donutData:[
+      { label:'Manual',  val:'38%', color:'#4DB6AC' },
+      { label:'AI Auto', val:'35%', color:'#80CBC4' },
+      { label:'Hybrid',  val:'20%', color:'#B2DFDB' },
+      { label:'Pending', val:'7%',  color:'#CFE8E6' },
+    ],
+    barTitle:'Team Throughput', barSub:'Tickets handled per team · this week',
+    barData:[
+      { name:'Support L1',  val:198 },
+      { name:'Support L2',  val:134 },
+      { name:'Billing',     val:115 },
+      { name:'Technical',   val:99  },
+      { name:'AI Bot',      val:189 },
+      { name:'Escalation',  val:47  },
+    ],
+    tableTitle:'Recent Activity Feed', tableSub:'Live updates from all channels',
+  },
+};
+
+const DV_ACTIVITY = [
+  { id:'#677218', agent:'Gurram Triveni',    queue:'Support',   status:'open',      time:'2m ago'  },
+  { id:'#677219', agent:'Kattoju U. Rani',   queue:'Billing',   status:'resolved',  time:'5m ago'  },
+  { id:'#677220', agent:'Swetha Neerudu',    queue:'Support',   status:'pending',   time:'8m ago'  },
+  { id:'#677221', agent:'Laxmi Singh',       queue:'Technical', status:'escalated', time:'12m ago' },
+  { id:'#677222', agent:'Patangey V. Kumar', queue:'Support',   status:'resolved',  time:'15m ago' },
+  { id:'#677223', agent:'Ravi Shankar',      queue:'General',   status:'open',      time:'18m ago' },
+];
+
+/* Helpers */
+function dvKpiIcon(type) {
+  if (type === 'clock')  return `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 4v3l1.8 1.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`;
+  if (type === 'star')   return `<svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><path d="M6.5 1.5l1.3 3.8H11.5l-3 2.2 1.1 3.5-3.1-2.2-3.1 2.2 1.1-3.5-3-2.2h3.7L6.5 1.5Z" opacity=".85"/></svg>`;
+  if (type === 'alert')  return `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L12 11H1L6.5 1Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M6.5 5v2.5M6.5 9.5v.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`;
+  return `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="1" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M4 5h5M4 7.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`;
+}
+
+function dvSparkline(data, up) {
+  const color = up ? '#4DB6AC' : '#DC2626';
+  const mn = Math.min(...data), mx = Math.max(...data), rng = mx - mn || 1;
+  const h = 36, w = 72;
+  const pts = data.map((v, i) => {
+    const x = (i / (data.length - 1)) * w;
+    const y = h - 4 - ((v - mn) / rng) * (h - 8);
+    return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`;
+  }).join(' ');
+  const lx = w, ly = h - 4 - ((data[data.length-1] - mn) / rng) * (h - 8);
+  return `<svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" style="display:block">
+    <path d="${pts} L ${lx} ${h} L 0 ${h} Z" fill="${color}" opacity="0.09"/>
+    <path d="${pts}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="${lx.toFixed(1)}" cy="${ly.toFixed(1)}" r="2.5" fill="${color}"/>
+  </svg>`;
+}
+
+function dvAreaChart(xLabels) {
+  return `<svg width="100%" viewBox="0 0 560 118" style="display:block;overflow:visible">
+    <defs>
+      <linearGradient id="dvg1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#4DB6AC" stop-opacity="0.28"/>
+        <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0.01"/>
+      </linearGradient>
+      <linearGradient id="dvg2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#4DB6AC" stop-opacity="0.07"/>
+        <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <line x1="0" y1="24" x2="556" y2="24" stroke="rgba(77,182,172,0.09)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="0" y1="48" x2="556" y2="48" stroke="rgba(77,182,172,0.09)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="0" y1="72" x2="556" y2="72" stroke="rgba(77,182,172,0.09)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="0" y1="96" x2="556" y2="96" stroke="rgba(77,182,172,0.09)" stroke-width="1" stroke-dasharray="4 3"/>
+    <!-- Previous period -->
+    <path d="M0 78 C70 70 130 60 200 66 C270 72 330 50 400 54 C450 57 510 42 556 46 L556 110 L0 110 Z" fill="url(#dvg2)"/>
+    <path d="M0 78 C70 70 130 60 200 66 C270 72 330 50 400 54 C450 57 510 42 556 46"
+      stroke="rgba(77,182,172,0.28)" stroke-width="1.5" fill="none" stroke-dasharray="5 4" stroke-linecap="round"/>
+    <!-- Current period -->
+    <path d="M0 72 C70 60 130 40 200 46 C270 52 330 24 400 28 C450 31 510 12 556 14 L556 110 L0 110 Z" fill="url(#dvg1)"/>
+    <path d="M0 72 C70 60 130 40 200 46 C270 52 330 24 400 28 C450 31 510 12 556 14"
+      stroke="#4DB6AC" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Dots on current line -->
+    <circle cx="0"   cy="72" r="3.5" fill="#4DB6AC" stroke="white" stroke-width="1.5"/>
+    <circle cx="93"  cy="48" r="3.5" fill="#4DB6AC" stroke="white" stroke-width="1.5"/>
+    <circle cx="186" cy="46" r="3.5" fill="#4DB6AC" stroke="white" stroke-width="1.5"/>
+    <circle cx="279" cy="24" r="3.5" fill="#4DB6AC" stroke="white" stroke-width="1.5"/>
+    <circle cx="371" cy="28" r="3.5" fill="#4DB6AC" stroke="white" stroke-width="1.5"/>
+    <circle cx="464" cy="12" r="3.5" fill="#4DB6AC" stroke="white" stroke-width="1.5"/>
+    <circle cx="556" cy="14" r="4"   fill="#4DB6AC" stroke="white" stroke-width="2"/>
+  </svg>
+  <div class="dv-chart-xaxis">
+    ${xLabels.map(l => `<span>${l}</span>`).join('')}
+  </div>`;
+}
+
+function dvDonutChart(donutData) {
+  const circ = 2 * Math.PI * 48;
+  let offset = 0;
+  const segs = donutData.map(d => {
+    const pct = parseFloat(d.val) / 100;
+    const len = (pct * circ).toFixed(1);
+    const gap = (circ - pct * circ).toFixed(1);
+    const rotate = (offset * 360 - 90).toFixed(1);
+    offset += pct;
+    return `<circle cx="64" cy="64" r="48" fill="none" stroke="${d.color}" stroke-width="18"
+      stroke-dasharray="${len} ${gap}" stroke-linecap="butt" transform="rotate(${rotate} 64 64)"/>`;
+  }).join('');
+  return `<div class="dv-donut-wrap">
+    <svg width="128" height="128" viewBox="0 0 128 128">
+      <circle cx="64" cy="64" r="48" fill="none" stroke="rgba(77,182,172,0.07)" stroke-width="18"/>
+      ${segs}
+      <text x="64" y="59" text-anchor="middle" font-size="16" font-weight="700" fill="#1F4141" font-family="Inter,sans-serif">2,847</text>
+      <text x="64" y="74" text-anchor="middle" font-size="9.5" fill="#4C6A69" font-family="Inter,sans-serif">total tickets</text>
+    </svg>
+    <div class="dv-donut-legend">
+      ${donutData.map(d => `
+        <div class="dv-donut-leg-item">
+          <div class="dv-donut-leg-dot" style="background:${d.color}"></div>
+          <span class="dv-donut-leg-val">${d.val}</span>
+          <span class="dv-donut-leg-lbl">${d.label}</span>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function dvHbarChart(barData) {
+  const maxVal = Math.max(...barData.map(d => d.val));
+  return barData.map(d => {
+    const pct = ((d.val / maxVal) * 100).toFixed(1);
+    return `<div class="dv-hbar-row">
+      <div class="dv-hbar-name" title="${d.name}">${d.name}</div>
+      <div class="dv-hbar-track"><div class="dv-hbar-fill" style="width:${pct}%"></div></div>
+      <div class="dv-hbar-val">${d.val}</div>
+    </div>`;
+  }).join('');
+}
+
+function dvActivityTable(rows) {
+  return `<table class="dv-table">
+    <thead>
+      <tr>
+        <th>Ticket ID</th><th>Agent</th><th>Queue</th><th>Status</th><th>Updated</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${rows.map(r => `<tr>
+        <td style="color:var(--teal);font-weight:500">${r.id}</td>
+        <td>${r.agent}</td>
+        <td>${r.queue}</td>
+        <td><span class="dv-status-badge ${r.status}">${r.status.charAt(0).toUpperCase() + r.status.slice(1)}</span></td>
+        <td style="color:var(--cutty-sark);opacity:.7">${r.time}</td>
+      </tr>`).join('')}
+    </tbody>
+  </table>`;
+}
+
+function renderDashboardView(d) {
+  const cfg = d.mode === 'ai' ? DV_CONFIGS.ai : d.mode === 'hybrid' ? DV_CONFIGS.hybrid : DV_CONFIGS.default;
+  const xLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  const moreBtn = `<button class="dv-chart-btn" title="More options">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+      <circle cx="6" cy="2.5" r="1.1"/><circle cx="6" cy="6" r="1.1"/><circle cx="6" cy="9.5" r="1.1"/>
+    </svg></button>`;
+
+  document.getElementById('dv-body').innerHTML = `
+    <!-- KPI row -->
+    <div class="dv-kpi-row">
+      ${cfg.kpis.map(k => `
+        <div class="dv-kpi-card">
+          <div class="dv-kpi-top">
+            <div class="dv-kpi-label">
+              <span style="color:var(--teal)">${dvKpiIcon(k.icon)}</span>${k.label}
+            </div>
+            <span class="dv-kpi-delta ${k.up ? 'up' : 'down'}">${k.up ? '↑' : '↓'} ${k.delta}</span>
+          </div>
+          <div class="dv-kpi-val">${k.val}</div>
+          <div class="dv-kpi-footer">
+            <span class="dv-kpi-compare">${k.compare}</span>
+            <div class="dv-kpi-spark-wrap">${dvSparkline(k.sparkData, k.up)}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+
+    <!-- Row 2: area chart (2/3) + donut (1/3) -->
+    <div class="dv-charts-row two-one">
+      <div class="dv-chart-card">
+        <div class="dv-chart-hd">
+          <div>
+            <div class="dv-chart-title">${cfg.areaTitle}</div>
+            <div class="dv-chart-sub">${cfg.areaSub}</div>
+          </div>
+          <div class="dv-chart-actions">
+            <div class="dv-legend">
+              <div class="dv-legend-item">
+                <span class="dv-legend-line" style="background:#4DB6AC"></span>This period
+              </div>
+              <div class="dv-legend-item">
+                <span class="dv-legend-dashed" style="border-color:rgba(77,182,172,0.38)"></span>Last period
+              </div>
+            </div>
+            <button class="dv-chart-btn" title="Expand">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                <path d="M1 4V1h3M10 7v3H7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M1 1l4 4M10 10l-4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            ${moreBtn}
+          </div>
+        </div>
+        ${dvAreaChart(xLabels)}
+      </div>
+
+      <div class="dv-chart-card">
+        <div class="dv-chart-hd">
+          <div>
+            <div class="dv-chart-title">${cfg.donutTitle}</div>
+            <div class="dv-chart-sub">${cfg.donutSub}</div>
+          </div>
+          ${moreBtn}
+        </div>
+        ${dvDonutChart(cfg.donutData)}
+      </div>
+    </div>
+
+    <!-- Row 3: agent bars (1/2) + activity table (1/2) -->
+    <div class="dv-charts-row half">
+      <div class="dv-chart-card">
+        <div class="dv-chart-hd">
+          <div>
+            <div class="dv-chart-title">${cfg.barTitle}</div>
+            <div class="dv-chart-sub">${cfg.barSub}</div>
+          </div>
+          ${moreBtn}
+        </div>
+        <div class="dv-hbar-chart">${dvHbarChart(cfg.barData)}</div>
+      </div>
+
+      <div class="dv-chart-card">
+        <div class="dv-chart-hd">
+          <div>
+            <div class="dv-chart-title">${cfg.tableTitle}</div>
+            <div class="dv-chart-sub">${cfg.tableSub}</div>
+          </div>
+          <div class="dv-chart-actions">
+            <button class="dv-ctl-btn" style="font-size:11px;padding:4px 10px;" onclick="showToast('Exporting activity log…')">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                <path d="M5.5 1v6M3 5l2.5 2.5L8 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M1 8.5v1A1 1 0 0 0 2 10.5h7a1 1 0 0 0 1-1v-1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+              Export
+            </button>
+            ${moreBtn}
+          </div>
+        </div>
+        <div style="overflow:auto;flex:1">${dvActivityTable(DV_ACTIVITY)}</div>
+      </div>
+    </div>
+  `;
+}
+
 function openDashboard(id) {
   const d = DASHBOARDS_DATA.find(x => x.id === id);
-  if (d) showToast(`Opening "${d.name}"…`);
+  if (!d) return;
+  showToast(`Opening "${d.name}"…`);
+  setTimeout(() => {
+    // Hide home
+    document.getElementById('ds-home').style.display = 'none';
+    // Update topbar page name
+    const nameEl = document.querySelector('#view-data-studio .topbar-page-name');
+    if (nameEl) nameEl.textContent = d.name;
+    // Configure back button to close dashboard view
+    const backBtn = document.getElementById('ds-back-btn');
+    if (backBtn) {
+      backBtn.style.display = '';
+      backBtn.onclick = closeDashboardView;
+    }
+    // Reset date range to default
+    document.querySelectorAll('.dv-date-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+    document.getElementById('dv-search-input').value = '';
+    // Render and show
+    renderDashboardView(d);
+    document.getElementById('dashboard-view').style.display = 'flex';
+  }, 680);
 }
+
+function closeDashboardView() {
+  document.getElementById('dashboard-view').style.display = 'none';
+  const nameEl = document.querySelector('#view-data-studio .topbar-page-name');
+  if (nameEl) nameEl.textContent = 'Data Studio';
+  const backBtn = document.getElementById('ds-back-btn');
+  if (backBtn) { backBtn.style.display = 'none'; backBtn.onclick = () => setDsSection('home'); }
+  setDsSection('home');
+}
+
+/* Dashboard view control handlers */
+function dvSetRange(btn, range) {
+  document.querySelectorAll('.dv-date-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (range === 'custom') showToast('Custom date range picker — coming soon');
+  else showToast(`Showing last ${range.toUpperCase()} data`);
+}
+function dvToggleFilter() { showToast('Filter panel — coming soon'); }
+function dvSort(val)       { showToast(`Sorted by: ${val}`); }
+function dvSearch(val)     { /* live filter — cosmetic */ }
+function dvRefresh()       { showToast('Dashboard refreshed'); }
+function dvShare()         { showToast('Share link copied to clipboard!'); }
+function dvExport()        { showToast('Exporting dashboard as PDF…'); }
+function dvEdit()          { showToast('Opening dashboard editor…'); }
 
 function deleteDashboard(id) {
   const idx = DASHBOARDS_DATA.findIndex(d => d.id === id);
