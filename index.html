@@ -209,6 +209,7 @@
       flex-shrink: 0;
       display: flex; align-items: center; justify-content: space-between;
       padding: 12px 16px;
+      min-height: 54px;
       border-bottom: 0.571px solid var(--nebula);
       backdrop-filter: blur(4px);
       background: rgba(255, 255, 255, 0.20);
@@ -217,6 +218,29 @@
     .topbar-left {
       display: flex; align-items: center; gap: 8px;
     }
+    .topbar-breadcrumb {
+      display: flex; align-items: center; gap: 5px;
+    }
+    .bc-home {
+      font-size: 13px; font-weight: 500; color: var(--teal);
+      background: none; border: none; cursor: pointer; padding: 0;
+      transition: opacity 0.15s;
+    }
+    .bc-home:hover { opacity: 0.7; text-decoration: underline; }
+    .bc-sep {
+      font-size: 14px; color: var(--cutty-sark); opacity: 0.4; font-weight: 300; line-height: 1;
+    }
+    .bc-title {
+      font-size: 13px; font-weight: 600; color: var(--dark-teal);
+      background: none; border: none; outline: none;
+      padding: 2px 4px; border-radius: 4px;
+      min-width: 60px; max-width: 200px;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.15s; font-family: 'Inter', sans-serif;
+    }
+    .bc-title:hover { border-bottom-color: var(--nebula); }
+    .bc-title:focus { border-bottom-color: var(--teal); }
+
     .topbar-page-name {
       font-size: 13px; font-weight: 500;
       color: var(--cutty-sark); opacity: 0.7;
@@ -1369,6 +1393,30 @@
       font-weight: 300; flex-shrink: 0;
     }
     .dash-composer-right { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .dash-ai-panel {
+      flex: 0 0 230px; display: flex; flex-direction: column; min-width: 0;
+      background: var(--bg-light); border-left: 1px solid var(--nebula); overflow: hidden;
+    }
+    .dash-ai-body {
+      flex: 1; display: flex; flex-direction: column;
+      padding: 12px 14px; gap: 9px; overflow: hidden; min-height: 0;
+    }
+    .dash-save-final-btn {
+      padding: 8px 16px; border-radius: var(--radius-sm); border: none;
+      background: var(--teal); color: #fff; font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 600; cursor: pointer; flex-shrink: 0;
+      display: inline-flex; align-items: center;
+      gap: 6px; transition: opacity 0.15s;
+    }
+    .dash-save-final-btn:hover { opacity: 0.88; }
+    .dash-new-btn {
+      padding: 8px 12px; border-radius: var(--radius-sm); cursor: pointer; flex-shrink: 0;
+      width: 100%; display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+      background: transparent; border: 1.5px solid var(--teal-30); color: var(--cutty-sark);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .dash-new-btn:hover { background: var(--teal-10); border-color: var(--teal-50); }
     .dash-canvas {
       flex: 1; overflow: auto; padding: 20px;
       background: radial-gradient(circle at 50% 40%, rgba(77,182,172,0.04) 0%, transparent 70%), var(--bg-light);
@@ -1407,20 +1455,32 @@
       background: rgba(255,255,255,0.55); backdrop-filter: blur(8px);
       flex-wrap: wrap;
     }
-    .dv-date-group {
-      display: flex; align-items: center;
-      background: var(--aqua-haze); border-radius: 8px; padding: 3px; gap: 2px;
+    /* Dropdown wraps */
+    .dv-dropdown-wrap { position: relative; }
+    .dv-dropdown-panel {
+      position: fixed; z-index: 1000;
+      background: #fff; border: 1px solid var(--nebula); border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(31,65,65,0.12); padding: 4px;
+      min-width: 172px; display: none;
     }
-    .dv-date-btn {
-      display: flex; align-items: center; gap: 5px;
-      padding: 5px 12px; border-radius: 6px; border: none; background: transparent;
+    .dv-dropdown-panel.open { display: block; }
+    .dv-dd-item {
+      display: flex; align-items: center; gap: 8px;
+      width: 100%; padding: 7px 10px; background: transparent; border: none;
       font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
-      color: var(--cutty-sark); cursor: pointer; transition: all 0.15s; white-space: nowrap;
+      color: var(--cutty-sark); cursor: pointer; border-radius: 7px;
+      text-align: left; white-space: nowrap; transition: background 0.1s;
     }
-    .dv-date-btn.active {
-      background: #fff; color: var(--dark-teal);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.09);
+    .dv-dd-item:hover { background: var(--aqua-haze); color: var(--dark-teal); }
+    .dv-dd-item.active { color: var(--teal); font-weight: 600; }
+    .dv-dd-label {
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      color: var(--cutty-sark); opacity: 0.45; letter-spacing: 0.05em;
+      padding: 6px 10px 3px; pointer-events: none;
     }
+    .dv-dd-sep { height: 1px; background: var(--nebula); margin: 4px 2px; }
+    .dv-chevron { transition: transform 0.15s; flex-shrink: 0; }
+    .dv-ctl-btn.open .dv-chevron { transform: rotate(180deg); }
     .dv-divider { width: 1px; height: 22px; background: var(--nebula); flex-shrink: 0; }
     .dv-ctl-btn {
       display: flex; align-items: center; gap: 6px;
@@ -1433,12 +1493,6 @@
     .dv-filter-badge {
       background: var(--teal); color: #fff; border-radius: 10px;
       font-size: 10px; font-weight: 600; padding: 1px 5px; line-height: 14px;
-    }
-    .dv-select {
-      height: 32px; border: 1px solid var(--nebula); border-radius: 8px;
-      background: rgba(255,255,255,0.8); padding: 0 10px;
-      font-family: 'Inter', sans-serif; font-size: 12px; color: var(--cutty-sark);
-      cursor: pointer; outline: none;
     }
     .dv-search {
       display: flex; align-items: center; gap: 7px;
@@ -1663,13 +1717,16 @@
       display: none; gap: 4px;
     }
     .dash-card:hover .dash-card-actions { display: flex; }
-    .dash-card-del-btn {
+    .dash-card-del-btn, .dash-card-edit-btn {
       width: 26px; height: 26px; border-radius: 6px;
       border: 1px solid var(--nebula); background: #fff;
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: #E57373; transition: background 0.12s, border-color 0.12s;
+      cursor: pointer; transition: background 0.12s, border-color 0.12s;
     }
-    .dash-card-del-btn:hover { background: #FEF2F2; border-color: #E57373; }
+    .dash-card-del-btn  { color: #E57373; }
+    .dash-card-del-btn:hover  { background: #FEF2F2; border-color: #E57373; }
+    .dash-card-edit-btn { color: var(--teal); }
+    .dash-card-edit-btn:hover { background: var(--teal-10); border-color: var(--teal-50); }
 
     /* ── Home page ──────────────────────────────────────────────── */
     .home-mode-tabs {
@@ -1691,7 +1748,7 @@
     .home-mode-badge.ai     { background: var(--teal-10); color: var(--teal); }
     .home-mode-badge.hybrid { background: rgba(107,70,193,0.08); color: #6B46C1; }
 
-    /* ── New Question layout — three inline columns ─────────────── */
+    /* ── New Query layout — three inline columns ────────────────── */
     .nq-body { flex: 1; display: flex; flex-direction: row; min-height: 0; overflow: hidden; padding: 8px 12px 12px; gap: 12px; }
     /* Wrapper for topbar + QB/VB columns */
     .nq-main-area { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
@@ -1738,7 +1795,7 @@
     /* AI column scrollable body */
     .nq-col-ai-body {
       flex: 1; display: flex; flex-direction: column;
-      padding: 12px 14px; gap: 9px; overflow-y: auto;
+      padding: 12px 14px; gap: 9px; overflow: hidden; min-height: 0;
     }
     .nq-preview { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
     /* AI panel content styles */
@@ -1764,9 +1821,78 @@
       padding: 8px 12px; border-radius: var(--radius-sm); border: none; background: var(--teal);
       color: #fff; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer;
       display: flex; align-items: center; justify-content: center; gap: 5px;
-      transition: opacity 0.15s; margin-top: auto; width: 100%;
+      transition: opacity 0.15s; flex-shrink: 0; width: 100%;
     }
     .nq-generate-btn:hover { opacity: 0.88; }
+    /* ── KapAI Nudge Card ───────────────────────────────────────── */
+    @keyframes nudge-in { from { opacity:0; transform:translateY(-5px); } to { opacity:1; transform:translateY(0); } }
+    .nq-nudge-card {
+      background: linear-gradient(135deg, var(--teal-10) 0%, #f0faf9 100%);
+      border: 1.5px solid var(--teal-30); border-radius: 10px;
+      padding: 10px 11px 9px; display: flex; flex-direction: column;
+      gap: 7px; flex-shrink: 0; animation: nudge-in 0.22s ease;
+    }
+    .nq-nudge-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--teal);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nq-nudge-text { font-size: 11.5px; color: var(--dark-teal); line-height: 1.55; font-weight: 500; }
+    .nq-nudge-actions { display: flex; gap: 5px; flex-wrap: wrap; }
+    .nq-nudge-dismiss {
+      padding: 4px 8px; border-radius: 6px; border: 1px solid var(--nebula);
+      background: #fff; font-family: 'Inter', sans-serif; font-size: 11px;
+      color: var(--cutty-sark); cursor: pointer; transition: all 0.12s;
+    }
+    .nq-nudge-dismiss:hover { border-color: var(--teal-30); color: var(--dark-teal); }
+    .nq-nudge-accept {
+      padding: 4px 9px; border-radius: 6px; border: none;
+      background: var(--teal); color: #fff; font-family: 'Inter', sans-serif;
+      font-size: 11px; font-weight: 500; cursor: pointer; transition: opacity 0.12s;
+    }
+    .nq-nudge-accept:hover { opacity: 0.88; }
+    /* ── AI Conversation Bubbles ────────────────────────────────── */
+    .nq-ai-conv { display: flex; flex-direction: column; gap: 7px; overflow-y: auto; flex: 1; min-height: 0; }
+    .nq-ai-bubble {
+      background: var(--teal-10); border: 1px solid var(--teal-30);
+      border-radius: 8px 8px 8px 2px; padding: 8px 10px;
+      font-size: 11.5px; color: var(--dark-teal); line-height: 1.5;
+    }
+    .nq-ai-bubble .nq-bubble-lbl {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--teal); margin-bottom: 3px;
+    }
+    .nq-ai-bubble-user {
+      background: #fff; border: 1px solid var(--nebula);
+      border-radius: 8px 8px 2px 8px; padding: 7px 10px;
+      font-size: 11.5px; color: var(--cutty-sark); line-height: 1.5;
+      align-self: flex-end;
+    }
+    .nq-ai-sep {
+      font-size: 10px; color: var(--cutty-sark); opacity: 0.45;
+      text-align: center; letter-spacing: 0.08em;
+    }
+    .nq-post-save-select {
+      width: 100%; border: 1.5px solid var(--teal-30); border-radius: 7px;
+      padding: 6px 8px; font-family: 'Inter', sans-serif; font-size: 12px;
+      color: var(--dark-teal); background: #fff; outline: none; cursor: pointer;
+    }
+    .nq-post-save-select:focus { border-color: var(--teal); }
+    .nq-post-save-confirm {
+      font-size: 11px; color: var(--teal); font-weight: 500;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .qb-back-btn {
+      display: flex; align-items: center; gap: 5px; padding: 5px 9px;
+      border-radius: var(--radius-sm); border: 1px solid var(--nebula);
+      background: #fff; font-family: 'Inter', sans-serif; font-size: 12px;
+      color: var(--cutty-sark); cursor: pointer; transition: all 0.12s;
+    }
+    .qb-back-btn:hover { border-color: var(--teal-30); color: var(--dark-teal); background: var(--teal-10); }
+    .qb-save-view-footer {
+      display: flex; justify-content: flex-end; gap: 8px;
+      padding-top: 4px; border-top: 1px solid var(--nebula); flex-shrink: 0; margin-top: auto;
+    }
     .nq-run-btn {
       padding: 8px 20px; border-radius: var(--radius-sm); border: none; background: var(--teal);
       color: #fff; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
@@ -2035,9 +2161,20 @@
             <path d="M8.5 10.5L4.5 6.5l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <span class="topbar-page-name">Data Studio</span>
+        <span class="topbar-page-name" id="topbar-ds-name">Dashboard Builder</span>
+        <nav class="topbar-breadcrumb" id="topbar-ds-breadcrumb" style="display:none;">
+          <button class="bc-home" onclick="showHomeGallery()">Home</button>
+          <span class="bc-sep">›</span>
+          <input class="bc-title" id="dash-composer-title" value="Untitled Dashboard" />
+        </nav>
       </div>
       <div class="topbar-right">
+        <button class="nq-ai-toggle-btn" id="dash-ai-toggle-btn" onclick="toggleDashAiPanel()" title="Toggle AI Assistant" style="display:none;">
+          <svg width="11" height="11" viewBox="0 0 13 13" fill="currentColor">
+            <path d="M6.5 0.5L7.6 4.1L11.5 6.5L7.6 8.9L6.5 12.5L5.4 8.9L1.5 6.5L5.4 4.1L6.5 0.5Z"/>
+          </svg>
+          AI
+        </button>
         <button class="nq-ai-toggle-btn off" id="nq-ai-toggle-btn" onclick="toggleAiPanel()" title="Toggle AI Assistant" style="display:none;">
           <svg width="11" height="11" viewBox="0 0 13 13" fill="currentColor">
             <path d="M6.5 0.5L7.6 4.1L11.5 6.5L7.6 8.9L6.5 12.5L5.4 8.9L1.5 6.5L5.4 4.1L6.5 0.5Z"/>
@@ -2051,18 +2188,12 @@
     <div id="ds-home" style="display:none; flex:1; flex-direction:column; min-height:0; overflow:hidden;">
 
       <!-- Topbar: title + action buttons -->
-      <div class="qs-page-topbar">
+      <div class="qs-page-topbar" id="home-topbar">
         <div>
           <div class="qs-page-title">My Dashboards</div>
           <div class="qs-page-sub" id="home-dash-count">0 dashboards</div>
         </div>
-        <div style="display:flex;gap:10px;align-items:center;">
-          <button class="qs-primary-btn" onclick="setDsSection('new-question');if(document.getElementById('ds-back-btn'))document.getElementById('ds-back-btn').style.display='';">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M6 1v10M1 6h10" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-            New Question
-          </button>
+        <div style="display:flex;gap:10px;align-items:center;" id="create-dash-btn-wrap">
           <button class="qs-primary-btn" onclick="showCreateDashboardModal()">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <rect x="1" y="1" width="4" height="4" rx="1" fill="white" opacity=".9"/>
@@ -2091,46 +2222,76 @@
       </div>
 
       <!-- Composer (sub-view B, shown after Create & Build) -->
-      <div id="dash-composer-view" style="display:none; flex:1; flex-direction:row; min-height:0; overflow:hidden;">
-        <div class="dash-picker-panel">
-          <div class="qb-panel-hd" style="display:flex;align-items:center;justify-content:space-between;">
-            <span>Saved Questions</span>
-            <button class="qb-select-all-btn" style="font-size:11px;" onclick="dashAddAll()">Add all</button>
-          </div>
-          <div id="dash-picker-list"></div>
-        </div>
-        <div class="dash-composer-right">
-          <div class="qb-topbar">
-            <input class="qb-title-input" id="dash-composer-title" value="Untitled Dashboard" />
-            <div style="display:flex;gap:8px;margin-left:auto;">
-              <button class="qb-reset-btn" onclick="showHomeGallery()">
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                  <path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Back
-              </button>
-              <button class="qb-save-btn" onclick="saveDashboard()">
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                  <rect x="1.5" y="1.5" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
-                  <path d="M4 1.5v3h5V1.5" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
-                </svg>
-                Save Dashboard
-              </button>
-            </div>
-          </div>
-          <div class="dash-canvas" id="dash-canvas">
-            <div class="dash-canvas-empty" id="dash-canvas-empty">
-              <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-                <rect x="2" y="2" width="22" height="22" rx="4" stroke="currentColor" stroke-width="1.5" opacity=".25"/>
-                <rect x="28" y="2" width="22" height="22" rx="4" stroke="currentColor" stroke-width="1.5" opacity=".25"/>
-                <rect x="2" y="28" width="22" height="22" rx="4" stroke="currentColor" stroke-width="1.5" opacity=".25"/>
-                <rect x="28" y="28" width="22" height="22" rx="4" stroke="currentColor" stroke-width="1.5" opacity=".25"/>
+      <div id="dash-composer-view" style="display:none; flex:1; flex-direction:column; min-height:0; overflow:hidden;">
+        <div class="nq-body">
+
+          <!-- Main area: two left panels -->
+          <div class="nq-main-area">
+
+            <div class="nq-panels">
+
+              <!-- Col 1: Saved Questions -->
+              <div class="nq-col-qb" style="flex:0 0 240px;">
+                <div class="nq-col-hd" style="justify-content:space-between;">
+                  <span>Saved Questions</span>
+                  <button class="qb-select-all-btn" style="font-size:11px;" onclick="dashAddAll()">Add all</button>
+                </div>
+                <div id="dash-picker-list" style="overflow-y:auto;flex:1;"></div>
+              </div>
+
+              <!-- Col 2: Selected queries canvas -->
+              <div class="nq-col-vb">
+                <div class="nq-col-hd">Selected Queries</div>
+                <div class="dash-canvas" id="dash-canvas">
+                  <div class="dash-canvas-empty" id="dash-canvas-empty">
+                    <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+                      <rect x="2" y="2" width="22" height="22" rx="4" stroke="currentColor" stroke-width="1.5" opacity=".25"/>
+                      <rect x="28" y="2" width="22" height="22" rx="4" stroke="currentColor" stroke-width="1.5" opacity=".25"/>
+                      <rect x="2" y="28" width="22" height="22" rx="4" stroke="currentColor" stroke-width="1.5" opacity=".25"/>
+                      <rect x="28" y="28" width="22" height="22" rx="4" stroke="currentColor" stroke-width="1.5" opacity=".25"/>
+                    </svg>
+                    <p>Select questions on the left to add them to your dashboard</p>
+                  </div>
+                  <div class="dash-tiles" id="dash-tiles" style="display:none"></div>
+                </div>
+                <div id="dash-save-bar" style="display:none; padding:12px 16px; border-top:1px solid var(--nebula); flex-shrink:0;">
+                  <button class="dash-save-final-btn" onclick="saveDashboard()">
+                    <svg width="14" height="14" viewBox="0 0 13 13" fill="none">
+                      <rect x="1.5" y="1.5" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+                      <path d="M4 1.5v3h5V1.5" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                    </svg>
+                    Save Dashboard
+                  </button>
+                </div>
+              </div>
+
+            </div><!-- /nq-panels -->
+          </div><!-- /nq-main-area -->
+
+          <!-- Col 3: AI Assistant (toggleable) -->
+          <div class="nq-col-ai" id="dash-col-ai">
+            <div class="nq-col-hd">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" style="color:var(--teal);flex-shrink:0;">
+                <path d="M6.5 0.5L7.6 4.1L11.5 6.5L7.6 8.9L6.5 12.5L5.4 8.9L1.5 6.5L5.4 4.1L6.5 0.5Z"/>
               </svg>
-              <p>Select questions on the left to add them to your dashboard</p>
+              AI Assistant
             </div>
-            <div class="dash-tiles" id="dash-tiles" style="display:none"></div>
-          </div>
-        </div>
+            <div class="nq-col-ai-body">
+              <div class="nq-ai-conv" id="dash-ai-conv"></div>
+              <div class="nq-ai-sep" id="dash-ai-sep" style="display:none;">· · ·</div>
+              <div class="nq-ai-sub">Any last-minute changes?</div>
+              <textarea class="nq-ai-textarea" id="dash-ai-textarea"
+                placeholder="e.g. rename this dashboard, suggest a layout, add a filter..."></textarea>
+              <button class="nq-generate-btn" onclick="dashAiAsk()">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                  <path d="M6 0L7 3.5L11 6L7 8.5L6 12L5 8.5L1 6L5 3.5L6 0Z"/>
+                </svg>
+                Ask KapAI
+              </button>
+            </div>
+          </div><!-- /dash-col-ai -->
+
+        </div><!-- /nq-body -->
       </div>
 
     </div><!-- /ds-home -->
@@ -2140,39 +2301,62 @@
 
       <!-- Controls bar -->
       <div class="dv-controls">
-        <!-- Date range -->
-        <div class="dv-date-group" id="dv-date-group">
-          <button class="dv-date-btn active" onclick="dvSetRange(this,'7d')">7D</button>
-          <button class="dv-date-btn" onclick="dvSetRange(this,'30d')">30D</button>
-          <button class="dv-date-btn" onclick="dvSetRange(this,'90d')">90D</button>
-          <button class="dv-date-btn" onclick="dvSetRange(this,'custom')">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-              <rect x="0.5" y="1" width="9" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
-              <path d="M3 0v2M7 0v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-              <path d="M3 5.5h4M3 7.5h2" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".6"/>
+        <!-- Date range dropdown -->
+        <div class="dv-dropdown-wrap" id="dv-date-wrap">
+          <button class="dv-ctl-btn" id="dv-date-trigger" onclick="dvToggleDateDropdown(event)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <rect x="0.5" y="1.5" width="11" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M4 0.5v2M8 0.5v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M3.5 6.5h5M3.5 8.5h3" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".6"/>
             </svg>
-            Custom
+            <span id="dv-date-label">Last 7 Days</span>
+            <svg class="dv-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M2.5 3.5L5 6.5L7.5 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
+          <div class="dv-dropdown-panel" id="dv-date-panel">
+            <button class="dv-dd-item active" onclick="dvSetRange('7d', this)">Last 7 Days</button>
+            <button class="dv-dd-item" onclick="dvSetRange('30d', this)">Last 30 Days</button>
+            <button class="dv-dd-item" onclick="dvSetRange('90d', this)">Last 90 Days</button>
+            <div class="dv-dd-sep"></div>
+            <button class="dv-dd-item" onclick="dvSetRange('custom', this)">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                <rect x="0.5" y="1.5" width="11" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M4 0.5v2M8 0.5v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M3.5 6.5h5M3.5 8.5h3" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".6"/>
+              </svg>
+              Custom Range
+            </button>
+          </div>
         </div>
 
-        <div class="dv-divider"></div>
-
-        <!-- Filters -->
-        <button class="dv-ctl-btn" onclick="dvToggleFilter()">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M1 2.5h10M3 6h6M5 9.5h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-          </svg>
-          Filters
-          <span class="dv-filter-badge" id="dv-filter-count">3</span>
-        </button>
-
-        <!-- Sort -->
-        <select class="dv-select" id="dv-sort" onchange="dvSort(this.value)">
-          <option value="latest">Sort: Latest first</option>
-          <option value="oldest">Sort: Oldest first</option>
-          <option value="highest">Sort: Highest value</option>
-          <option value="lowest">Sort: Lowest value</option>
-        </select>
+        <!-- Filters + Sort dropdown -->
+        <div class="dv-dropdown-wrap" id="dv-filter-wrap">
+          <button class="dv-ctl-btn" id="dv-filter-trigger" onclick="dvToggleFilterDropdown(event)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M1 2.5h10M3 6h6M5 9.5h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            Filters
+            <span class="dv-filter-badge" id="dv-filter-count">3</span>
+            <svg class="dv-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M2.5 3.5L5 6.5L7.5 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="dv-dropdown-panel" id="dv-filter-panel" style="min-width:190px;">
+            <div class="dv-dd-label">Sort by</div>
+            <button class="dv-dd-item dv-sort-item active" onclick="dvSort('latest', this)">Latest first</button>
+            <button class="dv-dd-item dv-sort-item" onclick="dvSort('oldest', this)">Oldest first</button>
+            <button class="dv-dd-item dv-sort-item" onclick="dvSort('highest', this)">Highest value</button>
+            <button class="dv-dd-item dv-sort-item" onclick="dvSort('lowest', this)">Lowest value</button>
+            <div class="dv-dd-sep"></div>
+            <div class="dv-dd-label">Filters</div>
+            <button class="dv-dd-item" onclick="dvEditFilters()">Edit filters</button>
+            <button class="dv-dd-item" onclick="dvClearFilters()">
+              Clear all
+              <span class="dv-filter-badge" style="margin-left:auto;" id="dv-filter-count-sub">3</span>
+            </button>
+          </div>
+        </div>
 
         <div style="flex:1;min-width:8px"></div>
 
@@ -2333,7 +2517,7 @@
         </div>
       </div>
 
-      <!-- ── New Question page ─────────────────────────────────── -->
+      <!-- ── New Query page ───────────────────────────────────── -->
       <div id="ds-new-question" style="display:none; flex:1; flex-direction:column; min-height:0; overflow:hidden;">
 
         <div class="nq-body">
@@ -2391,7 +2575,7 @@
                 <div class="qb-section" id="qbs-groupby" style="display:none">
                   <div class="qb-section-label">GROUP BY</div>
                   <div class="qb-select-wrap">
-                    <select class="qb-select" id="qb-groupby">
+                    <select class="qb-select" id="qb-groupby" onfocus="showAiNudge('groupByOpen')">
                       <option value="">No group by</option>
                     </select>
                     <svg class="qb-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
@@ -2402,7 +2586,8 @@
 
             <!-- Column 2: Visual Builder / SQL Console -->
             <div class="nq-col-vb">
-              <div class="nq-col-hd" style="justify-content:space-between;padding:6px 14px;">
+              <!-- Builder header (default) -->
+              <div class="nq-col-hd" id="qb-builder-hd" style="justify-content:space-between;padding:6px 14px;">
                 <div style="display:flex;align-items:center;gap:10px;">
                   <input class="qb-title-input" id="qb-title" value="Untitled Query" style="width:140px;" />
                   <div class="qb-view-tabs" style="margin:0;">
@@ -2441,16 +2626,29 @@
                   </button>
                 </div>
               </div>
+              <!-- Save-mode header (hidden by default) -->
+              <div class="nq-col-hd" id="qb-save-hd" style="display:none;justify-content:space-between;padding:6px 14px;">
+                <button class="qb-back-btn" onclick="closeSaveModal()">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                    <path d="M8 2L3 6.5L8 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Back to builder
+                </button>
+                <span style="font-size:12px;font-weight:600;color:var(--dark-teal);">Save Question</span>
+                <div style="width:100px;"></div>
+              </div>
+
               <div class="qb-visual-area" id="qb-visual-area">
                 <div class="qb-flow" id="qb-flow"></div>
               </div>
               <div class="qb-sql-area" id="qb-sql-area" style="display:none;">
-                <textarea class="qb-sql-editor" id="qb-sql-editor" readonly
-                  placeholder="-- Select a table and columns to generate SQL"></textarea>
+                <textarea class="qb-sql-editor" id="qb-sql-editor"
+                  placeholder="-- Select a table and columns to generate SQL"
+                  oninput="onSqlEditorInput()"></textarea>
               </div>
 
               <!-- Data Preview — inside middle column, below Visual/SQL -->
-              <div class="qb-preview" style="flex-shrink:0;height:260px;display:flex;flex-direction:column;overflow:hidden;">
+              <div id="qb-preview-section" class="qb-preview" style="flex-shrink:0;height:260px;display:flex;flex-direction:column;overflow:hidden;">
                 <div class="qb-preview-topbar">
                   <div class="qb-preview-title">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -2508,6 +2706,87 @@
                   </div>
                 </div>
               </div>
+
+              <!-- Inline Save View (hidden by default, replaces builder content) -->
+              <div id="qb-save-view" style="display:none;flex:1;flex-direction:column;overflow-y:auto;padding:18px 20px;gap:16px;">
+                <div class="sq-field">
+                  <label class="sq-label">Question Name</label>
+                  <input class="sq-input" id="sq-name" value="Untitled Query" onfocus="showAiNudge('nameField')" />
+                </div>
+                <div class="sq-field">
+                  <label class="sq-label">Description</label>
+                  <textarea class="sq-textarea" id="sq-desc" placeholder="Describe what this question answers..."></textarea>
+                </div>
+                <div class="sq-field">
+                  <label class="sq-label">
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                      <path d="M2 3.5L6.5 1L11 3.5V9.5L6.5 12L2 9.5V3.5Z" stroke="currentColor" stroke-width="1.2"/>
+                    </svg>
+                    Save to Collection
+                  </label>
+                  <div class="sq-collection">
+                    <div class="sq-col-root">Root</div>
+                    <div class="sq-col-item sq-col-item--selected">
+                      <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                        <path d="M1.5 6.5L6.5 1.5L11.5 6.5V12.5H8.5V8.5H4.5V12.5H1.5V6.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                      </svg>
+                      Save here
+                      <span class="sq-col-badge">Selected</span>
+                    </div>
+                    <div class="sq-col-empty">No sub-collections</div>
+                  </div>
+                </div>
+                <div class="sq-field">
+                  <label class="sq-label">Default Visualization</label>
+                  <div class="qb-select-wrap" style="border-radius:8px;">
+                    <svg class="qb-select-ico" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                      <rect x="1" y="1" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/>
+                      <path d="M1 4.5h11M4.5 4.5v7.5" stroke="currentColor" stroke-width="1.2"/>
+                    </svg>
+                    <select class="qb-select" id="sq-viz">
+                      <option>Table</option><option>Bar Chart</option><option>Pie Chart</option><option>Line Chart</option>
+                    </select>
+                    <svg class="qb-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                  </div>
+                </div>
+                <div class="sq-field">
+                  <div class="sq-cache-hd">
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                      <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.2"/>
+                      <path d="M6.5 3.5v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                    </svg>
+                    Cache Settings
+                  </div>
+                  <div class="sq-cache-row">
+                    <div>
+                      <div class="sq-cache-title">Enable Caching</div>
+                      <div class="sq-cache-sub">Cache results for faster repeat queries</div>
+                    </div>
+                    <div class="sq-toggle active" id="sq-cache-toggle" onclick="toggleSqCache()">
+                      <div class="sq-toggle-knob"></div>
+                    </div>
+                  </div>
+                  <div class="sq-cache-row" id="sq-dur-row">
+                    <span class="sq-cache-title">Cache Duration</span>
+                    <div style="display:flex;align-items:center;gap:10px;flex:1;justify-content:flex-end;">
+                      <input type="range" class="sq-slider" id="sq-dur" min="15" max="240" value="60" step="15" oninput="updateCacheDur(this.value)" />
+                      <span class="sq-dur-label" id="sq-dur-label">1 hour</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sq-share-hint">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+                    <path d="M6 5.5v3.5M6 3.5h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                  You can share this question with others after saving
+                </div>
+                <div class="qb-save-view-footer">
+                  <button class="sq-cancel-btn" onclick="closeSaveModal()">Cancel</button>
+                  <button class="sq-save-btn" onclick="saveQueryNow()">Save</button>
+                </div>
+              </div>
+
             </div>
 
           </div><!-- /nq-panels -->
@@ -2523,10 +2802,23 @@
               AI Assistant
             </div>
             <div class="nq-col-ai-body">
-              <div class="nq-ai-sub">Describe what you want in plain language</div>
+              <!-- Contextual nudge card — auto-populated by QB activity -->
+              <div class="nq-nudge-card" id="nq-nudge-card" style="display:none;">
+                <div class="nq-nudge-label">
+                  <svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0L5.9 3.2L9.5 5L5.9 6.8L5 10L4.1 6.8L0.5 5L4.1 3.2L5 0Z"/></svg>
+                  KapAI
+                </div>
+                <div class="nq-nudge-text" id="nq-nudge-text"></div>
+                <div class="nq-nudge-actions" id="nq-nudge-actions"></div>
+              </div>
+              <!-- Conversation history -->
+              <div class="nq-ai-conv" id="nq-ai-conv"></div>
+              <div class="nq-ai-sep" id="nq-ai-sep" style="display:none;">· · ·</div>
+              <!-- Manual prompt section -->
+              <div class="nq-ai-sub" id="nq-ai-sub">Describe what you want in plain language</div>
               <textarea class="nq-ai-textarea" id="nq-ai-textarea"
                 placeholder="e.g. Show top 10 agents by resolved tickets this month, grouped by queue..."></textarea>
-              <div class="nq-ai-chips-label">Try a prompt:</div>
+              <div class="nq-ai-chips-label" id="nq-ai-chips-label">Try a prompt:</div>
               <div class="nq-ai-chips" id="nq-ai-chips">
                 <button class="nq-ai-chip" onclick="fillAiPrompt(this.textContent)">Agent ticket counts by status this week</button>
                 <button class="nq-ai-chip" onclick="fillAiPrompt(this.textContent)">Email sent vs delivered last 30 days</button>
@@ -2537,7 +2829,7 @@
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
                   <path d="M6 0L7 3.5L11 6L7 8.5L6 12L5 8.5L1 6L5 3.5L6 0Z"/>
                 </svg>
-                Generate Query
+                <span id="nq-generate-btn-label">Ask KapAI</span>
               </button>
             </div>
           </div>
@@ -2571,101 +2863,6 @@
 
 </main>
 
-<!-- Save Query modal -->
-<div class="sq-overlay" id="save-query-modal" onclick="if(event.target===this)closeSaveModal()">
-  <div class="sq-modal">
-    <div class="sq-modal-hd">
-      <div>
-        <div class="sq-modal-title">Save Question</div>
-        <div class="sq-modal-sub">Save your query to a collection for later use in dashboards and reports</div>
-      </div>
-      <button class="sq-close-btn" onclick="closeSaveModal()">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </button>
-    </div>
-    <div class="sq-modal-body">
-      <div class="sq-field">
-        <label class="sq-label">Question Name</label>
-        <input class="sq-input" id="sq-name" value="Untitled Query" />
-      </div>
-      <div class="sq-field">
-        <label class="sq-label">Description</label>
-        <textarea class="sq-textarea" id="sq-desc" placeholder="Describe what this question answers..."></textarea>
-      </div>
-      <div class="sq-field">
-        <label class="sq-label">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-            <path d="M2 3.5L6.5 1L11 3.5V9.5L6.5 12L2 9.5V3.5Z" stroke="currentColor" stroke-width="1.2"/>
-          </svg>
-          Save to Collection
-        </label>
-        <div class="sq-collection">
-          <div class="sq-col-root">Root</div>
-          <div class="sq-col-item sq-col-item--selected">
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-              <path d="M1.5 6.5L6.5 1.5L11.5 6.5V12.5H8.5V8.5H4.5V12.5H1.5V6.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
-            </svg>
-            Save here
-            <span class="sq-col-badge">Selected</span>
-          </div>
-          <div class="sq-col-empty">No sub-collections</div>
-        </div>
-      </div>
-      <div class="sq-field">
-        <label class="sq-label">Default Visualization</label>
-        <div class="qb-select-wrap" style="border-radius:8px;">
-          <svg class="qb-select-ico" width="13" height="13" viewBox="0 0 13 13" fill="none">
-            <rect x="1" y="1" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M1 4.5h11M4.5 4.5v7.5" stroke="currentColor" stroke-width="1.2"/>
-          </svg>
-          <select class="qb-select" id="sq-viz">
-            <option>Table</option><option>Bar Chart</option><option>Pie Chart</option><option>Line Chart</option>
-          </select>
-          <svg class="qb-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-        </div>
-      </div>
-      <div class="sq-field">
-        <div class="sq-cache-hd">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-            <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M6.5 3.5v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-          </svg>
-          Cache Settings
-        </div>
-        <div class="sq-cache-row">
-          <div>
-            <div class="sq-cache-title">Enable Caching</div>
-            <div class="sq-cache-sub">Cache results for faster repeat queries</div>
-          </div>
-          <div class="sq-toggle active" id="sq-cache-toggle" onclick="toggleSqCache()">
-            <div class="sq-toggle-knob"></div>
-          </div>
-        </div>
-        <div class="sq-cache-row" id="sq-dur-row">
-          <span class="sq-cache-title">Cache Duration</span>
-          <div style="display:flex;align-items:center;gap:10px;flex:1;justify-content:flex-end;">
-            <input type="range" class="sq-slider" id="sq-dur" min="15" max="240" value="60" step="15" oninput="updateCacheDur(this.value)" />
-            <span class="sq-dur-label" id="sq-dur-label">1 hour</span>
-          </div>
-        </div>
-      </div>
-      <div class="sq-share-hint">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
-          <path d="M6 5.5v3.5M6 3.5h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-        </svg>
-        You can share this question with others after saving
-      </div>
-    </div>
-    <div class="sq-modal-ft">
-      <button class="sq-cancel-btn" onclick="closeSaveModal()">Cancel</button>
-      <button class="sq-save-btn" onclick="saveQueryNow()">Save</button>
-    </div>
-  </div>
-</div>
-
 <!-- Create New Dashboard modal -->
 <div class="sq-overlay" id="create-dashboard-modal" onclick="if(event.target===this)hideCreateDashboardModal()" style="display:none;">
   <div class="sq-modal" style="width:720px;max-width:94vw;display:flex;flex-direction:column;max-height:90vh;">
@@ -2691,7 +2888,7 @@
         <div class="cdm-query-list" id="cdm-query-list"></div>
       </div>
 
-      <!-- RIGHT: Summary + config -->
+      <!-- RIGHT: Summary + name -->
       <div class="cdm-right">
         <div>
           <div class="cdm-summary-count" id="cdm-counter">0</div>
@@ -2701,46 +2898,13 @@
           <label class="sq-label">Dashboard Name</label>
           <input class="sq-input" id="cdm-dash-name" placeholder="e.g. Agent Performance Dashboard" />
         </div>
-        <div class="sq-field">
-          <label class="sq-label">Build Mode</label>
-          <div class="mode-toggle" style="width:100%;">
-            <button class="mode-btn active" id="cdm-mode-manual" onclick="setCdmMode('manual')">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                <rect x="1" y="1" width="4" height="4" rx="1" fill="currentColor"/>
-                <rect x="8" y="1" width="4" height="4" rx="1" fill="currentColor"/>
-                <rect x="1" y="8" width="4" height="4" rx="1" fill="currentColor"/>
-                <rect x="8" y="8" width="4" height="4" rx="1" fill="currentColor"/>
-              </svg>
-              Manual
-            </button>
-            <button class="mode-btn" id="cdm-mode-ai" onclick="setCdmMode('ai')">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor">
-                <path d="M6.5 0.5L7.6 4.1L11.5 6.5L7.6 8.9L6.5 12.5L5.4 8.9L1.5 6.5L5.4 4.1L6.5 0.5Z"/>
-              </svg>
-              AI
-            </button>
-            <button class="mode-btn" id="cdm-mode-hybrid" onclick="setCdmMode('hybrid')">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                <path d="M6.5 0.5L7.6 3.8L11.5 6.5L7.6 9.2L6.5 12.5L5.4 9.2L1.5 6.5L5.4 3.8Z" stroke="currentColor" stroke-width="1.2" fill="none"/>
-                <circle cx="6.5" cy="6.5" r="1.5" fill="currentColor"/>
-              </svg>
-              Hybrid
-            </button>
-          </div>
-        </div>
-        <div style="flex:1;">
-          <div class="sq-label" style="margin-bottom:8px;">Selected Queries</div>
-          <div class="cdm-selected-chips" id="cdm-selected-chips">
-            <span style="font-size:12px;color:var(--cutty-sark);opacity:0.6;">No queries selected yet</span>
-          </div>
-        </div>
       </div>
 
     </div>
     <div class="sq-modal-ft">
       <button class="sq-cancel-btn" onclick="hideCreateDashboardModal()">Cancel</button>
-      <button class="sq-save-btn" id="cdm-build-btn" onclick="createAndBuild()" disabled
-        style="opacity:0.35;cursor:not-allowed;">Create &amp; Build</button>
+      <button class="sq-save-btn" id="cdm-build-btn" onclick="cdmProceedToComposer()" disabled
+        style="opacity:0.35;cursor:not-allowed;">Next</button>
     </div>
   </div>
 </div>
@@ -3019,7 +3183,7 @@ function setDsSection(section) {
   if (section === 'home') {
     if (dsBody) dsBody.style.display = 'none';  // prevent flex-1 competition
     dsHome.style.display = 'flex';
-    renderHome();
+    showHomeGallery();
   } else if (section === 'new-question') {
     if (dsBody) dsBody.style.display = 'flex';
     dsNewQ.style.display = 'flex';
@@ -3133,6 +3297,7 @@ function qbSelectTable(val) {
   qbState.table = val; qbState.selectedCols.clear();
   ['qbs-cols','qbs-groupby'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display = val ? '' : 'none'; });
   if (!val) { document.getElementById('qb-table-badge').innerHTML = ''; renderQbFlow(); return; }
+  kapAiState.dismissed.delete('tableSelected'); // allow re-trigger on new table
   const tbl = QB_DATA[qbState.ds][qbState.schema][val];
   document.getElementById('qb-table-badge').innerHTML = `<span class="qb-type-badge">${tbl.type}</span>`;
   // Build columns
@@ -3156,6 +3321,8 @@ function qbSelectTable(val) {
   if (_pm2) _pm2.textContent   = '';
   if (_xb2) _xb2.disabled      = true;
   renderQbFlow();
+  // Trigger AI nudge after a short delay so the UI settles first
+  setTimeout(() => showAiNudge('tableSelected'), 400);
 }
 
 function renderQbColList(cols) {
@@ -3175,6 +3342,8 @@ function qbToggleCol(name, checked) {
   if (checked) qbState.selectedCols.add(name); else qbState.selectedCols.delete(name);
   updateQbColCount(QB_DATA[qbState.ds]?.[qbState.schema]?.[qbState.table]?.cols?.length || 0);
   renderQbFlow();
+  // After 2+ manual selections, suggest completing the set
+  if (qbState.selectedCols.size === 2 && checked) showAiNudge('columnsSelected');
 }
 
 function qbSelectAll() {
@@ -3205,10 +3374,30 @@ function updateQbColCount(total) {
 }
 
 function qbReset() {
+  // If save view is open, close it first
+  if (document.getElementById('qb-save-view')?.style.display === 'flex') closeSaveModal();
   qbResetToFresh();
   document.getElementById('qb-ds').value = '';
   ['qbs-schema','qbs-table','qbs-cols','qbs-groupby'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
   document.getElementById('qb-table-badge').innerHTML = '';
+  // Reset AI assistant panel
+  kapAiState.activeNudge = null;
+  kapAiState.runCount = 0;
+  kapAiState.dismissed.clear();
+  const card = document.getElementById('nq-nudge-card');
+  const conv = document.getElementById('nq-ai-conv');
+  const sep  = document.getElementById('nq-ai-sep');
+  const sub  = document.getElementById('nq-ai-sub');
+  const ta   = document.getElementById('nq-ai-textarea');
+  const chipsLabel = document.getElementById('nq-ai-chips-label');
+  const chips      = document.getElementById('nq-ai-chips');
+  if (card)       card.style.display       = 'none';
+  if (conv)       conv.innerHTML           = '';
+  if (sep)        sep.style.display        = 'none';
+  if (sub)        sub.textContent          = 'Describe what you want in plain language';
+  if (ta)         { ta.value = ''; ta.placeholder = 'e.g. Show top 10 agents by resolved tickets this month, grouped by queue...'; }
+  if (chipsLabel) chipsLabel.style.display = '';
+  if (chips)      chips.style.display      = '';
 }
 
 /* ── QB Visual flow ─────────────────────────────────────────── */
@@ -3257,7 +3446,9 @@ function setQbTab(tab) {
   const sa = document.getElementById('qb-sql-area');
   if (va) va.style.display = isVis ? 'flex' : 'none';
   if (sa) sa.style.display = isVis ? 'none' : 'flex';
-  if (!isVis) updateQbSql();
+  const btnLabel = document.getElementById('nq-generate-btn-label');
+  if (btnLabel) btnLabel.textContent = isVis ? 'Ask KapAI' : 'Write SQL for me';
+  if (!isVis) { updateQbSql(); showAiNudge('sqlOpen'); }
 }
 
 /* ── Mock row generator for any table ──────────────────────── */
@@ -3287,6 +3478,7 @@ function generateMockRows(cols, count) {
 
 /* ── Run Query ──────────────────────────────────────────────── */
 function qbRunQuery() {
+  kapAiState.runCount++;
   const msgEl    = document.getElementById('qb-empty-msg');
   const spinEl   = document.getElementById('qb-spinner');
   const icoEl    = document.getElementById('qb-empty-ico');
@@ -3347,6 +3539,13 @@ function qbRunQuery() {
     document.getElementById('qb-preview-meta').textContent = `${rows.length} rows · ${t}ms`;
     document.getElementById('qb-export-btn').disabled = false;
     renderQbFlow();
+    // Show contextual AI nudge after run
+    if (kapAiState.runCount > 1) {
+      kapAiState.dismissed.delete('refineQuery');
+      showAiNudge('refineQuery');
+    } else {
+      showAiNudge('queryRun');
+    }
   }, 680);
 }
 
@@ -3373,9 +3572,30 @@ function qbExport() { showToast('Exporting to CSV…'); }
 function openSaveModal() {
   const title = document.getElementById('qb-title')?.value || 'Untitled Query';
   document.getElementById('sq-name').value = title;
-  document.getElementById('save-query-modal').classList.add('open');
+  // Switch centre column to inline save view
+  document.getElementById('qb-builder-hd').style.display    = 'none';
+  document.getElementById('qb-save-hd').style.display       = 'flex';
+  document.getElementById('qb-visual-area').style.display   = 'none';
+  document.getElementById('qb-sql-area').style.display      = 'none';
+  document.getElementById('qb-preview-section').style.display = 'none';
+  document.getElementById('qb-save-view').style.display     = 'flex';
+  kapAiState.dismissed.delete('saveOpen');
+  kapAiState.dismissed.delete('nameField');
+  setTimeout(() => showAiNudge('saveOpen'), 300);
 }
-function closeSaveModal() { document.getElementById('save-query-modal').classList.remove('open'); }
+function closeSaveModal() {
+  // Restore centre column to builder view
+  document.getElementById('qb-builder-hd').style.display    = '';
+  document.getElementById('qb-save-hd').style.display       = 'none';
+  document.getElementById('qb-save-view').style.display     = 'none';
+  document.getElementById('qb-preview-section').style.display = '';
+  // Restore the correct tab (visual or sql)
+  const sqlActive = document.getElementById('qbtab-sql')?.classList.contains('active');
+  document.getElementById('qb-visual-area').style.display   = sqlActive ? 'none' : 'flex';
+  document.getElementById('qb-sql-area').style.display      = sqlActive ? 'flex' : 'none';
+  dismissNudge('saveOpen');
+  dismissNudge('nameField');
+}
 function toggleSqCache() {
   const t = document.getElementById('sq-cache-toggle');
   const d = document.getElementById('sq-dur-row');
@@ -3387,10 +3607,67 @@ function updateCacheDur(v) {
   const label = mins < 60 ? `${mins} min` : `${mins/60} hour${mins>60?'s':''}`;
   document.getElementById('sq-dur-label').textContent = label;
 }
+let _lastSavedQueryId = null;
+
 function saveQueryNow() {
-  const name = document.getElementById('sq-name').value.trim() || 'Untitled Query';
+  const name    = document.getElementById('sq-name').value.trim() || 'Untitled Query';
+  const viz     = document.getElementById('sq-viz')?.value || 'Table';
+  const dataset = qbState.schema && qbState.table
+    ? `${qbState.schema}.${qbState.table}`
+    : 'adjetter.act_ticket_level_report';
+  // Add to QUERIES so the new entry appears in the Create Dashboard modal
+  const newId = 'q' + (QUERIES.length + 1);
+  QUERIES.push({ id: newId, name, chartType: viz, dataset, updated: 'just now' });
+  _lastSavedQueryId = newId;
   closeSaveModal();
-  showToast(`"${name}" saved successfully!`);
+  showPostSaveFlow(name, newId);
+}
+
+function showPostSaveFlow(name, queryId) {
+  const actId = 'psa-' + Date.now();
+  addAiMessage(
+    `<strong>"${name}"</strong> saved! Want to add it to a dashboard?` +
+    `<div id="${actId}" style="margin-top:9px;display:flex;flex-direction:column;gap:5px;">
+      <button class="nq-nudge-accept" style="width:100%;justify-content:center;display:flex;"
+        onclick="postSaveAddToExisting('${actId}','${queryId}')">Add to existing dashboard</button>
+      <button class="nq-nudge-dismiss" style="width:100%;text-align:center;"
+        onclick="postSaveCreateNew('${queryId}')">Create new dashboard</button>
+    </div>`
+  );
+}
+
+function postSaveAddToExisting(actId, queryId) {
+  const el = document.getElementById(actId);
+  if (!el) return;
+  const opts = DASHBOARDS_DATA.map(d => `<option value="${d.id}">${d.name}</option>`).join('');
+  el.innerHTML =
+    `<select class="nq-post-save-select" id="psa-sel-${actId}">${opts}</select>` +
+    `<div style="display:flex;gap:5px;margin-top:5px;">
+      <button class="nq-nudge-accept" style="flex:1;"
+        onclick="postSaveConfirmAdd('psa-sel-${actId}','${actId}')">Add to Dashboard</button>
+      <button class="nq-nudge-dismiss"
+        onclick="document.getElementById('${actId}').style.display='none'">Skip</button>
+    </div>`;
+}
+
+function postSaveConfirmAdd(selId, actId) {
+  const sel  = document.getElementById(selId);
+  const name = sel?.options[sel.selectedIndex]?.text || 'dashboard';
+  const el   = document.getElementById(actId);
+  if (el) el.innerHTML =
+    `<span class="nq-post-save-confirm">
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Added to <strong style="margin-left:2px;">${name}</strong>
+    </span>`;
+  addAiMessage(`Done! Your query is now in <strong>${name}</strong>. Open the dashboard to see it.`);
+}
+
+function postSaveCreateNew(queryId) {
+  // Navigate to home and open the Create Dashboard modal with the new query pre-selected
+  setDsSection('home');
+  setTimeout(() => showCreateDashboardModal([queryId]), 150);
 }
 
 /* ── Home: Dashboard Gallery ───────────────────────────────── */
@@ -3425,6 +3702,9 @@ function renderHome() {
   grid.innerHTML = filtered.map(d => `
     <div class="dash-card" onclick="openDashboard('${d.id}')">
       <div class="dash-card-actions">
+        <button class="dash-card-edit-btn" onclick="event.stopPropagation();editDashboard('${d.id}')" title="Edit">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M9.5 2L11 3.5L4.5 10L2.5 10.5L3 8.5L9.5 2Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
         <button class="dash-card-del-btn" onclick="event.stopPropagation();deleteDashboard('${d.id}')" title="Delete">
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 3.5h9M5 3.5V2h3v1.5M5.5 6v4M7.5 6v4M2.5 3.5l.5 7.5a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1l.5-7.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
@@ -3447,6 +3727,11 @@ function setHomeTab(tab) {
   ['all','manual','ai','hybrid'].forEach(t => {
     document.getElementById('htab-' + t)?.classList.toggle('active', t === tab);
   });
+  // Hide Create Dashboard button when viewing saved queries (manual tab)
+  const btnWrap = document.getElementById('create-dash-btn-wrap');
+  if (btnWrap) {
+    btnWrap.style.display = tab === 'manual' ? 'none' : 'flex';
+  }
   renderHome();
 }
 
@@ -3782,8 +4067,8 @@ function openDashboard(id) {
     // Hide home
     document.getElementById('ds-home').style.display = 'none';
     // Update topbar page name
-    const nameEl = document.querySelector('#view-data-studio .topbar-page-name');
-    if (nameEl) nameEl.textContent = d.name;
+    const nameEl = document.getElementById('topbar-ds-name');
+    if (nameEl) { nameEl.style.display = ''; nameEl.textContent = d.name; }
     // Configure back button to close dashboard view
     const backBtn = document.getElementById('ds-back-btn');
     if (backBtn) {
@@ -3791,7 +4076,9 @@ function openDashboard(id) {
       backBtn.onclick = closeDashboardView;
     }
     // Reset date range to default
-    document.querySelectorAll('.dv-date-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+    document.getElementById('dv-date-label').textContent = 'Last 7 Days';
+    document.querySelectorAll('#dv-date-panel .dv-dd-item').forEach((b, i) => b.classList.toggle('active', i === 0));
+    dvCloseAllDropdowns();
     document.getElementById('dv-search-input').value = '';
     // Render and show
     renderDashboardView(d);
@@ -3801,22 +4088,74 @@ function openDashboard(id) {
 
 function closeDashboardView() {
   document.getElementById('dashboard-view').style.display = 'none';
-  const nameEl = document.querySelector('#view-data-studio .topbar-page-name');
-  if (nameEl) nameEl.textContent = 'Data Studio';
+  const nameEl = document.getElementById('topbar-ds-name');
+  if (nameEl) nameEl.textContent = 'Dashboard Builder';
   const backBtn = document.getElementById('ds-back-btn');
   if (backBtn) { backBtn.style.display = 'none'; backBtn.onclick = () => setDsSection('home'); }
   setDsSection('home');
 }
 
 /* Dashboard view control handlers */
-function dvSetRange(btn, range) {
-  document.querySelectorAll('.dv-date-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  if (range === 'custom') showToast('Custom date range picker — coming soon');
-  else showToast(`Showing last ${range.toUpperCase()} data`);
+function dvCloseAllDropdowns() {
+  document.querySelectorAll('.dv-dropdown-panel').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('#dv-date-trigger, #dv-filter-trigger').forEach(b => b.classList.remove('open'));
 }
-function dvToggleFilter() { showToast('Filter panel — coming soon'); }
-function dvSort(val)       { showToast(`Sorted by: ${val}`); }
+function dvEnsureInBody(panelId) {
+  // Move panel to <body> so it escapes overflow:hidden ancestors and backdrop-filter containing blocks
+  const panel = document.getElementById(panelId);
+  if (panel && panel.parentElement !== document.body) document.body.appendChild(panel);
+  return panel;
+}
+function dvPositionPanel(trigger, panel) {
+  const r = trigger.getBoundingClientRect();
+  panel.style.top  = (r.bottom + 5) + 'px';
+  panel.style.left = r.left + 'px';
+}
+function dvToggleDateDropdown(e) {
+  e.stopPropagation();
+  const panel = dvEnsureInBody('dv-date-panel');
+  const trigger = document.getElementById('dv-date-trigger');
+  const isOpen = panel.classList.contains('open');
+  dvCloseAllDropdowns();
+  if (!isOpen) { dvPositionPanel(trigger, panel); panel.classList.add('open'); trigger.classList.add('open'); }
+}
+function dvToggleFilterDropdown(e) {
+  e.stopPropagation();
+  const panel = dvEnsureInBody('dv-filter-panel');
+  const trigger = document.getElementById('dv-filter-trigger');
+  const isOpen = panel.classList.contains('open');
+  dvCloseAllDropdowns();
+  if (!isOpen) { dvPositionPanel(trigger, panel); panel.classList.add('open'); trigger.classList.add('open'); }
+}
+function dvSetRange(range, btn) {
+  const labels = { '7d': 'Last 7 Days', '30d': 'Last 30 Days', '90d': 'Last 90 Days', 'custom': 'Custom Range' };
+  document.getElementById('dv-date-label').textContent = labels[range] || range;
+  document.querySelectorAll('#dv-date-panel .dv-dd-item').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  dvCloseAllDropdowns();
+  if (range === 'custom') showToast('Custom date range picker — coming soon');
+  else showToast(`Showing ${labels[range]}`);
+}
+function dvSort(val, btn) {
+  document.querySelectorAll('.dv-sort-item').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  dvCloseAllDropdowns();
+  showToast(`Sorted by: ${val}`);
+}
+function dvToggleFilter()  { showToast('Filter panel — coming soon'); }
+function dvEditFilters()   { dvCloseAllDropdowns(); showToast('Filter panel — coming soon'); }
+function dvClearFilters()  {
+  dvCloseAllDropdowns();
+  document.getElementById('dv-filter-count').style.display = 'none';
+  document.getElementById('dv-filter-count-sub').style.display = 'none';
+  showToast('Filters cleared');
+}
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#dv-date-wrap') && !e.target.closest('#dv-filter-wrap')) {
+    dvCloseAllDropdowns();
+  }
+});
 function dvSearch(val)     { /* live filter — cosmetic */ }
 function dvRefresh()       { showToast('Dashboard refreshed'); }
 function dvShare()         { showToast('Share link copied to clipboard!'); }
@@ -3829,16 +4168,80 @@ function deleteDashboard(id) {
 }
 
 function showHomeGallery() {
-  document.getElementById('home-gallery').style.display       = 'flex';
-  document.getElementById('home-gallery').style.flex          = '1';
-  document.getElementById('dash-composer-view').style.display = 'none';
+  document.getElementById('home-gallery').style.display         = 'flex';
+  document.getElementById('home-gallery').style.flex            = '1';
+  document.getElementById('dash-composer-view').style.display   = 'none';
+  document.getElementById('home-topbar').style.display          = '';
+  document.getElementById('home-mode-tabs').style.display       = '';
+  document.getElementById('topbar-ds-name').style.display       = 'none';
+  document.getElementById('topbar-ds-breadcrumb').style.display = 'none';
+  document.getElementById('dash-ai-toggle-btn').style.display   = 'none';
   renderHome();
 }
 
 function showHomeComposer(preSelectedIds) {
-  document.getElementById('home-gallery').style.display       = 'none';
-  document.getElementById('dash-composer-view').style.display = 'flex';
+  document.getElementById('home-gallery').style.display         = 'none';
+  document.getElementById('dash-composer-view').style.display   = 'flex';
+  document.getElementById('home-topbar').style.display          = 'none';
+  document.getElementById('home-mode-tabs').style.display       = 'none';
+  document.getElementById('topbar-ds-name').style.display       = 'none';
+  document.getElementById('topbar-ds-breadcrumb').style.display = 'flex';
+  document.getElementById('dash-ai-toggle-btn').style.display   = '';
+  // Ensure AI panel is visible and toggle button reflects that
+  const dashAi  = document.getElementById('dash-col-ai');
+  const dashBtn = document.getElementById('dash-ai-toggle-btn');
+  if (dashAi)  dashAi.style.display = '';
+  if (dashBtn) dashBtn.classList.remove('off');
   renderDashComposer(preSelectedIds);
+  // Reset and seed the composer AI panel
+  const conv = document.getElementById('dash-ai-conv');
+  const sep  = document.getElementById('dash-ai-sep');
+  const ta   = document.getElementById('dash-ai-textarea');
+  if (conv) conv.innerHTML = '';
+  if (sep)  sep.style.display = 'none';
+  if (ta)   ta.value = '';
+  setTimeout(() => dashAiAddMessage(
+    "Looking good! Add questions from the left panel, then hit <strong>Save Dashboard</strong> when you're ready. Need help renaming, rearranging, or adding filters? Just ask."
+  ), 400);
+}
+
+function dashAiAddMessage(html) {
+  const conv = document.getElementById('dash-ai-conv');
+  const sep  = document.getElementById('dash-ai-sep');
+  if (!conv) return;
+  if (sep) sep.style.display = '';
+  const div = document.createElement('div');
+  div.className = 'nq-ai-bubble';
+  div.innerHTML = `<div class="nq-bubble-lbl"><svg width="8" height="8" viewBox="0 0 10 10" fill="currentColor" style="margin-right:3px"><path d="M5 0L5.9 3.2L9.5 5L5.9 6.8L5 10L4.1 6.8L0.5 5L4.1 3.2L5 0Z"/></svg>KapAI</div>${html}`;
+  conv.appendChild(div);
+  conv.scrollTop = conv.scrollHeight;
+}
+
+function dashAiAsk() {
+  const ta  = document.getElementById('dash-ai-textarea');
+  const val = ta?.value.trim();
+  if (!val) return;
+  // Echo the user message as a plain bubble
+  const userDiv = document.createElement('div');
+  userDiv.className = 'nq-ai-bubble-user';
+  userDiv.textContent = val;
+  const conv = document.getElementById('dash-ai-conv');
+  const sep  = document.getElementById('dash-ai-sep');
+  if (sep)  sep.style.display = '';
+  if (conv) { conv.appendChild(userDiv); conv.scrollTop = conv.scrollHeight; }
+  ta.value = '';
+  // Simulate a KapAI reply
+  const lower = val.toLowerCase();
+  let reply = "Got it — I'll help with that. Make your changes and hit Save Dashboard when you're ready.";
+  if (lower.includes('rename') || lower.includes('name'))
+    reply = 'Click the dashboard title at the top to rename it directly.';
+  else if (lower.includes('filter'))
+    reply = 'Dashboard-level filters can be set after saving, from the dashboard controls bar.';
+  else if (lower.includes('layout') || lower.includes('arrange') || lower.includes('order'))
+    reply = 'Drag the tiles in the canvas to rearrange them into your preferred layout.';
+  else if (lower.includes('add') || lower.includes('question') || lower.includes('query'))
+    reply = 'Pick any saved question from the left panel to add it to the canvas.';
+  setTimeout(() => dashAiAddMessage(reply), 600);
 }
 
 function renderDashComposer(preSelectedIds) {
@@ -3854,16 +4257,212 @@ function renderDashComposer(preSelectedIds) {
   document.getElementById('dash-tiles').style.display        = 'none';
   document.getElementById('dash-tiles').innerHTML            = '';
   document.getElementById('dash-composer-title').value       = 'Untitled Dashboard';
+  document.getElementById('dash-save-bar').style.display     = 'none';
   if (preSelectedIds) { preSelectedIds.forEach(id => dashToggleTile(id)); }
 }
 
-/* ── New Question page ──────────────────────────────────────── */
-function renderNewQuestion() { qbResetToFresh(); }
+/* ── New Query page ─────────────────────────────────────────── */
+function renderNewQuestion() {
+  qbResetToFresh();
+  // Reset KapAI nudge state
+  kapAiState.activeNudge = null;
+  kapAiState.runCount = 0;
+  kapAiState.dismissed.clear();
+  const card = document.getElementById('nq-nudge-card');
+  const conv = document.getElementById('nq-ai-conv');
+  const sep  = document.getElementById('nq-ai-sep');
+  const sub  = document.getElementById('nq-ai-sub');
+  const chipsLabel2 = document.getElementById('nq-ai-chips-label');
+  const chips2      = document.getElementById('nq-ai-chips');
+  if (card)        card.style.display        = 'none';
+  if (conv)        conv.innerHTML            = '';
+  if (sep)         sep.style.display         = 'none';
+  if (sub)         sub.textContent           = 'Describe what you want in plain language';
+  if (chipsLabel2) chipsLabel2.style.display = '';
+  if (chips2)      chips2.style.display      = '';
+}
 function fillAiPrompt(text) {
   const ta = document.getElementById('nq-ai-textarea');
   if (ta) { ta.value = text; ta.focus(); }
 }
 function generateFromAI() { showToast('AI query generation coming soon!'); }
+
+/* ── KapAI Nudge System ─────────────────────────────────────── */
+const kapAiState = { activeNudge: null, runCount: 0, dismissed: new Set() };
+
+const KAPAI_NUDGES = {
+  tableSelected:  { text: 'Ticket data detected. Want me to suggest useful columns & filters?',
+    actions: [{ label:'Dismiss', fn:'dismissNudge("tableSelected")' }, { label:'Yes, suggest', fn:'nudgeTableSelected()' }] },
+  columnsSelected:{ text: "I can predict the remaining columns you'll need. Complete for you?",
+    actions: [{ label:'Dismiss', fn:'dismissNudge("columnsSelected")' }, { label:'Complete selection', fn:'nudgeCompleteColumns()' }] },
+  groupByOpen:    { text: "Describe what you want to see — I'll set the grouping & filters.",
+    actions: [{ label:'Dismiss', fn:'dismissNudge("groupByOpen")' }, { label:'Describe it', fn:'nudgeGroupBy()' }] },
+  queryRun:       { text: 'Want a plain-English summary of this data, or need to refine it?',
+    actions: [{ label:'Dismiss', fn:'dismissNudge("queryRun")' }, { label:'Summarise', fn:'nudgeSummarise()' }, { label:'Refine', fn:'nudgeRefine()' }] },
+  refineQuery:    { text: "Refining? Just tell me what's missing or wrong — I'll update the query.",
+    actions: [{ label:'Dismiss', fn:'dismissNudge("refineQuery")' }, { label:'Tell KapAI', fn:'nudgeRefineInput()' }] },
+  sqlOpen:        { text: "Prefer to describe the change? I'll write the SQL for you.",
+    actions: [{ label:'Dismiss', fn:'dismissNudge("sqlOpen")' }, { label:'Describe change', fn:'nudgeSqlDescribe()' }] },
+  sqlEdited:      { text: 'I spotted a potential issue in this query. Want me to review it?',
+    actions: [{ label:'Dismiss', fn:'dismissNudge("sqlEdited")' }, { label:'Review', fn:'nudgeSqlReview()' }] },
+  saveOpen:       { text: 'Based on your data, a Bar Chart grouped by agent would work better.',
+    actions: [{ label:'Dismiss', fn:'dismissNudge("saveOpen")' }, { label:'Apply suggestion', fn:'nudgeVizSuggestion()' }] },
+  nameField:      { text: 'Want me to suggest a name and description based on your query?',
+    actions: [{ label:'Dismiss', fn:'dismissNudge("nameField")' }, { label:'Suggest', fn:'nudgeSuggestName()' }] },
+};
+
+function showAiNudge(nudgeId) {
+  if (kapAiState.dismissed.has(nudgeId)) return;
+  if (kapAiState.activeNudge === nudgeId) return;
+  const nudge = KAPAI_NUDGES[nudgeId];
+  if (!nudge) return;
+  kapAiState.activeNudge = nudgeId;
+  const card = document.getElementById('nq-nudge-card');
+  const textEl = document.getElementById('nq-nudge-text');
+  const actEl  = document.getElementById('nq-nudge-actions');
+  if (!card || !textEl || !actEl) return;
+  textEl.textContent = nudge.text;
+  actEl.innerHTML = nudge.actions.map((a, i) =>
+    i === 0
+      ? `<button class="nq-nudge-dismiss" onclick="${a.fn}">${a.label}</button>`
+      : `<button class="nq-nudge-accept" onclick="${a.fn}">${a.label}</button>`
+  ).join('');
+  card.style.display = 'flex';
+  const sub = document.getElementById('nq-ai-sub');
+  if (sub) sub.textContent = 'Or describe what you want:';
+}
+
+function dismissNudge(nudgeId) {
+  if (nudgeId) kapAiState.dismissed.add(nudgeId);
+  kapAiState.activeNudge = null;
+  const card = document.getElementById('nq-nudge-card');
+  if (card) card.style.display = 'none';
+  const sub = document.getElementById('nq-ai-sub');
+  if (sub) sub.textContent = 'Describe what you want in plain language';
+}
+
+function addAiMessage(html) {
+  const conv = document.getElementById('nq-ai-conv');
+  const sep  = document.getElementById('nq-ai-sep');
+  if (!conv) return;
+  if (sep) sep.style.display = '';
+  // Hide the "Try a prompt" chips once the user engages
+  const chipsLabel = document.getElementById('nq-ai-chips-label');
+  const chips      = document.getElementById('nq-ai-chips');
+  if (chipsLabel) chipsLabel.style.display = 'none';
+  if (chips)      chips.style.display      = 'none';
+  const div = document.createElement('div');
+  div.className = 'nq-ai-bubble';
+  div.innerHTML = `<div class="nq-bubble-lbl"><svg width="8" height="8" viewBox="0 0 10 10" fill="currentColor" style="margin-right:3px"><path d="M5 0L5.9 3.2L9.5 5L5.9 6.8L5 10L4.1 6.8L0.5 5L4.1 3.2L5 0Z"/></svg>KapAI</div>${html}`;
+  conv.appendChild(div);
+  conv.scrollTop = conv.scrollHeight;
+}
+
+/* ── Nudge action handlers ──────────────────────────────────── */
+function nudgeTableSelected() {
+  dismissNudge('tableSelected');
+  const tbl = QB_DATA[qbState.ds]?.[qbState.schema]?.[qbState.table];
+  if (!tbl) return;
+  const priority = ['ticket_id','status','assigned_to','created_at','queue_id','agent','name'];
+  const toSelect = tbl.cols.filter(c => priority.some(p => c.n.toLowerCase().includes(p.replace('_','')))).slice(0, 4);
+  if (!toSelect.length) toSelect.push(...tbl.cols.slice(0, 3));
+  toSelect.forEach(c => qbState.selectedCols.add(c.n));
+  const agentCol = tbl.cols.find(c => c.n.toLowerCase().includes('agent') || c.n.toLowerCase().includes('assigned'));
+  if (agentCol) { const gb = document.getElementById('qb-groupby'); if (gb) gb.value = agentCol.n; }
+  renderQbColList(tbl.cols);
+  renderQbFlow();
+  addAiMessage(`Selected <strong>${toSelect.map(c=>c.n).join(', ')}</strong> — key columns for this dataset. Group-by set to agent where available. Adjust freely.`);
+}
+
+function nudgeCompleteColumns() {
+  dismissNudge('columnsSelected');
+  const tbl = QB_DATA[qbState.ds]?.[qbState.schema]?.[qbState.table];
+  if (!tbl) return;
+  const remaining = tbl.cols.filter(c => !qbState.selectedCols.has(c.n)).slice(0, 3);
+  remaining.forEach(c => qbState.selectedCols.add(c.n));
+  renderQbColList(tbl.cols);
+  renderQbFlow();
+  if (remaining.length) {
+    addAiMessage(`Added <strong>${remaining.map(c=>c.n).join(', ')}</strong> — these complement your current selection. Hover any column to see my reasoning.`);
+  } else {
+    addAiMessage("All useful columns already selected — you're good to run the query!");
+  }
+}
+
+function nudgeGroupBy() {
+  dismissNudge('groupByOpen');
+  const ta = document.getElementById('nq-ai-textarea');
+  if (ta) { ta.placeholder = 'e.g. by agent, last 7 days'; ta.focus(); }
+  addAiMessage("Describe your grouping in plain English — e.g. <em>\"by agent, last 7 days\"</em> — and I'll configure the query for you.");
+}
+
+function nudgeSummarise() {
+  dismissNudge('queryRun');
+  const rows = qbState.allRows.length;
+  const tbl  = qbState.table || 'this table';
+  addAiMessage(`Showing <strong>${rows} rows</strong> from <strong>${tbl}</strong>. Data includes agent assignments, ticket statuses, and timestamps. No significant nulls detected — looks clean and ready for visualisation.`);
+}
+
+function nudgeRefine() {
+  dismissNudge('queryRun');
+  const ta = document.getElementById('nq-ai-textarea');
+  if (ta) { ta.placeholder = 'e.g. add ticket_type, open only'; ta.focus(); }
+  addAiMessage("What's missing or wrong? Describe the change and I'll update the query — no need to re-click through the builder.");
+}
+
+function nudgeRefineInput() {
+  dismissNudge('refineQuery');
+  const ta = document.getElementById('nq-ai-textarea');
+  if (ta) { ta.placeholder = 'e.g. add ticket_type, show open tickets only'; ta.focus(); }
+  addAiMessage("Tell me what to change — I'll modify the existing query and re-run it automatically after you confirm the diff.");
+}
+
+function nudgeSqlDescribe() {
+  dismissNudge('sqlOpen');
+  const ta = document.getElementById('nq-ai-textarea');
+  if (ta) { ta.placeholder = 'Describe the SQL change you need...'; ta.focus(); }
+  addAiMessage("Describe your change in plain English and I'll write the SQL. I'll show you a diff before applying anything.");
+}
+
+function nudgeSqlReview() {
+  dismissNudge('sqlEdited');
+  const sql = document.getElementById('qb-sql-editor')?.value || '';
+  const hasLimit = sql.toLowerCase().includes('limit');
+  const msg = hasLimit
+    ? 'Query looks well-structured — no logic errors found. You\'re good to run.'
+    : 'Consider adding a <strong>LIMIT</strong> clause to avoid scanning large result sets. No other issues found.';
+  addAiMessage(`SQL review: ${msg}`);
+}
+
+function nudgeVizSuggestion() {
+  dismissNudge('saveOpen');
+  const sel = document.getElementById('sq-viz');
+  if (sel) { for (let i=0; i<sel.options.length; i++) { if (sel.options[i].text.includes('Bar')) { sel.selectedIndex = i; break; } } }
+  addAiMessage('Set to <strong>Bar Chart</strong> grouped by agent — best fit for this agent-performance dataset. Axes auto-configured based on your columns.');
+}
+
+function nudgeSuggestName() {
+  dismissNudge('nameField');
+  const tbl  = qbState.table || 'query';
+  const cols = [...qbState.selectedCols].slice(0, 2).join(' & ') || 'all columns';
+  const suggestedName = tbl.replace(/_/g,' ').replace(/\b\w/g, l => l.toUpperCase()) + ' Overview';
+  const nameEl = document.getElementById('sq-name');
+  const descEl = document.getElementById('sq-desc');
+  if (nameEl) nameEl.value = suggestedName;
+  if (descEl) descEl.value = `Summary of ${cols} from ${tbl}.`;
+  addAiMessage(`Suggested name: "<strong>${suggestedName}</strong>" with a one-line description pre-filled. Edit both before saving.`);
+}
+
+/* SQL editor oninput handler */
+let _sqlNudgeTimer = null;
+function onSqlEditorInput() {
+  clearTimeout(_sqlNudgeTimer);
+  // Don't interrupt step 6 (sqlOpen) — wait until the user has dismissed or acted on it first
+  if (kapAiState.activeNudge === 'sqlOpen') return;
+  // Allow re-trigger on every new edit session, even if previously dismissed
+  kapAiState.dismissed.delete('sqlEdited');
+  _sqlNudgeTimer = setTimeout(() => showAiNudge('sqlEdited'), 1500);
+}
 
 function toggleAiPanel() {
   const ai = document.getElementById('nq-col-ai');
@@ -3873,16 +4472,21 @@ function toggleAiPanel() {
   btn.classList.toggle('off', isVisible);
 }
 
+function toggleDashAiPanel() {
+  const ai  = document.getElementById('dash-col-ai');
+  const btn = document.getElementById('dash-ai-toggle-btn');
+  const isVisible = ai.style.display !== 'none';
+  ai.style.display = isVisible ? 'none' : '';
+  btn.classList.toggle('off', isVisible);
+}
+
 /* ── Create Dashboard Modal ─────────────────────────────────── */
 let cdmSelectedIds = new Set();
 let cdmMode = 'manual';
 
-function showCreateDashboardModal() {
-  cdmSelectedIds = new Set();
-  cdmMode        = 'manual';
+function showCreateDashboardModal(preSelectedIds) {
+  cdmSelectedIds = new Set(preSelectedIds || []);
   document.getElementById('cdm-dash-name').value = '';
-  ['manual','ai','hybrid'].forEach(m =>
-    document.getElementById('cdm-mode-' + m)?.classList.toggle('active', m === 'manual'));
   document.getElementById('cdm-selectall-btn').textContent = 'Select all';
   renderCdmQueryList();
   updateCdmSummary();
@@ -3917,17 +4521,6 @@ function updateCdmSummary() {
   btn.disabled      = n === 0;
   btn.style.opacity = n > 0 ? '1' : '0.35';
   btn.style.cursor  = n > 0 ? 'pointer' : 'not-allowed';
-  const chips = document.getElementById('cdm-selected-chips');
-  if (!chips) return;
-  if (!n) {
-    chips.innerHTML = '<span style="font-size:12px;color:var(--cutty-sark);opacity:0.6;">No queries selected yet</span>';
-  } else {
-    chips.innerHTML = [...cdmSelectedIds].map(id => {
-      const q = QUERIES.find(x => x.id === id);
-      return q ? `<span class="cdm-selected-chip">${q.name}
-        <button onclick="toggleQueryForDashboard('${id}')" title="Remove">×</button></span>` : '';
-    }).join('');
-  }
 }
 
 function setCdmMode(mode) {
@@ -3945,10 +4538,11 @@ function cdmSelectAll() {
     cdmSelectedIds.size === QUERIES.length ? 'Deselect all' : 'Select all';
 }
 
-function createAndBuild() {
+function cdmProceedToComposer() {
   const name         = document.getElementById('cdm-dash-name').value.trim() || 'Untitled Dashboard';
   const selectedCopy = new Set(cdmSelectedIds);
   hideCreateDashboardModal();
+  setDsSection('home');
   showHomeComposer(selectedCopy);
   document.getElementById('dash-composer-title').value = name;
 }
@@ -3974,10 +4568,16 @@ function dashAddAll() {
 }
 
 function renderDashTiles() {
-  const tilesEl = document.getElementById('dash-tiles');
-  const emptyEl = document.getElementById('dash-canvas-empty');
-  if (!dashTiles.length) { emptyEl.style.display = 'flex'; tilesEl.style.display = 'none'; return; }
+  const tilesEl   = document.getElementById('dash-tiles');
+  const emptyEl   = document.getElementById('dash-canvas-empty');
+  const saveBar   = document.getElementById('dash-save-bar');
+  if (!dashTiles.length) {
+    emptyEl.style.display = 'flex'; tilesEl.style.display = 'none';
+    if (saveBar) saveBar.style.display = 'none';
+    return;
+  }
   emptyEl.style.display = 'none'; tilesEl.style.display = 'grid';
+  if (saveBar) saveBar.style.display = '';
   tilesEl.innerHTML = dashTiles.map(id => {
     const q = QUERIES.find(x => x.id === id);
     if (!q) return '';
@@ -3993,17 +4593,44 @@ function renderDashTiles() {
 
 function saveDashboard() {
   const name = document.getElementById('dash-composer-title').value.trim() || 'Untitled Dashboard';
-  DASHBOARDS_DATA.unshift({
-    id:      'dash-' + Date.now(),
-    name,
-    desc:    `${dashTiles.length} quer${dashTiles.length === 1 ? 'y' : 'ies'} selected`,
-    updated: 'just now',
-    tiles:   dashTiles.length,
-    mode:    cdmMode || 'manual',
-  });
+  const editingId = document.getElementById('dash-composer-view').dataset.editingId;
+  if (editingId) {
+    const existing = DASHBOARDS_DATA.find(d => d.id === editingId);
+    if (existing) {
+      existing.name    = name;
+      existing.desc    = `${dashTiles.length} quer${dashTiles.length === 1 ? 'y' : 'ies'} selected`;
+      existing.tiles   = dashTiles.length;
+      existing.tileIds = [...dashTiles];
+      existing.updated = 'just now';
+    }
+    delete document.getElementById('dash-composer-view').dataset.editingId;
+  } else {
+    DASHBOARDS_DATA.unshift({
+      id:      'dash-' + Date.now(),
+      name,
+      desc:    `${dashTiles.length} quer${dashTiles.length === 1 ? 'y' : 'ies'} selected`,
+      updated: 'just now',
+      tiles:   dashTiles.length,
+      tileIds: [...dashTiles],
+      mode:    cdmMode || 'manual',
+    });
+  }
   dashTiles = [];
   showToast(`Dashboard "${name}" saved!`);
   showHomeGallery();
+}
+
+function editDashboard(id) {
+  const d = DASHBOARDS_DATA.find(x => x.id === id);
+  if (!d) return;
+  showHomeComposer(new Set(d.tileIds || []));
+  document.getElementById('dash-composer-title').value = d.name;
+  document.getElementById('dash-composer-view').dataset.editingId = id;
+}
+
+function hideComposerAndShowModal() {
+  showHomeGallery();
+  setTimeout(() => showCreateDashboardModal(), 100);
 }
 
 /* ── Card selection ─────────────────────────────────────────── */
