@@ -1,0 +1,52 @@
+Family,Stop,Variable Name,Hex Value,Description
+Teal,50,teal/50,#f5faf8,Lightest teal - near-white surfaces
+Teal,100,teal/100,#ecf4f2,Very light teal - subtle backgrounds
+Teal,200,teal/200,#c7d9d6,Light teal - borders and dividers
+Teal,300,teal/300,#8ac8c1,Light-medium teal - secondary accents
+Teal,400,teal/400,#4db6ac,PRIMARY BRAND - buttons and active states
+Teal,500,teal/500,#4d908b,Button hover states
+Teal,600,teal/600,#4d7d7a,Pressed button states
+Teal,700,teal/700,#4c6a69,Dark teal-gray - body text and labels
+Teal,800,teal/800,#365655,Very dark teal - text hover states
+Teal,900,teal/900,#1f4141,Darkest teal - headings
+Green,50,green/50,#f0fdf4,Lightest green background
+Green,100,green/100,#dcfce7,Very light green background
+Green,200,green/200,#bbf7d0,Light green background
+Green,300,green/300,#86efac,Light-medium green accent
+Green,400,green/400,#4ade80,Medium green - hover state
+Green,500,green/500,#22c55e,Success color - light variant
+Green,600,green/600,#16a34a,PRIMARY SUCCESS - positive indicators (+12%)
+Green,700,green/700,#15803d,Dark green - hover state
+Green,800,green/800,#166534,Quality badge label
+Green,900,green/900,#0b3d1f,Darkest green
+Red,50,red/50,#fef2f2,Lightest red background
+Red,100,red/100,#fee2e2,Very light red background
+Red,200,red/200,#fecaca,Light red background
+Red,300,red/300,#fca5a5,Light-medium red accent
+Red,400,red/400,#f87171,Medium red - hover state
+Red,500,red/500,#ef4444,Error color - medium variant
+Red,600,red/600,#dc2626,PRIMARY ERROR - negative indicators (-0.8%)
+Red,700,red/700,#b91c1c,Dark red - hover state
+Red,800,red/800,#7f1d1d,Very dark red
+Red,900,red/900,#450a0a,Darkest red
+Amber,50,amber/50,#fffbeb,Lightest amber background
+Amber,100,amber/100,#fef3c7,Very light amber background
+Amber,200,amber/200,#fde68a,Light amber background
+Amber,300,amber/300,#fcd34d,Light-medium amber accent
+Amber,400,amber/400,#fbbf24,Medium amber - hover state
+Amber,500,amber/500,#f59e0b,Warning color - medium variant
+Amber,600,amber/600,#d97706,Dark amber
+Amber,700,amber/700,#b45309,PRIMARY WARNING - Compliance badge & SLA Breach
+Amber,800,amber/800,#92400e,Very dark amber
+Amber,900,amber/900,#5a2e0f,Darkest amber
+Purple,50,purple/50,#faf5ff,Lightest purple background
+Purple,100,purple/100,#f3e8ff,Very light purple background
+Purple,200,purple/200,#e9d5ff,Light purple background
+Purple,300,purple/300,#d8b4fe,Light-medium purple accent
+Purple,400,purple/400,#c084fc,Medium purple - hover state
+Purple,500,purple/500,#a855f7,Information color - medium variant
+Purple,600,purple/600,#9333ea,Dark purple accent
+Purple,700,purple/700,#7e22ce,Darker purple
+Purple,800,purple/800,#6d28d9,Very dark purple
+Purple,900,purple/900,#4f46e5,PRIMARY INFORMATION - Experience & CSAT label
+Neutral,0,white,#ffffff,Page and card backgrounds
