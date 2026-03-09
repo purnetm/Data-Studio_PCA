@@ -1068,21 +1068,20 @@
     }
     .qb-topbar-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
     .qb-reset-btn {
-      display: flex; align-items: center; gap: 5px;
-      padding: 6px 12px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 7px;
       border: 1.5px solid var(--nebula); background: transparent; cursor: pointer;
-      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
-      color: var(--cutty-sark); transition: background 0.12s;
+      color: var(--cutty-sark); transition: all 0.12s; flex-shrink: 0;
     }
-    .qb-reset-btn:hover { background: var(--aqua-haze); }
+    .qb-reset-btn:hover { background: var(--aqua-haze); border-color: var(--teal-30); color: var(--dark-teal); }
     .qb-save-btn {
-      display: flex; align-items: center; gap: 5px;
-      padding: 6px 14px; border-radius: 7px;
-      border: 1.5px solid var(--teal-30); background: transparent; cursor: pointer;
-      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
-      color: var(--dark-teal); transition: background 0.12s, border-color 0.12s;
+      display: flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 7px;
+      border: 1.5px solid var(--teal); background: var(--teal); cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+      color: #fff; transition: all 0.12s;
     }
-    .qb-save-btn:hover { background: var(--teal-10); border-color: var(--teal-50); }
+    .qb-save-btn:hover { background: var(--dark-teal); border-color: var(--dark-teal); }
 
     /* Visual Builder area */
     .qb-visual-area {
@@ -1771,6 +1770,13 @@
     }
     .nq-ai-toggle-btn.off { background: transparent; color: var(--teal); }
     .nq-ai-toggle-btn:hover { opacity: 0.85; }
+    .nq-ai-toggle-btn { position: relative; }
+    .nq-ai-toggle-btn .ai-dot {
+      position: absolute; top: -3px; right: -3px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #f44336; border: 1.5px solid #fff; display: none;
+    }
+    .nq-ai-toggle-btn.has-suggestion .ai-dot { display: block; }
     .nq-panels {
       display: flex; flex-direction: row; flex: 1;
       min-height: 0; overflow: hidden; gap: 12px;
@@ -1908,45 +1914,63 @@
     }
     .nq-run-btn:hover { opacity: 0.88; }
 
-    /* ── Guided Explorer — redesigned new-query flow ─────────────── */
+    /* ── Guided Explorer v2 — horizontal steps ─────────────────────── */
     .ge-topbar {
       flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
-      padding: 0 20px; height: 52px;
+      padding: 0 24px; height: 56px;
       border-bottom: 1px solid var(--nebula); background: #fff;
     }
     .ge-topbar-brand { display: flex; align-items: center; gap: 12px; }
-    .ge-topbar-title { font-size: 14px; font-weight: 600; color: var(--dark-teal); }
-    .ge-topbar-sub { font-size: 11px; color: var(--cutty-sark); margin-top: 2px; }
+    .ge-topbar-title { font-size: 15px; font-weight: 700; color: var(--dark-teal); }
+    .ge-topbar-sub { font-size: 12px; color: var(--cutty-sark); margin-top: 2px; }
     .ge-topbar-actions { display: flex; align-items: center; gap: 8px; }
-    .ge-layout { flex: 1; display: flex; flex-direction: row; min-height: 0; overflow: hidden; }
 
-    /* Left steps panel */
-    .ge-steps {
-      width: 340px; flex-shrink: 0;
-      border-right: 1px solid var(--nebula); background: #fff;
-      overflow-y: auto; display: flex; flex-direction: column;
+    /* Scrollable main area */
+    .ge-main-scroll {
+      flex: 1; overflow-y: auto;
+      padding: 28px 28px 48px;
+      display: flex; flex-direction: column; gap: 24px;
+      background: var(--bg-light);
     }
-    /* Step cards */
-    .ge-card { border-bottom: 1px solid var(--nebula); background: #fff; }
-    .ge-card-hd {
-      display: flex; align-items: center; gap: 10px;
-      padding: 14px 16px; background: var(--bg-light);
-      border-bottom: 1px solid var(--nebula);
+
+    /* Horizontal steps row */
+    .ge-steps-row { display: flex; align-items: flex-start; flex-shrink: 0; }
+    .ge-step-connector {
+      flex-shrink: 0; align-self: flex-start;
+      padding: 0 10px; margin-top: 28px;
+      color: var(--cutty-sark); font-size: 22px; line-height: 1; opacity: 0.3;
+      user-select: none;
     }
+
+    /* Individual step card */
+    .ge-step-card {
+      flex: 1; min-width: 0;
+      background: #fff;
+      border: 1.5px solid var(--nebula);
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .ge-step-hd {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 20px;
+      background: var(--bg-light); border-bottom: 1.5px solid var(--nebula);
+    }
+    .ge-step-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
     .ge-step-badge {
-      width: 26px; height: 26px; border-radius: 50%;
+      width: 30px; height: 30px; border-radius: 50%;
       background: var(--teal-10); color: var(--dark-teal);
       display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 700; flex-shrink: 0;
+      font-size: 13px; font-weight: 700; flex-shrink: 0;
     }
     .ge-step-badge-ai { background: var(--teal); color: #fff; }
-    .ge-card-title { font-size: 13px; font-weight: 600; color: var(--dark-teal); }
-    .ge-card-sub { font-size: 11px; color: var(--cutty-sark); margin-top: 2px; }
-    .ge-card-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
-    .ge-field { display: flex; flex-direction: column; gap: 5px; }
+    .ge-step-title { font-size: 13px; font-weight: 600; color: var(--dark-teal); }
+    .ge-step-sub { font-size: 11px; color: var(--cutty-sark); margin-top: 2px; }
+
+    /* Field labels */
+    .ge-field { display: flex; flex-direction: column; gap: 6px; }
     .ge-field-label {
       font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.06em; color: var(--cutty-sark);
+      letter-spacing: 0.07em; color: var(--cutty-sark);
     }
     .ge-select-all {
       padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 500;
@@ -1955,48 +1979,111 @@
       font-family: 'Inter', sans-serif;
     }
     .ge-select-all:hover { border-color: var(--teal-30); background: var(--teal-10); color: var(--dark-teal); }
-    .ge-groupby-row { display: flex; flex-direction: column; gap: 5px; }
+    .ge-groupby-row { display: flex; flex-direction: column; gap: 6px; }
+
     /* Column pills */
-    #ds-new-question .qb-col-list { flex-direction: row; flex-wrap: wrap; gap: 6px; }
+    #ds-new-question .qb-col-list { flex-direction: row; flex-wrap: wrap; gap: 7px; }
     #ds-new-question .qb-col-item {
-      padding: 5px 11px; border-radius: 20px;
+      padding: 5px 12px; border-radius: 20px;
       border: 1.5px solid var(--nebula); background: #fff;
-      display: flex; align-items: center; gap: 0;
-      transition: border-color 0.12s, background 0.12s;
+      display: flex; align-items: center;
+      transition: border-color 0.12s, background 0.12s; cursor: pointer;
     }
-    #ds-new-question .qb-col-item:has(input:checked) {
-      border-color: var(--teal-50); background: var(--teal-10);
-    }
+    #ds-new-question .qb-col-item:has(input:checked) { border-color: var(--teal-50); background: var(--teal-10); }
     #ds-new-question .qb-col-item:hover { border-color: var(--teal-30); background: var(--teal-10); }
     #ds-new-question .qb-col-item input[type=checkbox] { display: none; }
     #ds-new-question .qb-col-name { font-size: 12px; font-weight: 500; color: var(--dark-teal); }
     #ds-new-question .qb-col-type { display: none; }
-    /* AI card styling */
-    .ge-card-ai { background: var(--bg-light); }
-    .ge-card-ai .ge-card-hd {
+
+    /* AI step card */
+    .ge-step-card-ai .ge-step-hd {
       background: linear-gradient(135deg, rgba(77,182,172,0.08) 0%, rgba(77,182,172,0.02) 100%);
     }
-    #ds-new-question .nq-generate-btn { width: 100%; justify-content: center; padding: 10px; }
     #ds-new-question .nq-ai-chips { flex-direction: row; flex-wrap: wrap; }
-    #ds-new-question .nq-ai-chip {
-      font-size: 11px; padding: 4px 9px; border-radius: 12px; white-space: nowrap; flex-shrink: 0;
-    }
-    /* Advanced toggle button */
+    #ds-new-question .nq-ai-chip { font-size: 11px; padding: 4px 10px; border-radius: 12px; white-space: nowrap; flex-shrink: 0; }
+
+    /* Advanced toggle (in topbar) — icon-only */
     .ge-adv-toggle {
-      display: flex; align-items: center; gap: 6px;
-      padding: 7px 12px; border-radius: 8px;
-      border: 1.5px dashed var(--nebula); background: transparent; cursor: pointer;
-      font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 500;
-      color: var(--cutty-sark); transition: all 0.12s; margin-top: 4px; width: 100%;
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 7px;
+      border: 1.5px solid var(--nebula); background: transparent; cursor: pointer;
+      color: var(--cutty-sark); transition: all 0.12s; flex-shrink: 0;
     }
     .ge-adv-toggle:hover { border-color: var(--teal-30); background: var(--teal-10); color: var(--dark-teal); }
     .ge-adv-toggle.active { border-color: var(--teal-50); background: var(--teal-10); color: var(--dark-teal); }
+    .ge-adv-chevron { display: none; }
+    .ge-adv-toggle.active .ge-adv-chevron { transform: rotate(180deg); }
 
-    /* Right canvas */
-    .ge-canvas { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; background: var(--bg-light); }
-    .ge-adv-area { display: flex; flex-direction: column; overflow: hidden; border-bottom: 1px solid var(--nebula); }
-    .ge-adv-area .qb-visual-area { flex: 1; min-height: 180px; }
-    .ge-adv-area .qb-sql-area { flex: 1; min-height: 180px; }
+    /* Main-pane: left side (topbar + scroll), flex-1 inside the row layout */
+    .ge-main-pane { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+
+    /* AI side panel — full-height independent panel, right side of the row */
+    #nq-col-ai { width: 340px; flex: none; align-self: stretch; display: flex; flex-direction: column; border-radius: 0; border: none; border-left: 1.5px solid var(--nebula); box-shadow: none; background: #fff; }
+    #nq-col-ai .ge-step-body { flex: 1; min-height: 0; overflow-y: auto; }
+
+    /* Messaging-style AI input — pinned to bottom of body */
+    .ge-ai-input-row { margin-top: auto; }
+    .ge-ai-input-row {
+      display: flex; align-items: center; gap: 8px;
+      border: 1px solid #f5f5f5; border-radius: 40px;
+      background: #fff; padding: 10px 14px;
+      box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.06);
+      transition: border-color 0.15s;
+    }
+    .ge-ai-input-row:focus-within { border-color: var(--teal-30); }
+    .ge-ai-input {
+      flex: 1; border: none; outline: none; background: transparent;
+      font-size: 14px; font-family: 'Inter', sans-serif; font-style: italic;
+      color: #424242; min-width: 0;
+    }
+    .ge-ai-input::placeholder { color: #424242; opacity: 0.5; font-style: italic; }
+    .ge-ai-attach-btn, .ge-ai-mic-btn {
+      flex-shrink: 0; border: none; background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; padding: 0; color: #9E9E9E; transition: color 0.12s;
+    }
+    .ge-ai-attach-btn:hover, .ge-ai-mic-btn:hover { color: var(--dark-teal); }
+    .ge-ai-send-btn {
+      flex-shrink: 0; width: 24px; height: 24px; border: none;
+      background: var(--teal); border-radius: 6px;
+      cursor: pointer; color: #fff; transition: background 0.12s;
+      display: flex; align-items: center; justify-content: center; padding: 0;
+    }
+    .ge-ai-send-btn:hover { background: var(--dark-teal); }
+
+    /* AI panel badge (shown when panel collapsed + AI has suggestions) */
+    .ge-ai-badge {
+      display: flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--teal); color: #fff; flex-shrink: 0;
+      animation: ge-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes ge-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(77,182,172,0.5); }
+      50% { box-shadow: 0 0 0 5px rgba(77,182,172,0); }
+    }
+    /* AI panel collapse button */
+    .ge-ai-collapse-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 6px;
+      border: 1.5px solid var(--nebula); background: transparent; cursor: pointer;
+      color: var(--cutty-sark); transition: all 0.12s; flex-shrink: 0;
+    }
+    .ge-ai-collapse-btn:hover { background: var(--aqua-haze); color: var(--dark-teal); }
+    .ge-ai-collapse-chevron { transition: transform 0.2s; }
+    .ge-ai-collapse-btn.collapsed .ge-ai-collapse-chevron { transform: rotate(180deg); }
+
+    /* Advanced builder card (below steps, on demand) */
+    .ge-adv-area {
+      flex-shrink: 0;
+      display: flex; flex-direction: column;
+      background: #fff; border: 1.5px solid var(--nebula);
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    #ds-new-question #qb-builder-hd { background: #fff; }
+    .ge-adv-area .qb-visual-area { min-height: 240px; }
+    .ge-adv-area .qb-sql-area { min-height: 200px; }
     .ge-adv-close {
       display: flex; align-items: center; gap: 5px;
       padding: 5px 10px; border-radius: 6px;
@@ -2005,41 +2092,43 @@
       color: var(--cutty-sark); transition: background 0.12s;
     }
     .ge-adv-close:hover { background: var(--aqua-haze); }
+
     /* Viz bar */
     .ge-viz-bar {
       flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
-      padding: 8px 14px; border-bottom: 1px solid var(--nebula); background: #fff; gap: 8px;
+      padding: 10px 16px; border-bottom: 1.5px solid var(--nebula); background: #fff; gap: 8px;
     }
     .ge-viz-label { font-size: 11px; font-weight: 600; color: var(--cutty-sark); margin-right: 2px; }
     .ge-viz-btn {
       display: flex; align-items: center; gap: 5px;
-      padding: 5px 11px; border-radius: 7px;
+      padding: 6px 12px; border-radius: 8px;
       border: 1.5px solid var(--nebula); background: transparent; cursor: pointer;
       font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
       color: var(--cutty-sark); transition: all 0.12s;
     }
     .ge-viz-btn.active { border-color: var(--teal-50); background: var(--teal-10); color: var(--dark-teal); font-weight: 600; }
     .ge-viz-btn:hover { border-color: var(--teal-30); background: var(--teal-10); }
-    /* Preview section */
-    .ge-preview-section { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+
+    /* Preview card (below adv builder) */
+    .ge-preview-card {
+      flex-shrink: 0;
+      background: #fff; border: 1.5px solid var(--nebula);
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .ge-preview-section { display: flex; flex-direction: column; }
     .ge-preview-meta-bar {
       flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
-      padding: 6px 14px; border-bottom: 1px solid var(--nebula); background: #fff;
+      padding: 8px 16px; border-bottom: 1.5px solid var(--nebula); background: #fff;
     }
-    .ge-preview-section .qb-preview-body {
-      flex: 1; overflow: auto; min-height: 0; display: flex; flex-direction: column;
-      background: var(--bg-light);
-    }
+    .ge-preview-section .qb-preview-body { min-height: 240px; display: flex; flex-direction: column; background: var(--bg-light); }
     .ge-preview-section .qb-empty-preview {
-      flex: 1; display: flex; flex-direction: column;
+      flex: 1; min-height: 240px; display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      color: var(--cutty-sark); gap: 12px; padding: 40px 20px;
+      color: var(--cutty-sark); gap: 12px; padding: 48px 20px;
     }
-    .ge-preview-section .qb-empty-preview p {
-      font-size: 13px; color: var(--cutty-sark); text-align: center; max-width: 280px;
-    }
-    .ge-preview-section .qb-table-scroll { flex: 1; overflow: auto; }
-    .ge-canvas .nq-col-hd { background: #fff; }
+    .ge-preview-section .qb-empty-preview p { font-size: 13px; color: var(--cutty-sark); text-align: center; max-width: 280px; }
+    .ge-preview-section .qb-table-scroll { overflow: auto; min-height: 240px; }
 
     /* ── Create Dashboard Modal (two-column) ────────────────────── */
     .cdm-body { display: flex; flex-direction: row; height: 380px; overflow: hidden; }
@@ -2368,6 +2457,7 @@
             <path d="M6.5 0.5L7.6 4.1L11.5 6.5L7.6 8.9L6.5 12.5L5.4 8.9L1.5 6.5L5.4 4.1L6.5 0.5Z"/>
           </svg>
           AI
+          <span class="ai-dot"></span>
         </button>
       </div>
     </div>
@@ -2706,9 +2796,11 @@
       </div>
 
       <!-- ── New Query page ───────────────────────────────────── -->
-      <div id="ds-new-question" style="display:none; flex:1; flex-direction:column; min-height:0; overflow:hidden;">
+      <div id="ds-new-question" style="display:none; flex:1; flex-direction:row; min-height:0; overflow:hidden;">
 
-        <!-- ── Guided Explorer topbar ──────────────────────────────── -->
+        <div class="ge-main-pane">
+
+        <!-- ── Topbar ──────────────────────────────────────────────── -->
         <div class="ge-topbar">
           <div class="ge-topbar-brand">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -2723,12 +2815,16 @@
             </div>
           </div>
           <div class="ge-topbar-actions">
-            <button class="qb-reset-btn" onclick="qbReset()">
+            <button class="qb-reset-btn" onclick="qbReset()" title="Start over">
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
                 <path d="M2 6.5A4.5 4.5 0 1 1 4.5 11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
                 <path d="M2 3v3.5h3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              Start over
+            </button>
+            <button class="ge-adv-toggle" id="ge-adv-toggle" onclick="geToggleAdvanced()" title="Toggle Visual Builder">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M3.5 4L1.5 6l2 2M8.5 4l2 2-2 2M5.5 9l1-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </button>
             <button class="qb-save-btn" onclick="openSaveModal()">
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -2741,22 +2837,34 @@
           </div>
         </div>
 
-        <!-- ── Main: Steps (left) + Canvas (right) ─────────────────── -->
-        <div class="ge-layout">
+        <!-- Save header (shown during save flow, outside scroll area) -->
+        <div class="nq-col-hd" id="qb-save-hd" style="display:none;justify-content:space-between;padding:8px 24px;">
+          <button class="qb-back-btn" onclick="closeSaveModal()">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M8 2L3 6.5L8 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Back to builder
+          </button>
+          <span style="font-size:12px;font-weight:600;color:var(--dark-teal);">Save Question</span>
+          <div style="width:100px;"></div>
+        </div>
 
-          <!-- LEFT: Guided steps ──────────────────────────────────── -->
-          <div class="ge-steps">
+        <!-- ── Scrollable main content ─────────────────────────────── -->
+        <div class="ge-main-scroll" id="ge-main-scroll">
 
-            <!-- STEP 1: Connect your data ───────────────────────── -->
-            <div class="ge-card">
-              <div class="ge-card-hd">
+          <!-- 3 step cards — horizontal row ────────────────────────── -->
+          <div class="ge-steps-row" id="ge-steps-row">
+
+            <!-- STEP 1: Connect your data -->
+            <div class="ge-step-card">
+              <div class="ge-step-hd">
                 <div class="ge-step-badge">1</div>
                 <div>
-                  <div class="ge-card-title">Connect your data</div>
-                  <div class="ge-card-sub">Choose which data you want to explore</div>
+                  <div class="ge-step-title">Connect your data</div>
+                  <div class="ge-step-sub">Choose which data you want to explore</div>
                 </div>
               </div>
-              <div class="ge-card-body">
+              <div class="ge-step-body">
                 <div class="ge-field">
                   <div class="ge-field-label">Data source</div>
                   <div class="qb-select-wrap">
@@ -2781,7 +2889,7 @@
                   </div>
                 </div>
                 <div class="ge-field" id="qbs-table" style="display:none">
-                  <div class="ge-field-label">Data set / Table</div>
+                  <div class="ge-field-label">Dataset / Table</div>
                   <div class="qb-select-wrap" id="qb-table-wrap">
                     <select class="qb-select" id="qb-table" onchange="qbSelectTable(this.value)">
                       <option value="">Select table...</option>
@@ -2793,22 +2901,25 @@
               </div>
             </div>
 
-            <!-- STEP 2: Pick your fields (id=qbs-cols, shown by JS) -->
-            <div class="ge-card" id="qbs-cols" style="display:none">
-              <div class="ge-card-hd" style="justify-content:space-between">
-                <div style="display:flex;align-items:center;gap:10px">
+            <!-- Connector arrow (hidden when Step 2 is hidden) -->
+            <div class="ge-step-connector" id="ge-conn-1" style="display:none">›</div>
+
+            <!-- STEP 2: Pick your fields (id=qbs-cols — shown by JS on table select) -->
+            <div class="ge-step-card" id="qbs-cols" style="display:none">
+              <div class="ge-step-hd" style="justify-content:space-between">
+                <div style="display:flex;align-items:center;gap:12px">
                   <div class="ge-step-badge">2</div>
                   <div>
-                    <div class="ge-card-title">Pick your fields</div>
-                    <div class="ge-card-sub" id="qb-col-count">Select the columns you want</div>
+                    <div class="ge-step-title">Pick your fields</div>
+                    <div class="ge-step-sub" id="qb-col-count">Select the columns you want</div>
                   </div>
                 </div>
                 <button class="ge-select-all" id="qb-selall-btn" onclick="qbSelectAll()">Select all</button>
               </div>
-              <div class="ge-card-body">
+              <div class="ge-step-body">
                 <div class="qb-col-list" id="qb-col-list"></div>
                 <div class="ge-groupby-row" id="qbs-groupby" style="display:none">
-                  <div class="ge-field-label" style="margin-top:4px">Group results by</div>
+                  <div class="ge-field-label" style="margin-top:2px">Group results by</div>
                   <div class="qb-select-wrap">
                     <select class="qb-select" id="qb-groupby" onfocus="showAiNudge('groupByOpen')">
                       <option value="">No grouping</option>
@@ -2819,287 +2930,291 @@
               </div>
             </div>
 
-            <!-- STEP 3: Ask a question (AI) ─────────────────────── -->
-            <div class="ge-card ge-card-ai" id="nq-col-ai">
-              <div class="ge-card-hd">
-                <div class="ge-step-badge ge-step-badge-ai">
-                  <svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor">
-                    <path d="M6 0L7 3.5L11 6L7 8.5L6 12L5 8.5L1 6L5 3.5L6 0Z"/>
+
+          </div><!-- /ge-steps-row -->
+
+          <!-- ── Advanced builder (on demand, scrolled to below steps) ── -->
+          <div id="ge-adv-area" style="display:none" class="ge-adv-area">
+            <div class="nq-col-hd" id="qb-builder-hd" style="justify-content:space-between;padding:8px 16px;">
+              <div class="qb-view-tabs" style="margin:0;">
+                <button class="qb-view-tab active" id="qbtab-visual" onclick="setQbTab('visual')">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <rect x="1" y="1" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>
+                    <rect x="7" y="1" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>
+                    <rect x="1" y="7" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>
+                    <rect x="7" y="7" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>
                   </svg>
-                </div>
-                <div>
-                  <div class="ge-card-title">Ask a question</div>
-                  <div class="ge-card-sub">Describe what you want — KapAI handles the rest</div>
-                </div>
-              </div>
-              <div class="ge-card-body">
-                <div class="nq-nudge-card" id="nq-nudge-card" style="display:none;">
-                  <div class="nq-nudge-label">
-                    <svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0L5.9 3.2L9.5 5L5.9 6.8L5 10L4.1 6.8L0.5 5L4.1 3.2L5 0Z"/></svg>
-                    KapAI
-                  </div>
-                  <div class="nq-nudge-text" id="nq-nudge-text"></div>
-                  <div class="nq-nudge-actions" id="nq-nudge-actions"></div>
-                </div>
-                <div class="nq-ai-conv" id="nq-ai-conv"></div>
-                <div class="nq-ai-sep" id="nq-ai-sep" style="display:none;">· · ·</div>
-                <div class="nq-ai-sub" id="nq-ai-sub">Describe what you want in plain language</div>
-                <textarea class="nq-ai-textarea" id="nq-ai-textarea"
-                  placeholder="e.g. Show top 10 agents by resolved tickets this month, grouped by queue..."></textarea>
-                <div class="nq-ai-chips-label" id="nq-ai-chips-label">Try a prompt:</div>
-                <div class="nq-ai-chips" id="nq-ai-chips">
-                  <button class="nq-ai-chip" onclick="fillAiPrompt(this.textContent)">Agent ticket counts by status this week</button>
-                  <button class="nq-ai-chip" onclick="fillAiPrompt(this.textContent)">Email sent vs delivered last 30 days</button>
-                  <button class="nq-ai-chip" onclick="fillAiPrompt(this.textContent)">Top 10 agents by resolved tickets</button>
-                  <button class="nq-ai-chip" onclick="fillAiPrompt(this.textContent)">Queue ageing by folder and priority</button>
-                </div>
-                <button class="nq-generate-btn" id="nq-generate-btn" onclick="generateFromAI()">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-                    <path d="M6 0L7 3.5L11 6L7 8.5L6 12L5 8.5L1 6L5 3.5L6 0Z"/>
-                  </svg>
-                  <span id="nq-generate-btn-label">Ask KapAI</span>
+                  Visual Builder
                 </button>
-                <button class="ge-adv-toggle" id="ge-adv-toggle" onclick="geToggleAdvanced()">
+                <button class="qb-view-tab" id="qbtab-sql" onclick="setQbTab('sql')">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <path d="M3.5 4L1.5 6l2 2M8.5 4l2 2-2 2M5.5 9l1-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                  SQL Console / Visual Builder
+                  SQL Console
                 </button>
               </div>
-            </div>
-
-          </div><!-- /ge-steps -->
-
-          <!-- RIGHT: Preview canvas ───────────────────────────────── -->
-          <div class="ge-canvas">
-
-            <!-- Advanced builder panel (hidden by default) -->
-            <div class="ge-adv-area" id="ge-adv-area" style="display:none">
-              <div class="nq-col-hd" id="qb-builder-hd" style="justify-content:space-between;padding:6px 14px;">
-                <div class="qb-view-tabs" style="margin:0;">
-                  <button class="qb-view-tab active" id="qbtab-visual" onclick="setQbTab('visual')">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <rect x="1" y="1" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>
-                      <rect x="7" y="1" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>
-                      <rect x="1" y="7" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>
-                      <rect x="7" y="7" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>
-                    </svg>
-                    Visual Builder
-                  </button>
-                  <button class="qb-view-tab" id="qbtab-sql" onclick="setQbTab('sql')">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M3.5 4L1.5 6l2 2M8.5 4l2 2-2 2M5.5 9l1-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    SQL Console
-                  </button>
-                </div>
-                <button class="ge-adv-close" onclick="geToggleAdvanced()">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path d="M2.5 2.5L9.5 9.5M9.5 2.5L2.5 9.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-                  </svg>
-                  Close
-                </button>
-              </div>
-              <div class="qb-visual-area" id="qb-visual-area">
-                <div class="qb-flow" id="qb-flow"></div>
-              </div>
-              <div class="qb-sql-area" id="qb-sql-area" style="display:none;">
-                <textarea class="qb-sql-editor" id="qb-sql-editor"
-                  placeholder="-- Select a table and columns to generate SQL"
-                  oninput="onSqlEditorInput()"></textarea>
-              </div>
-            </div>
-
-            <!-- Save modal header (shown during save flow) -->
-            <div class="nq-col-hd" id="qb-save-hd" style="display:none;justify-content:space-between;padding:6px 14px;">
-              <button class="qb-back-btn" onclick="closeSaveModal()">
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                  <path d="M8 2L3 6.5L8 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <button class="ge-adv-close" onclick="geToggleAdvanced()">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2.5 2.5L9.5 9.5M9.5 2.5L2.5 9.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
                 </svg>
-                Back to builder
+                Close
               </button>
-              <span style="font-size:12px;font-weight:600;color:var(--dark-teal);">Save Question</span>
-              <div style="width:100px;"></div>
             </div>
+            <div class="qb-visual-area" id="qb-visual-area">
+              <div class="qb-flow" id="qb-flow"></div>
+            </div>
+            <div class="qb-sql-area" id="qb-sql-area" style="display:none;">
+              <textarea class="qb-sql-editor" id="qb-sql-editor"
+                placeholder="-- Select a table and columns to generate SQL"
+                oninput="onSqlEditorInput()"></textarea>
+            </div>
+          </div>
 
-            <!-- Preview section: viz bar + data table -->
-            <div id="qb-preview-section" class="ge-preview-section">
-
-              <!-- Visualization type + actions bar -->
-              <div class="ge-viz-bar">
-                <div style="display:flex;align-items:center;gap:5px;">
-                  <span class="ge-viz-label">View as:</span>
-                  <button class="ge-viz-btn active" onclick="geSetViz(this,'table')">
-                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                      <rect x="1" y="1" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/>
-                      <path d="M1 4.5h11M4.5 4.5v7.5" stroke="currentColor" stroke-width="1.2"/>
-                    </svg>
-                    Table
-                  </button>
-                  <button class="ge-viz-btn" onclick="geSetViz(this,'bar')">
-                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                      <path d="M1 11h11M3 11V6.5M6.5 11V3M10 11V7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-                    </svg>
-                    Bar
-                  </button>
-                  <button class="ge-viz-btn" onclick="geSetViz(this,'line')">
-                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                      <path d="M1 9L4.5 5.5L7.5 8L12 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    Line
-                  </button>
-                  <button class="ge-viz-btn" onclick="geSetViz(this,'pie')">
-                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                      <path d="M6.5 6.5V1A5.5 5.5 0 1 0 12 6.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
-                      <path d="M6.5 1A5.5 5.5 0 0 1 12 6.5" stroke="currentColor" stroke-width="1.2"/>
-                    </svg>
-                    Pie
-                  </button>
-                </div>
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <div class="qb-search-box">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <circle cx="5" cy="5" r="3.5" stroke="currentColor" stroke-width="1.2"/>
-                      <path d="M8 8l2.5 2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-                    </svg>
-                    <input placeholder="Search..." id="qb-search" oninput="qbFilterRows(this.value)" />
-                  </div>
-                  <div class="qb-limit-wrap">
-                    <span>Limit:</span>
-                    <select id="qb-limit">
-                      <option>100</option><option>200</option><option>500</option>
-                    </select>
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                  </div>
-                  <button class="qb-export-btn" id="qb-export-btn" onclick="qbExport()" disabled>
-                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                      <path d="M6.5 1v7M3.5 5l3 3L10 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M1 10h11v2H1z" fill="currentColor" opacity=".25"/>
-                    </svg>
-                    Export
-                  </button>
-                  <button class="nq-run-btn" onclick="qbRunQuery()">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M3 2l7 4-7 4V2Z" fill="white"/>
-                    </svg>
-                    Run Query
-                  </button>
-                </div>
-              </div>
-
-              <!-- Preview meta bar -->
-              <div class="ge-preview-meta-bar">
-                <div class="qb-preview-title">
-                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                    <rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/>
-                    <path d="M1 4.5h12M4.5 4.5v7.5" stroke="currentColor" stroke-width="1.3"/>
-                  </svg>
-                  Data Preview
-                  <span class="qb-preview-meta" id="qb-preview-meta"></span>
-                </div>
-              </div>
-
-              <!-- Preview body -->
-              <div class="qb-preview-body" id="qb-preview-body">
-                <div class="qb-empty-preview" id="qb-empty-preview">
-                  <svg id="qb-spinner" width="28" height="28" viewBox="0 0 28 28" fill="none" style="display:none;animation:spin 0.8s linear infinite">
-                    <circle cx="14" cy="14" r="11" stroke="var(--teal)" stroke-width="2.5" stroke-dasharray="55" stroke-dashoffset="20"/>
-                  </svg>
-                  <svg id="qb-empty-ico" width="42" height="42" viewBox="0 0 42 42" fill="none">
-                    <rect x="3" y="3" width="36" height="36" rx="6" stroke="currentColor" stroke-width="1.5" opacity=".25"/>
-                    <path d="M3 12h36M12 12v27" stroke="currentColor" stroke-width="1.5" opacity=".25" stroke-linecap="round"/>
-                  </svg>
-                  <p id="qb-empty-msg">Select a data source, schema, and table to get started</p>
-                </div>
-                <div class="qb-table-scroll" id="qb-table-scroll" style="display:none">
-                  <table class="qb-data-table" id="qb-data-table"></table>
-                </div>
-              </div>
-            </div><!-- /#qb-preview-section -->
-
-            <!-- Save view (shown when saving) -->
-            <div id="qb-save-view" style="display:none;flex:1;flex-direction:column;overflow-y:auto;padding:18px 20px;gap:16px;background:#fff;">
-              <div class="sq-field">
-                <label class="sq-label">Question Name</label>
-                <input class="sq-input" id="sq-name" value="Untitled Query" onfocus="showAiNudge('nameField')" />
-              </div>
-              <div class="sq-field">
-                <label class="sq-label">Description</label>
-                <textarea class="sq-textarea" id="sq-desc" placeholder="Describe what this question answers..."></textarea>
-              </div>
-              <div class="sq-field">
-                <label class="sq-label">
+          <!-- ── Data preview card ───────────────────────────────────── -->
+          <div id="qb-preview-section" class="ge-preview-section ge-preview-card">
+            <div class="ge-viz-bar">
+              <div style="display:flex;align-items:center;gap:5px;">
+                <span class="ge-viz-label">View as:</span>
+                <button class="ge-viz-btn active" onclick="geSetViz(this,'table')">
                   <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                    <path d="M2 3.5L6.5 1L11 3.5V9.5L6.5 12L2 9.5V3.5Z" stroke="currentColor" stroke-width="1.2"/>
-                  </svg>
-                  Save to Collection
-                </label>
-                <div class="sq-collection">
-                  <div class="sq-col-root">Root</div>
-                  <div class="sq-col-item sq-col-item--selected">
-                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                      <path d="M1.5 6.5L6.5 1.5L11.5 6.5V12.5H8.5V8.5H4.5V12.5H1.5V6.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
-                    </svg>
-                    Save here
-                    <span class="sq-col-badge">Selected</span>
-                  </div>
-                  <div class="sq-col-empty">No sub-collections</div>
-                </div>
-              </div>
-              <div class="sq-field">
-                <label class="sq-label">Default Visualization</label>
-                <div class="qb-select-wrap" style="border-radius:8px;">
-                  <svg class="qb-select-ico" width="13" height="13" viewBox="0 0 13 13" fill="none">
                     <rect x="1" y="1" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/>
                     <path d="M1 4.5h11M4.5 4.5v7.5" stroke="currentColor" stroke-width="1.2"/>
                   </svg>
-                  <select class="qb-select" id="sq-viz">
-                    <option>Table</option><option>Bar Chart</option><option>Pie Chart</option><option>Line Chart</option>
-                  </select>
-                  <svg class="qb-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-                </div>
-              </div>
-              <div class="sq-field">
-                <div class="sq-cache-hd">
+                  Table
+                </button>
+                <button class="ge-viz-btn" onclick="geSetViz(this,'bar')">
                   <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                    <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.2"/>
-                    <path d="M6.5 3.5v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                    <path d="M1 11h11M3 11V6.5M6.5 11V3M10 11V7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
                   </svg>
-                  Cache Settings
-                </div>
-                <div class="sq-cache-row">
-                  <div>
-                    <div class="sq-cache-title">Enable Caching</div>
-                    <div class="sq-cache-sub">Cache results for faster repeat queries</div>
-                  </div>
-                  <div class="sq-toggle active" id="sq-cache-toggle" onclick="toggleSqCache()">
-                    <div class="sq-toggle-knob"></div>
-                  </div>
-                </div>
-                <div class="sq-cache-row" id="sq-dur-row">
-                  <span class="sq-cache-title">Cache Duration</span>
-                  <div style="display:flex;align-items:center;gap:10px;flex:1;justify-content:flex-end;">
-                    <input type="range" class="sq-slider" id="sq-dur" min="15" max="240" value="60" step="15" oninput="updateCacheDur(this.value)" />
-                    <span class="sq-dur-label" id="sq-dur-label">1 hour</span>
-                  </div>
-                </div>
+                  Bar
+                </button>
+                <button class="ge-viz-btn" onclick="geSetViz(this,'line')">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                    <path d="M1 9L4.5 5.5L7.5 8L12 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Line
+                </button>
+                <button class="ge-viz-btn" onclick="geSetViz(this,'pie')">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                    <path d="M6.5 6.5V1A5.5 5.5 0 1 0 12 6.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                    <path d="M6.5 1A5.5 5.5 0 0 1 12 6.5" stroke="currentColor" stroke-width="1.2"/>
+                  </svg>
+                  Pie
+                </button>
               </div>
-              <div class="sq-share-hint">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
-                  <path d="M6 5.5v3.5M6 3.5h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-                </svg>
-                You can share this question with others after saving
-              </div>
-              <div class="qb-save-view-footer">
-                <button class="sq-cancel-btn" onclick="closeSaveModal()">Cancel</button>
-                <button class="sq-save-btn" onclick="saveQueryNow()">Save</button>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div class="qb-search-box">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <circle cx="5" cy="5" r="3.5" stroke="currentColor" stroke-width="1.2"/>
+                    <path d="M8 8l2.5 2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                  </svg>
+                  <input placeholder="Search..." id="qb-search" oninput="qbFilterRows(this.value)" />
+                </div>
+                <div class="qb-limit-wrap">
+                  <span>Limit:</span>
+                  <select id="qb-limit">
+                    <option>100</option><option>200</option><option>500</option>
+                  </select>
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                </div>
+                <button class="qb-export-btn" id="qb-export-btn" onclick="qbExport()" disabled>
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                    <path d="M6.5 1v7M3.5 5l3 3L10 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M1 10h11v2H1z" fill="currentColor" opacity=".25"/>
+                  </svg>
+                  Export
+                </button>
+                <button class="nq-run-btn" onclick="qbRunQuery()">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M3 2l7 4-7 4V2Z" fill="white"/>
+                  </svg>
+                  Run Query
+                </button>
               </div>
             </div>
+            <div class="ge-preview-meta-bar">
+              <div class="qb-preview-title">
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                  <rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                  <path d="M1 4.5h12M4.5 4.5v7.5" stroke="currentColor" stroke-width="1.3"/>
+                </svg>
+                Data Preview
+                <span class="qb-preview-meta" id="qb-preview-meta"></span>
+              </div>
+            </div>
+            <div class="qb-preview-body" id="qb-preview-body">
+              <div class="qb-empty-preview" id="qb-empty-preview">
+                <svg id="qb-spinner" width="28" height="28" viewBox="0 0 28 28" fill="none" style="display:none;animation:spin 0.8s linear infinite">
+                  <circle cx="14" cy="14" r="11" stroke="var(--teal)" stroke-width="2.5" stroke-dasharray="55" stroke-dashoffset="20"/>
+                </svg>
+                <svg id="qb-empty-ico" width="42" height="42" viewBox="0 0 42 42" fill="none">
+                  <rect x="3" y="3" width="36" height="36" rx="6" stroke="currentColor" stroke-width="1.5" opacity=".25"/>
+                  <path d="M3 12h36M12 12v27" stroke="currentColor" stroke-width="1.5" opacity=".25" stroke-linecap="round"/>
+                </svg>
+                <p id="qb-empty-msg">Select a data source, schema, and table to get started</p>
+              </div>
+              <div class="qb-table-scroll" id="qb-table-scroll" style="display:none">
+                <table class="qb-data-table" id="qb-data-table"></table>
+              </div>
+            </div>
+          </div><!-- /#qb-preview-section -->
 
-          </div><!-- /ge-canvas -->
+          <!-- Save view (shown when saving) -->
+          <div id="qb-save-view" style="display:none;flex-direction:column;gap:16px;">
+            <div class="sq-field">
+              <label class="sq-label">Question Name</label>
+              <input class="sq-input" id="sq-name" value="Untitled Query" onfocus="showAiNudge('nameField')" />
+            </div>
+            <div class="sq-field">
+              <label class="sq-label">Description</label>
+              <textarea class="sq-textarea" id="sq-desc" placeholder="Describe what this question answers..."></textarea>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <path d="M2 3.5L6.5 1L11 3.5V9.5L6.5 12L2 9.5V3.5Z" stroke="currentColor" stroke-width="1.2"/>
+                </svg>
+                Save to Collection
+              </label>
+              <div class="sq-collection">
+                <div class="sq-col-root">Root</div>
+                <div class="sq-col-item sq-col-item--selected">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                    <path d="M1.5 6.5L6.5 1.5L11.5 6.5V12.5H8.5V8.5H4.5V12.5H1.5V6.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                  </svg>
+                  Save here
+                  <span class="sq-col-badge">Selected</span>
+                </div>
+                <div class="sq-col-empty">No sub-collections</div>
+              </div>
+            </div>
+            <div class="sq-field">
+              <label class="sq-label">Default Visualization</label>
+              <div class="qb-select-wrap" style="border-radius:8px;">
+                <svg class="qb-select-ico" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <rect x="1" y="1" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/>
+                  <path d="M1 4.5h11M4.5 4.5v7.5" stroke="currentColor" stroke-width="1.2"/>
+                </svg>
+                <select class="qb-select" id="sq-viz">
+                  <option>Table</option><option>Bar Chart</option><option>Pie Chart</option><option>Line Chart</option>
+                </select>
+                <svg class="qb-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <div class="sq-field">
+              <div class="sq-cache-hd">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.2"/>
+                  <path d="M6.5 3.5v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+                Cache Settings
+              </div>
+              <div class="sq-cache-row">
+                <div>
+                  <div class="sq-cache-title">Enable Caching</div>
+                  <div class="sq-cache-sub">Cache results for faster repeat queries</div>
+                </div>
+                <div class="sq-toggle active" id="sq-cache-toggle" onclick="toggleSqCache()">
+                  <div class="sq-toggle-knob"></div>
+                </div>
+              </div>
+              <div class="sq-cache-row" id="sq-dur-row">
+                <span class="sq-cache-title">Cache Duration</span>
+                <div style="display:flex;align-items:center;gap:10px;flex:1;justify-content:flex-end;">
+                  <input type="range" class="sq-slider" id="sq-dur" min="15" max="240" value="60" step="15" oninput="updateCacheDur(this.value)" />
+                  <span class="sq-dur-label" id="sq-dur-label">1 hour</span>
+                </div>
+              </div>
+            </div>
+            <div class="sq-share-hint">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M6 5.5v3.5M6 3.5h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              You can share this question with others after saving
+            </div>
+            <div class="qb-save-view-footer">
+              <button class="sq-cancel-btn" onclick="closeSaveModal()">Cancel</button>
+              <button class="sq-save-btn" onclick="saveQueryNow()">Save</button>
+            </div>
+          </div>
 
-        </div><!-- /ge-layout -->
+        </div><!-- /ge-main-scroll -->
+        </div><!-- /ge-main-pane -->
+
+        <!-- AI side panel — independent full-height panel, right side -->
+        <div class="ge-step-card ge-step-card-ai" id="nq-col-ai">
+          <div class="ge-step-hd" style="justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div class="ge-step-badge ge-step-badge-ai">
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor">
+                  <path d="M6 0L7 3.5L11 6L7 8.5L6 12L5 8.5L1 6L5 3.5L6 0Z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="ge-step-title">Ask a question</div>
+                <div class="ge-step-sub">Describe what you want — KapAI handles the rest</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <!-- Pulsing badge shown when panel is collapsed and AI has suggestions -->
+              <div class="ge-ai-badge" id="ge-ai-badge" style="display:none;" title="KapAI has suggestions">
+                <svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0L5.9 3.2L9.5 5L5.9 6.8L5 10L4.1 6.8L0.5 5L4.1 3.2L5 0Z"/></svg>
+              </div>
+              <button class="ge-ai-collapse-btn" id="ge-ai-collapse-btn" onclick="geToggleAiPanel()" title="Hide AI panel">
+                <svg class="ge-ai-collapse-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M3 7.5l3-3 3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="ge-step-body">
+            <div class="nq-nudge-card" id="nq-nudge-card" style="display:none;">
+              <div class="nq-nudge-label">
+                <svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0L5.9 3.2L9.5 5L5.9 6.8L5 10L4.1 6.8L0.5 5L4.1 3.2L5 0Z"/></svg>
+                KapAI
+              </div>
+              <div class="nq-nudge-text" id="nq-nudge-text"></div>
+              <div class="nq-nudge-actions" id="nq-nudge-actions"></div>
+            </div>
+            <div class="nq-ai-conv" id="nq-ai-conv"></div>
+            <div class="nq-ai-sep" id="nq-ai-sep" style="display:none;">· · ·</div>
+            <div class="nq-ai-sub" id="nq-ai-sub" style="display:none;">Describe what you want in plain language</div>
+            <div class="nq-ai-chips-label" id="nq-ai-chips-label">Try a prompt:</div>
+            <div class="nq-ai-chips" id="nq-ai-chips">
+              <button class="nq-ai-chip" onclick="fillAiPrompt(this.textContent)">Agent ticket counts by status this week</button>
+              <button class="nq-ai-chip" onclick="fillAiPrompt(this.textContent)">Email sent vs delivered last 30 days</button>
+              <button class="nq-ai-chip" onclick="fillAiPrompt(this.textContent)">Top 10 agents by resolved tickets</button>
+              <button class="nq-ai-chip" onclick="fillAiPrompt(this.textContent)">Queue ageing by folder and priority</button>
+            </div>
+            <div class="ge-ai-input-row">
+              <button class="ge-ai-attach-btn" title="Attach file">
+                <!-- fi_2908214 from component library -->
+                <svg width="11" height="20" viewBox="0 0 11.5 21.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.5 15.75V6.75C11.5 6.335 11.165 6 10.75 6C10.335 6 10 6.335 10 6.75V15.75C10 18.095 8.095 20 5.75 20C3.405 20 1.5 18.095 1.5 15.75V4.25C1.5 2.735 2.735 1.5 4.25 1.5C5.765 1.5 7 2.735 7 4.25V15C7 15.69 6.44 16.25 5.75 16.25C5.06 16.25 4.5 15.69 4.5 15V5.25C4.5 4.835 4.165 4.5 3.75 4.5C3.335 4.5 3 4.835 3 5.25V15C3 16.515 4.235 17.75 5.75 17.75C7.265 17.75 8.5 16.515 8.5 15V4.25C8.5 1.905 6.595 0 4.25 0C1.905 0 0 1.905 0 4.25V15.75C0 18.92 2.58 21.5 5.75 21.5C8.92 21.5 11.5 18.92 11.5 15.75Z" fill="currentColor"/>
+                </svg>
+              </button>
+              <input type="text" class="ge-ai-input" id="nq-ai-textarea"
+                placeholder="Type here..."
+                onkeydown="if(event.key==='Enter'){event.preventDefault();generateFromAI();}">
+              <button class="ge-ai-mic-btn" title="Voice input">
+                <!-- fi_7175253 from component library -->
+                <svg width="14" height="19" viewBox="0 0 14.3298 20.0001" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.90891 4.25532C2.90891 1.90517 4.81408 0 7.16423 0C9.51436 0 11.4195 1.90517 11.4195 4.25532V8.93617C11.4195 11.2863 9.51436 13.1915 7.16423 13.1915C4.81408 13.1915 2.90891 11.2863 2.90891 8.93617V4.25532Z" fill="currentColor"/>
+                  <path d="M7.16933 14.8936C7.16763 14.8936 7.16593 14.8936 7.16423 14.8936C7.16253 14.8936 7.16082 14.8936 7.15912 14.8936C4.66275 14.8912 2.5239 13.3532 1.64017 11.17C1.46381 10.7344 0.967641 10.5242 0.531956 10.7005C0.0962711 10.8769 -0.113959 11.373 0.0624074 11.8087C1.09637 14.3631 3.4694 16.2344 6.31317 16.5489V19.1489C6.31317 19.619 6.69419 20 7.16423 20C7.63427 20 8.01529 19.619 8.01529 19.1489V16.5491C10.8596 16.2349 13.2333 14.3634 14.2674 11.8087C14.4437 11.373 14.2335 10.8769 13.7978 10.7005C13.3621 10.5242 12.8659 10.7344 12.6896 11.17C11.8058 13.3536 9.66627 14.8918 7.16933 14.8936Z" fill="currentColor"/>
+                </svg>
+              </button>
+              <button class="ge-ai-send-btn" id="nq-generate-btn" onclick="generateFromAI()" title="Ask KapAI">
+                <span id="nq-generate-btn-label" style="display:none;">Ask KapAI</span>
+                <!-- fi_10322482 from component library -->
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12.1424 6.26772L2.29238 1.4628C2.20767 1.42148 2.11465 1.4 2.02039 1.4C1.67776 1.4 1.4 1.67776 1.4 2.02039V2.03829C1.4 2.12154 1.41021 2.20448 1.4304 2.28524L2.37526 6.06465C2.40106 6.16789 2.48834 6.24415 2.59409 6.25591L6.74703 6.71735C6.89106 6.73334 7 6.85506 7 7C7 7.14494 6.89106 7.26666 6.74703 7.28265L2.59409 7.74409C2.48834 7.75585 2.40106 7.83211 2.37526 7.93535L1.4304 11.7147C1.41021 11.7955 1.4 11.8785 1.4 11.9617V11.9796C1.4 12.3222 1.67776 12.6 2.02039 12.6C2.11465 12.6 2.20767 12.5785 2.29238 12.5372L12.1424 7.73228C12.4224 7.59574 12.6 7.31151 12.6 7C12.6 6.68849 12.4224 6.40426 12.1424 6.26772Z" fill="white"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div><!-- /nq-col-ai -->
+
       </div><!-- /ds-new-question -->
 
 
@@ -3529,7 +3644,7 @@ function handleNewQuestion() { setQsSection('editor'); }
 function qbResetToFresh() {
   // Only reset if table was previously selected (avoid clearing a clean state)
   document.getElementById('qb-title').value = 'Untitled Query';
-  ['qbs-schema','qbs-table','qbs-cols','qbs-groupby'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+  ['qbs-schema','qbs-table','qbs-cols','qbs-groupby','ge-conn-1'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
   document.getElementById('qb-ds').value = '';
   Object.assign(qbState, { ds:'', schema:'', table:'', selectedCols: new Set(), allRows:[], filteredRows:[] });
   renderQbFlow();
@@ -3551,7 +3666,7 @@ function qbResetToFresh() {
 
 function qbSelectDs(val) {
   qbState.ds = val;
-  ['qbs-schema','qbs-table','qbs-cols','qbs-groupby'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+  ['qbs-schema','qbs-table','qbs-cols','qbs-groupby','ge-conn-1'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
   qbState.schema = ''; qbState.table = ''; qbState.selectedCols.clear();
   if (!val) return;
   const schemaEl = document.getElementById('qbs-schema');
@@ -3564,7 +3679,7 @@ function qbSelectDs(val) {
 
 function qbSelectSchema(val) {
   qbState.schema = val;
-  ['qbs-table','qbs-cols','qbs-groupby'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+  ['qbs-table','qbs-cols','qbs-groupby','ge-conn-1'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
   qbState.table = ''; qbState.selectedCols.clear();
   if (!val) return;
   const tables = QB_DATA[qbState.ds][val];
@@ -3576,7 +3691,7 @@ function qbSelectSchema(val) {
 
 function qbSelectTable(val) {
   qbState.table = val; qbState.selectedCols.clear();
-  ['qbs-cols','qbs-groupby'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display = val ? '' : 'none'; });
+  ['qbs-cols','qbs-groupby','ge-conn-1'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display = val ? '' : 'none'; });
   if (!val) { document.getElementById('qb-table-badge').innerHTML = ''; renderQbFlow(); return; }
   kapAiState.dismissed.delete('tableSelected'); // allow re-trigger on new table
   const tbl = QB_DATA[qbState.ds][qbState.schema][val];
@@ -3659,7 +3774,7 @@ function qbReset() {
   if (document.getElementById('qb-save-view')?.style.display === 'flex') closeSaveModal();
   qbResetToFresh();
   document.getElementById('qb-ds').value = '';
-  ['qbs-schema','qbs-table','qbs-cols','qbs-groupby'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+  ['qbs-schema','qbs-table','qbs-cols','qbs-groupby','ge-conn-1'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
   document.getElementById('qb-table-badge').innerHTML = '';
   // Reset AI assistant panel
   kapAiState.activeNudge = null;
@@ -3867,6 +3982,9 @@ function openSaveModal() {
     const advBtn = document.getElementById('ge-adv-toggle');
     if (advBtn) advBtn.classList.remove('active');
   }
+  // Hide steps row while in save mode
+  const stepsRow = document.getElementById('ge-steps-row');
+  if (stepsRow) stepsRow.style.display = 'none';
   kapAiState.dismissed.delete('saveOpen');
   kapAiState.dismissed.delete('nameField');
   setTimeout(() => showAiNudge('saveOpen'), 300);
@@ -3881,6 +3999,9 @@ function closeSaveModal() {
   const sqlActive = document.getElementById('qbtab-sql')?.classList.contains('active');
   document.getElementById('qb-visual-area').style.display   = sqlActive ? 'none' : 'flex';
   document.getElementById('qb-sql-area').style.display      = sqlActive ? 'flex' : 'none';
+  // Restore steps row
+  const stepsRow = document.getElementById('ge-steps-row');
+  if (stepsRow) stepsRow.style.display = '';
   dismissNudge('saveOpen');
   dismissNudge('nameField');
 }
@@ -3894,6 +4015,7 @@ function geToggleAdvanced() {
     const sqlActive = document.getElementById('qbtab-sql')?.classList.contains('active');
     document.getElementById('qb-visual-area').style.display = sqlActive ? 'none' : 'flex';
     document.getElementById('qb-sql-area').style.display    = sqlActive ? 'flex'  : 'none';
+    setTimeout(() => area.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
   }
 }
 function geSetViz(btn, type) {
@@ -3904,6 +4026,32 @@ function geSetViz(btn, type) {
     const map = { table: 'Table', bar: 'Bar Chart', line: 'Line Chart', pie: 'Pie Chart' };
     sel.value = map[type] || 'Table';
   }
+}
+function geToggleAiPanel() {
+  const body = document.querySelector('#nq-col-ai .ge-step-body');
+  const btn  = document.getElementById('ge-ai-collapse-btn');
+  if (!body) return;
+  const isCollapsed = body.style.display === 'none';
+  body.style.display = isCollapsed ? '' : 'none';
+  if (btn) btn.classList.toggle('collapsed', !isCollapsed);
+  if (isCollapsed) {
+    const badge = document.getElementById('ge-ai-badge');
+    if (badge) badge.style.display = 'none';
+  }
+}
+function setAiDot(show) {
+  const btn = document.getElementById('nq-ai-toggle-btn');
+  if (btn) btn.classList.toggle('has-suggestion', show);
+}
+function updateAiBadge() {
+  const badge = document.getElementById('ge-ai-badge');
+  if (!badge) return;
+  const body = document.querySelector('#nq-col-ai .ge-step-body');
+  const isCollapsed = body && body.style.display === 'none';
+  const nudge = document.getElementById('nq-nudge-card');
+  const conv  = document.getElementById('nq-ai-conv');
+  const hasSuggestions = (nudge && nudge.style.display !== 'none') || (conv && conv.children.length > 0);
+  badge.style.display = (isCollapsed && hasSuggestions) ? 'flex' : 'none';
 }
 function toggleSqCache() {
   const t = document.getElementById('sq-cache-toggle');
@@ -4639,6 +4787,9 @@ function showAiNudge(nudgeId) {
       : `<button class="nq-nudge-accept" onclick="${a.fn}">${a.label}</button>`
   ).join('');
   card.style.display = 'flex';
+  updateAiBadge();
+  const aiPanel = document.getElementById('nq-col-ai');
+  if (aiPanel && aiPanel.style.display === 'none') setAiDot(true);
   const sub = document.getElementById('nq-ai-sub');
   if (sub) sub.textContent = 'Or describe what you want:';
 }
@@ -4650,6 +4801,7 @@ function dismissNudge(nudgeId) {
   if (card) card.style.display = 'none';
   const sub = document.getElementById('nq-ai-sub');
   if (sub) sub.textContent = 'Describe what you want in plain language';
+  setAiDot(false);
 }
 
 function addAiMessage(html) {
