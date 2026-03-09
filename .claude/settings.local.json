@@ -18,7 +18,8 @@
       "Bash(gh pr:*)",
       "Bash(git checkout main)",
       "Bash(git add .claude/settings.local.json)",
-      "Bash(git commit -m \"Update settings\")"
+      "Bash(git commit -m \"Update settings\")",
+      "WebFetch(domain:localhost)"
     ]
   }
 }
