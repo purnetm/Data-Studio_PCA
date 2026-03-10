@@ -238,6 +238,63 @@
       overflow: hidden; text-overflow: ellipsis;
     }
 
+    /* ── Notification bell ─────────────────────────────────────── */
+    .notif-wrapper { position: relative; padding: 0 var(--space-3) var(--space-2); }
+    .notif-btn {
+      position: relative; width: 100%; height: 36px; border-radius: var(--radius-sm);
+      border: none; background: transparent; cursor: pointer; color: var(--cutty-sark);
+      display: flex; align-items: center; gap: 8px; padding: 0 8px;
+      font-family: 'Inter', sans-serif; font-size: var(--font-sm); transition: background 0.15s, color 0.15s;
+    }
+    .notif-btn:hover { background: var(--teal-10); color: var(--teal); }
+    .notif-btn:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+    .notif-btn-label { font-weight: var(--weight-medium); }
+    .notif-badge {
+      min-width: 18px; height: 18px; background: var(--status-negative);
+      color: #fff; font-size: 10px; font-weight: 600; border-radius: 9px;
+      display: inline-flex; align-items: center; justify-content: center; padding: 0 4px;
+      margin-left: auto;
+    }
+    .notif-badge[data-hidden="true"] { display: none; }
+    .notif-panel {
+      position: absolute; bottom: calc(100% + 8px); left: 8px; right: 8px;
+      background: #fff; border: 1px solid var(--nebula); border-radius: var(--radius-md);
+      box-shadow: 0 8px 24px rgba(31,65,65,0.14), 0 2px 8px rgba(31,65,65,0.08);
+      display: none; flex-direction: column; z-index: 200; overflow: hidden;
+    }
+    .notif-panel.open { display: flex; animation: fadeIn 0.14s ease; }
+    .notif-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 14px 10px; border-bottom: 1px solid var(--nebula);
+    }
+    .notif-panel-title { font-size: var(--font-base); font-weight: var(--weight-semibold); color: var(--dark-teal); }
+    .notif-mark-read {
+      font-size: var(--font-xs); color: var(--teal); background: none; border: none;
+      cursor: pointer; padding: 0; font-family: 'Inter', sans-serif; font-weight: var(--weight-medium);
+    }
+    .notif-mark-read:hover { text-decoration: underline; }
+    .notif-list { list-style: none; margin: 0; padding: 6px 0; max-height: 280px; overflow-y: auto; }
+    .notif-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 14px; transition: background 0.12s; position: relative;
+    }
+    .notif-item:hover { background: var(--aqua-haze); }
+    .notif-item.read { opacity: 0.6; }
+    .notif-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px;
+    }
+    .notif-dot.error { background: var(--status-negative); }
+    .notif-dot.warn  { background: #F59E0B; }
+    .notif-item-body { flex: 1; min-width: 0; }
+    .notif-item-title { font-size: var(--font-sm); font-weight: var(--weight-medium); color: var(--dark-teal); }
+    .notif-item-desc  { font-size: var(--font-xs); color: var(--cutty-sark); margin-top: 2px; line-height: 1.45; }
+    .notif-dismiss {
+      background: none; border: none; cursor: pointer; color: var(--cutty-sark); padding: 0;
+      font-size: 14px; line-height: 1; opacity: 0.5; flex-shrink: 0;
+    }
+    .notif-dismiss:hover { opacity: 1; color: var(--status-negative); }
+    .notif-empty { padding: 20px 14px; text-align: center; font-size: var(--font-sm); color: var(--cutty-sark); opacity: 0.7; }
+
     /* User popup */
     .user-popup {
       position: absolute; bottom: calc(100% + 4px); left: 8px; right: 8px;
@@ -332,6 +389,15 @@
       cursor: pointer; background: transparent; padding: 0;
     }
     .topbar-btn img { width: 14px; height: 14px; }
+    .topbar-btn-wide {
+      width: auto; padding: 0 var(--space-5); gap: var(--space-2);
+      font-size: var(--font-sm); font-weight: var(--weight-medium);
+      color: var(--teal); font-family: 'Inter', sans-serif;
+    }
+    .topbar-btn-wide svg { width: 12px; height: 12px; flex-shrink: 0; }
+    .topbar-btn:focus-visible, .topbar-btn-wide:focus-visible {
+      outline: 2px solid var(--teal); outline-offset: 2px;
+    }
 
     /* ── Kap AI view ────────────────────────────────────────────── */
     .content {
@@ -1435,6 +1501,113 @@
     }
     .sq-save-btn:hover { opacity: 0.88; }
 
+    /* ── Send Dashboard modal ────────────────────────────── */
+    .send-modal-overlay { z-index: 120; }
+    .send-modal-panel {
+      background: #fff; border-radius: var(--radius-md); width: 480px; max-width: 94vw;
+      display: flex; flex-direction: column; max-height: 90vh;
+      box-shadow: 0 20px 60px rgba(31,65,65,0.22);
+    }
+    .send-modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 22px 14px; border-bottom: 1px solid var(--nebula);
+    }
+    .send-modal-title { font-size: var(--font-lg); font-weight: var(--weight-semibold); color: var(--dark-teal); }
+    .send-modal-close {
+      width: 28px; height: 28px; border-radius: 8px; border: none; background: transparent;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--cutty-sark); font-size: 18px; line-height: 1; transition: background 0.15s;
+    }
+    .send-modal-close:hover { background: var(--aqua-haze); }
+    .send-modal-body {
+      padding: 18px 22px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto;
+    }
+    .send-dash-name-badge {
+      font-size: var(--font-sm); font-weight: var(--weight-semibold); color: var(--teal);
+      background: var(--teal-10); padding: 4px 10px; border-radius: var(--radius-sm);
+      display: inline-block;
+    }
+    .send-field-label {
+      font-size: var(--font-sm); font-weight: var(--weight-medium); color: var(--dark-teal); margin-bottom: 4px;
+    }
+    .send-chip-wrap {
+      display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+      border: 1.5px solid var(--nebula); border-radius: var(--radius-sm); padding: 6px 10px;
+      min-height: 42px; cursor: text; transition: border-color 0.15s;
+    }
+    .send-chip-wrap:focus-within { border-color: var(--teal); }
+    .send-chip-wrap.shake { animation: shakeInput 0.35s ease; }
+    @keyframes shakeInput { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+    .send-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--teal-10); color: var(--teal);
+      font-size: var(--font-xs); padding: 3px 8px 3px 10px; border-radius: 20px;
+    }
+    .send-chip-remove {
+      background: none; border: none; cursor: pointer; color: var(--teal);
+      opacity: 0.6; padding: 0; font-size: 14px; line-height: 1; display: flex; align-items: center;
+    }
+    .send-chip-remove:hover { opacity: 1; }
+    .send-chip-input-el {
+      border: none; outline: none; font-family: 'Inter', sans-serif;
+      font-size: var(--font-sm); color: var(--dark-teal); min-width: 160px; flex: 1;
+      background: transparent; padding: 2px 0;
+    }
+    .send-msg-textarea {
+      width: 100%; box-sizing: border-box; resize: vertical; min-height: 72px;
+      border: 1.5px solid var(--nebula); border-radius: var(--radius-sm); padding: 8px 10px;
+      font-family: 'Inter', sans-serif; font-size: var(--font-sm); color: var(--dark-teal);
+      outline: none; transition: border-color 0.15s;
+    }
+    .send-msg-textarea:focus { border-color: var(--teal); }
+    .send-attach-row {
+      display: flex; align-items: center; gap: 8px; cursor: pointer;
+      font-size: var(--font-sm); color: var(--cutty-sark);
+    }
+    .send-attach-row input { accent-color: var(--teal); cursor: pointer; }
+    .send-modal-footer {
+      display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+      padding: 14px 22px; border-top: 1px solid var(--nebula); flex-shrink: 0;
+    }
+    .send-btn-send {
+      display: flex; align-items: center; gap: 6px;
+      padding: 9px 20px; border-radius: 10px; border: none;
+      background: var(--teal); color: #fff; font-family: 'Inter', sans-serif;
+      font-size: var(--font-sm); font-weight: var(--weight-semibold); cursor: pointer; transition: opacity 0.15s;
+    }
+    .send-btn-send:hover { opacity: 0.88; }
+    .send-btn-cancel {
+      padding: 9px 18px; border-radius: 10px; border: 1.5px solid var(--nebula);
+      background: transparent; font-family: 'Inter', sans-serif; font-size: var(--font-sm);
+      color: var(--cutty-sark); cursor: pointer; transition: background 0.15s, border-color 0.15s;
+    }
+    .send-btn-cancel:hover { background: var(--aqua-haze); border-color: var(--teal); }
+
+    /* ── Dashboard Access modal ──────────────────────────── */
+    .access-radio-group { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .access-radio-opt {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 14px; border: 1.5px solid var(--nebula); border-radius: var(--radius-sm);
+      cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    }
+    .access-radio-opt:has(input:checked) { border-color: var(--teal); background: var(--teal-10); }
+    .access-radio-opt input[type="radio"] { margin-top: 3px; accent-color: var(--teal); flex-shrink: 0; }
+    .access-radio-icon { font-size: 20px; flex-shrink: 0; }
+    .access-radio-text strong { display: block; font-size: var(--font-sm); font-weight: var(--weight-semibold); color: var(--dark-teal); }
+    .access-radio-text p { margin: 2px 0 0; font-size: var(--font-xs); color: var(--cutty-sark); }
+    .access-people-section { margin-top: 6px; }
+    .access-people-section[hidden] { display: none; }
+
+    /* ── Visibility badges on dash cards ─────────────────── */
+    .dv-visibility-badge {
+      font-size: 10px; padding: 2px 8px; border-radius: 10px;
+      cursor: pointer; white-space: nowrap; user-select: none;
+      font-weight: var(--weight-medium); transition: opacity 0.15s;
+    }
+    .dv-visibility-badge:hover { opacity: 0.8; }
+    .dv-visibility-badge--private { background: rgba(220,38,38,0.10); color: #DC2626; }
+    .dv-visibility-badge--public  { background: var(--teal-10); color: var(--teal); }
+
     /* ── Dashboards page ─────────────────────────────────── */
     .dash-grid-wrap { flex: 1; overflow-y: auto; padding: 20px 28px; }
     .dash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -1577,6 +1750,11 @@
     .dv-chevron { transition: transform 0.15s; flex-shrink: 0; }
     .dv-ctl-btn.open .dv-chevron { transform: rotate(180deg); }
     .dv-divider { width: 1px; height: 22px; background: var(--nebula); flex-shrink: 0; }
+    .dv-data-timestamp {
+      font-size: var(--font-xs); color: var(--cutty-sark); white-space: nowrap;
+      margin: 0 var(--space-2); opacity: 0.75; flex-shrink: 0;
+      font-style: italic; letter-spacing: 0.01em;
+    }
     .dv-ctl-btn {
       display: flex; align-items: center; gap: 6px;
       padding: 6px 12px; border-radius: 8px; border: 1px solid var(--nebula);
@@ -2412,6 +2590,25 @@
       </button>
     </div>
 
+    <!-- Notification bell -->
+    <div class="notif-wrapper" id="notif-wrapper">
+      <button class="notif-btn" id="notif-btn" onclick="toggleNotifPanel()" aria-label="Notifications" aria-expanded="false">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 1a5 5 0 0 1 5 5v2.5l1 2H2l1-2V6a5 5 0 0 1 5-5Z"/>
+          <path d="M6.5 13a1.5 1.5 0 0 0 3 0"/>
+        </svg>
+        <span class="notif-btn-label">Notifications</span>
+        <span class="notif-badge" id="notif-badge">3</span>
+      </button>
+      <div class="notif-panel" id="notif-panel" role="dialog" aria-label="Notifications">
+        <div class="notif-panel-header">
+          <span class="notif-panel-title">Notifications</span>
+          <button class="notif-mark-read" onclick="markAllRead()">Mark all read</button>
+        </div>
+        <ul class="notif-list" id="notif-list"></ul>
+      </div>
+    </div>
+
     <!-- Trigger button -->
     <button class="user-menu-btn" id="user-menu-btn" onclick="toggleUserMenu()">
       <div class="user-avatar">W</div>
@@ -2444,6 +2641,12 @@
         <span class="topbar-page-name">Kap AI</span>
       </div>
       <div class="topbar-right">
+        <button class="topbar-btn topbar-btn-wide" onclick="newChat()" aria-label="New Chat">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M6 1v10M1 6h10"/>
+          </svg>
+          <span>New Chat</span>
+        </button>
         <button class="topbar-btn" aria-label="History">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round">
             <path d="M1.75 7C1.75 8.03835 2.05791 9.05339 2.63478 9.91674C3.21166 10.7801 4.0316 11.453 4.99091 11.8504C5.95022 12.2477 7.00582 12.3517 8.02422 12.1491C9.04262 11.9466 9.97808 11.4465 10.7123 10.7123C11.4465 9.97808 11.9466 9.04262 12.1491 8.02422C12.3517 7.00582 12.2477 5.95022 11.8504 4.99091C11.453 4.0316 10.7801 3.21166 9.91674 2.63478C9.05339 2.05791 8.03835 1.75 7 1.75C5.53231 1.75552 4.12357 2.32821 3.06833 3.34833L1.75 4.66667"/>
@@ -2757,6 +2960,8 @@
           </svg>
           <input id="dv-search-input" placeholder="Search metrics…" oninput="dvSearch(this.value)" />
         </div>
+
+        <span class="dv-data-timestamp" id="dv-data-timestamp">Data as of —</span>
 
         <div class="dv-divider"></div>
 
@@ -3397,6 +3602,98 @@
   </div>
 </div>
 
+<!-- Send Dashboard via Email modal -->
+<div class="sq-overlay send-modal-overlay" id="send-dashboard-overlay" onclick="if(event.target===this)closeSendModal()">
+  <div class="send-modal-panel" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="send-modal-title">
+    <div class="send-modal-header">
+      <h3 class="send-modal-title" id="send-modal-title">Send Dashboard</h3>
+      <button class="send-modal-close" onclick="closeSendModal()" aria-label="Close">×</button>
+    </div>
+    <div class="send-modal-body">
+      <div>
+        <div class="send-field-label">Dashboard</div>
+        <span class="send-dash-name-badge" id="send-dash-name-badge"></span>
+      </div>
+      <div>
+        <div class="send-field-label">To</div>
+        <div class="send-chip-wrap" id="send-chip-wrap" onclick="document.getElementById('send-email-input').focus()">
+          <div id="send-chips-container"></div>
+          <input id="send-email-input" class="send-chip-input-el" type="email"
+                 placeholder="Add email address and press Enter…"
+                 onkeydown="handleSendChipKey(event)">
+        </div>
+      </div>
+      <div>
+        <div class="send-field-label">Message <span style="font-weight:400;opacity:0.55">(optional)</span></div>
+        <textarea id="send-message" class="send-msg-textarea" rows="3"
+                  placeholder="Add a message to the recipients…"></textarea>
+      </div>
+      <label class="send-attach-row">
+        <input type="checkbox" id="send-attach" checked>
+        Attach dashboard as PDF
+      </label>
+    </div>
+    <div class="send-modal-footer">
+      <button class="send-btn-cancel" onclick="closeSendModal()">Cancel</button>
+      <button class="send-btn-send" onclick="submitSendDashboard()">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1.5 1.5l10 5-10 5V8l7-2-7-2V1.5Z"/>
+        </svg>
+        Send
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard Access modal -->
+<div class="sq-overlay send-modal-overlay" id="access-modal-overlay" onclick="if(event.target===this)closeAccessModal()">
+  <div class="send-modal-panel" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="access-modal-title">
+    <div class="send-modal-header">
+      <h3 class="send-modal-title" id="access-modal-title">Dashboard Access</h3>
+      <button class="send-modal-close" onclick="closeAccessModal()" aria-label="Close">×</button>
+    </div>
+    <div class="send-modal-body">
+      <div>
+        <div class="send-field-label">Dashboard</div>
+        <span class="send-dash-name-badge" id="access-dash-name-badge"></span>
+      </div>
+      <div>
+        <div class="send-field-label" style="margin-bottom:8px">Access Level</div>
+        <div class="access-radio-group" id="access-radio-group">
+          <label class="access-radio-opt">
+            <input type="radio" name="access-vis" value="public" id="access-public">
+            <span class="access-radio-icon">🌐</span>
+            <div class="access-radio-text">
+              <strong>Public</strong>
+              <p>Visible to everyone in your organization</p>
+            </div>
+          </label>
+          <label class="access-radio-opt">
+            <input type="radio" name="access-vis" value="private" id="access-private">
+            <span class="access-radio-icon">🔒</span>
+            <div class="access-radio-text">
+              <strong>Private</strong>
+              <p>Only visible to you and selected people</p>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div class="access-people-section" id="access-people-section">
+        <div class="send-field-label">Shared with</div>
+        <div class="send-chip-wrap" onclick="document.getElementById('access-email-input').focus()">
+          <div id="access-chips-container"></div>
+          <input id="access-email-input" class="send-chip-input-el" type="email"
+                 placeholder="Add email…" onkeydown="handleAccessChipKey(event)">
+        </div>
+      </div>
+    </div>
+    <div class="send-modal-footer">
+      <button class="send-btn-cancel" onclick="closeAccessModal()">Cancel</button>
+      <button class="send-btn-send" onclick="saveAccess()">Save</button>
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast">
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -3565,6 +3862,7 @@ const state = {
   selectedCards:  new Set(),
   activeCategory: 'All',
   searchQuery:    '',
+  currentDashId:  null,     // tracks the open dashboard for Send modal
 };
 
 /* ── Saved queries mock data ─────────────────────────────── */
@@ -3633,14 +3931,14 @@ const QB_MOCK_ROWS = {
   ],
 };
 const DASHBOARDS_DATA = [
-  { id:'d1', name:'Agent Performance Overview',   desc:'Call volume, handle time, and resolution metrics',          tiles:4, updated:'2h ago',   mode:'manual', thumb:'hbar'      },
-  { id:'d2', name:'CSAT & Quality Tracker',       desc:'Customer satisfaction scores and quality audit results',    tiles:3, updated:'yesterday', mode:'manual', thumb:'donut73'   },
-  { id:'d3', name:'Volume & Trend Analysis',      desc:'Call volume patterns over time by channel',                tiles:3, updated:'6h ago',   mode:'manual', thumb:'area'      },
-  { id:'d4', name:'AI-Powered Insights',          desc:'AI-generated trend analysis and predictions',              tiles:5, updated:'3d ago',   mode:'ai',     thumb:'multiline'  },
-  { id:'d5', name:'Smart Escalation Monitor',     desc:'AI-detected escalation patterns and risk scores',          tiles:3, updated:'1w ago',   mode:'ai',     thumb:'scatter'    },
-  { id:'d6', name:'Operations Command Center',    desc:'Real-time hybrid view of operations and AI signals',       tiles:6, updated:'5h ago',   mode:'hybrid', thumb:'bar'        },
-  { id:'d7', name:'Compliance & Audit Board',     desc:'Regulation adherence with AI flagging assistance',         tiles:4, updated:'2d ago',   mode:'hybrid', thumb:'step'       },
-  { id:'d8', name:'Team Productivity Mix',        desc:'Manual KPIs combined with AI workload predictions',        tiles:5, updated:'4d ago',   mode:'hybrid', thumb:'area2'      },
+  { id:'d1', name:'Agent Performance Overview',   desc:'Call volume, handle time, and resolution metrics',          tiles:4, updated:'2h ago',   mode:'manual', thumb:'hbar',     visibility:'private' },
+  { id:'d2', name:'CSAT & Quality Tracker',       desc:'Customer satisfaction scores and quality audit results',    tiles:3, updated:'yesterday', mode:'manual', thumb:'donut73',  visibility:'public'  },
+  { id:'d3', name:'Volume & Trend Analysis',      desc:'Call volume patterns over time by channel',                tiles:3, updated:'6h ago',   mode:'manual', thumb:'area',     visibility:'public'  },
+  { id:'d4', name:'AI-Powered Insights',          desc:'AI-generated trend analysis and predictions',              tiles:5, updated:'3d ago',   mode:'ai',     thumb:'multiline', visibility:'private' },
+  { id:'d5', name:'Smart Escalation Monitor',     desc:'AI-detected escalation patterns and risk scores',          tiles:3, updated:'1w ago',   mode:'ai',     thumb:'scatter',   visibility:'private' },
+  { id:'d6', name:'Operations Command Center',    desc:'Real-time hybrid view of operations and AI signals',       tiles:6, updated:'5h ago',   mode:'hybrid', thumb:'bar',       visibility:'public'  },
+  { id:'d7', name:'Compliance & Audit Board',     desc:'Regulation adherence with AI flagging assistance',         tiles:4, updated:'2d ago',   mode:'hybrid', thumb:'step',      visibility:'private' },
+  { id:'d8', name:'Team Productivity Mix',        desc:'Manual KPIs combined with AI workload predictions',        tiles:5, updated:'4d ago',   mode:'hybrid', thumb:'area2',     visibility:'public'  },
 ];
 
 /* ── QB state ─────────────────────────────────────────────── */
@@ -4287,7 +4585,13 @@ function renderHome() {
       <div class="dash-card-desc">${d.desc}</div>
       <div class="dash-card-meta">
         <span class="home-mode-badge ${d.mode}">${modeLabel[d.mode] || d.mode}</span>
-        <span>·</span>
+        <span class="dv-visibility-badge dv-visibility-badge--${d.visibility || 'private'}"
+              onclick="event.stopPropagation();openAccessModal('${d.id}')"
+              role="button" tabindex="0"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();openAccessModal('${d.id}')}"
+              title="Click to manage access">
+          ${(d.visibility || 'private') === 'private' ? '🔒 Private' : '🌐 Public'}
+        </span>
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4.5h8M4 2v2.5M8 2v2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><rect x="1" y="3.5" width="10" height="7.5" rx="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
         ${d.updated}
         <span>·</span>${d.tiles} tiles
@@ -4635,6 +4939,7 @@ function renderDashboardView(d) {
 function openDashboard(id) {
   const d = DASHBOARDS_DATA.find(x => x.id === id);
   if (!d) return;
+  state.currentDashId = id;   // track for Send modal
   showToast(`Opening "${d.name}"…`);
   setTimeout(() => {
     // Hide home
@@ -4730,10 +5035,118 @@ document.addEventListener('click', function(e) {
   }
 });
 function dvSearch(val)     { /* live filter — cosmetic */ }
-function dvRefresh()       { showToast('Dashboard refreshed'); }
-function dvShare()         { showToast('Share link copied to clipboard!'); }
+function dvRefresh() {
+  const now   = new Date();
+  const label = now.toLocaleDateString('en-US', { month:'short', day:'numeric' })
+    + ', ' + now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+  const el = document.getElementById('dv-data-timestamp');
+  if (el) el.textContent = 'Data as of ' + label;
+  showToast('Dashboard refreshed');
+}
+function dvShare()         { openSendModal(); }
 function dvExport()        { showToast('Exporting dashboard as PDF…'); }
 function dvEdit()          { showToast('Opening dashboard editor…'); }
+
+/* ── F4: Send Dashboard via Email ───────────────────────────────── */
+let _sendDashId = null;
+function openSendModal() {
+  _sendDashId = state.currentDashId || (DASHBOARDS_DATA[0] && DASHBOARDS_DATA[0].id) || null;
+  const dash = _sendDashId ? DASHBOARDS_DATA.find(d => d.id === _sendDashId) : null;
+  document.getElementById('send-dash-name-badge').textContent = dash ? dash.name : 'Current Dashboard';
+  document.getElementById('send-chips-container').innerHTML = '';
+  document.getElementById('send-email-input').value = '';
+  document.getElementById('send-message').value = '';
+  document.getElementById('send-attach').checked = true;
+  document.getElementById('send-dashboard-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('send-email-input').focus(), 50);
+}
+function closeSendModal() {
+  document.getElementById('send-dashboard-overlay').classList.remove('open');
+}
+function handleSendChipKey(e) {
+  if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addSendChip(); }
+  if (e.key === 'Backspace' && e.target.value === '') removeSendChip();
+}
+function addSendChip() {
+  const inp = document.getElementById('send-email-input');
+  const val = inp.value.trim().replace(/,$/, '');
+  if (!val) return;
+  const chip = document.createElement('span');
+  chip.className = 'send-chip';
+  chip.innerHTML = `${escHtml(val)}<button class="send-chip-remove" onclick="this.parentElement.remove()" aria-label="Remove">×</button>`;
+  document.getElementById('send-chips-container').appendChild(chip);
+  inp.value = '';
+}
+function removeSendChip() {
+  const cont  = document.getElementById('send-chips-container');
+  const chips = cont.querySelectorAll('.send-chip');
+  if (chips.length) chips[chips.length - 1].remove();
+}
+function submitSendDashboard() {
+  // Flush any typed-but-not-confirmed email
+  addSendChip();
+  const chips = document.querySelectorAll('#send-chips-container .send-chip');
+  if (!chips.length) {
+    const wrap = document.getElementById('send-chip-wrap');
+    wrap.classList.add('shake');
+    wrap.addEventListener('animationend', () => wrap.classList.remove('shake'), { once: true });
+    document.getElementById('send-email-input').focus();
+    return;
+  }
+  closeSendModal();
+  showToast('Dashboard sent to ' + chips.length + ' recipient' + (chips.length > 1 ? 's' : ''));
+}
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ── F5: Dashboard Access modal ─────────────────────────────────── */
+let _accessDashId = null;
+function openAccessModal(dashId) {
+  _accessDashId = dashId;
+  const d = DASHBOARDS_DATA.find(x => x.id === dashId);
+  if (!d) return;
+  document.getElementById('access-dash-name-badge').textContent = d.name;
+  const vis = d.visibility || 'private';
+  document.getElementById('access-' + vis).checked = true;
+  toggleAccessPeople(vis);
+  document.getElementById('access-chips-container').innerHTML = '';
+  document.getElementById('access-email-input').value = '';
+  document.getElementById('access-modal-overlay').classList.add('open');
+  // Live toggle people section when radio changes
+  document.querySelectorAll('input[name="access-vis"]').forEach(r => {
+    r.onchange = () => toggleAccessPeople(r.value);
+  });
+}
+function closeAccessModal() {
+  document.getElementById('access-modal-overlay').classList.remove('open');
+}
+function toggleAccessPeople(val) {
+  const sec = document.getElementById('access-people-section');
+  if (sec) sec.hidden = (val !== 'private');
+}
+function handleAccessChipKey(e) {
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    const inp  = document.getElementById('access-email-input');
+    const val  = inp.value.trim().replace(/,$/, '');
+    if (!val) return;
+    const chip = document.createElement('span');
+    chip.className = 'send-chip';
+    chip.innerHTML = `${escHtml(val)}<button class="send-chip-remove" onclick="this.parentElement.remove()" aria-label="Remove">×</button>`;
+    document.getElementById('access-chips-container').appendChild(chip);
+    inp.value = '';
+  }
+}
+function saveAccess() {
+  const sel = document.querySelector('input[name="access-vis"]:checked');
+  if (!sel || !_accessDashId) return;
+  const d = DASHBOARDS_DATA.find(x => x.id === _accessDashId);
+  if (d) d.visibility = sel.value;
+  closeAccessModal();
+  renderHome();
+  showToast('Access updated to ' + sel.value);
+}
 
 function deleteDashboard(id) {
   const idx = DASHBOARDS_DATA.findIndex(d => d.id === id);
@@ -5404,6 +5817,81 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 3200);
 }
 
+/* ── Notifications ─────────────────────────────────────────────── */
+const NOTIF_DATA = [
+  { id:'n1', type:'error', title:'Data fetch failed',    desc:'Agent Performance dashboard failed to load data — 2h ago',    read: false },
+  { id:'n2', type:'error', title:'AI generation error',  desc:'CSAT Tracker: AI summary generation timed out — 5h ago',      read: false },
+  { id:'n3', type:'warn',  title:'Slow query detected',  desc:'Query "Top Agents" took 18s — consider optimization (yesterday)', read: false }
+];
+
+function initNotifications() {
+  renderNotifList();
+  // Close panel when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('#notif-wrapper')) {
+      document.getElementById('notif-panel')?.classList.remove('open');
+      document.getElementById('notif-btn')?.setAttribute('aria-expanded','false');
+    }
+  });
+}
+
+function renderNotifList() {
+  const list  = document.getElementById('notif-list');
+  const badge = document.getElementById('notif-badge');
+  if (!list) return;
+  const unread = NOTIF_DATA.filter(n => !n.read);
+  badge.textContent = unread.length || '';
+  badge.dataset.hidden = unread.length === 0 ? 'true' : 'false';
+  if (!NOTIF_DATA.length) {
+    list.innerHTML = '<li class="notif-empty">All caught up! No notifications.</li>';
+    return;
+  }
+  list.innerHTML = NOTIF_DATA.map(n => `
+    <li class="notif-item${n.read ? ' read' : ''}" id="notif-item-${n.id}">
+      <span class="notif-dot ${n.type}"></span>
+      <div class="notif-item-body">
+        <div class="notif-item-title">${n.title}</div>
+        <div class="notif-item-desc">${n.desc}</div>
+      </div>
+      <button class="notif-dismiss" onclick="dismissNotif('${n.id}')" aria-label="Dismiss">×</button>
+    </li>`).join('');
+}
+
+function toggleNotifPanel() {
+  const panel = document.getElementById('notif-panel');
+  const btn   = document.getElementById('notif-btn');
+  const open  = panel.classList.toggle('open');
+  btn.setAttribute('aria-expanded', String(open));
+}
+
+function dismissNotif(id) {
+  const idx = NOTIF_DATA.findIndex(n => n.id === id);
+  if (idx > -1) NOTIF_DATA.splice(idx, 1);
+  renderNotifList();
+  if (!NOTIF_DATA.length) {
+    document.getElementById('notif-panel')?.classList.remove('open');
+  }
+}
+
+function markAllRead() {
+  NOTIF_DATA.forEach(n => n.read = true);
+  renderNotifList();
+}
+
+/* ── Kap AI: new chat ───────────────────────────────────────────── */
+function newChat() {
+  const msgs = document.getElementById('chat-messages');
+  const inp  = document.getElementById('chat-input');
+  if (msgs) msgs.innerHTML = '';
+  if (inp)  { inp.value = ''; inp.style.height = ''; }
+  // Show hero / empty-state if it exists
+  const hero = document.querySelector('#view-kap-ai .hero-text');
+  const card = document.querySelector('#view-kap-ai .input-card');
+  if (hero) hero.style.display = '';
+  if (card) card.style.display = '';
+  showToast('New conversation started');
+}
+
 /* ── Sidebar drawer (tablet / mobile) ─────────────────────────── */
 function toggleSidebar() {
   const sidebar = document.querySelector('.sidebar');
@@ -5508,6 +5996,8 @@ document.querySelectorAll('.nav-item[data-nav]').forEach(btn => {
 renderCategoryFilters();
 renderCards();
 updateActionBar();
+initNotifications();
+dvRefresh();   // seed the "Data as of" timestamp on load
 </script>
 </body>
 </html>
