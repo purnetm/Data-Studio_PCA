@@ -19,7 +19,16 @@
       "Bash(git checkout main)",
       "Bash(git add .claude/settings.local.json)",
       "Bash(git commit -m \"Update settings\")",
-      "WebFetch(domain:localhost)"
+      "WebFetch(domain:localhost)",
+      "Bash(gh auth status)",
+      "Bash(start \"http://localhost:3000/#figmacapture=0907b2c8-ec4b-4097-880e-77346803b4d2&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2F0907b2c8-ec4b-4097-880e-77346803b4d2%2Fsubmit&figmadelay=1000\")",
+      "Bash(start \"http://localhost:3000/#figmacapture=5ea2dabc-00ba-434b-a33b-f6fbec082e79&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2F5ea2dabc-00ba-434b-a33b-f6fbec082e79%2Fsubmit&figmadelay=1000\")",
+      "Bash(start \"http://localhost:3000/#figmacapture=662e588e-a16c-4c54-9d86-3c03950e7d95&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2F662e588e-a16c-4c54-9d86-3c03950e7d95%2Fsubmit&figmadelay=1000\")",
+      "Bash(start \"http://localhost:3000/#figmacapture=f7dcf26d-1b08-475a-81c7-1b5ada6cefaf&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2Ff7dcf26d-1b08-475a-81c7-1b5ada6cefaf%2Fsubmit&figmadelay=1000\")",
+      "Bash(start \"http://localhost:3000/#figmacapture=32dd2240-bc2a-40cc-b62a-2872d466a92f&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2F32dd2240-bc2a-40cc-b62a-2872d466a92f%2Fsubmit&figmadelay=1000\")",
+      "Bash(start \"http://localhost:3000/#figmacapture=d4c6eb03-96c1-4c7a-abcc-a5a49f80a963&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2Fd4c6eb03-96c1-4c7a-abcc-a5a49f80a963%2Fsubmit&figmadelay=1000\")",
+      "Bash(cut -d';' -f1)",
+      "Bash(cut -d'\\)' -f1)"
     ]
   }
 }
