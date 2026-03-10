@@ -28,7 +28,15 @@
       "Bash(start \"http://localhost:3000/#figmacapture=32dd2240-bc2a-40cc-b62a-2872d466a92f&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2F32dd2240-bc2a-40cc-b62a-2872d466a92f%2Fsubmit&figmadelay=1000\")",
       "Bash(start \"http://localhost:3000/#figmacapture=d4c6eb03-96c1-4c7a-abcc-a5a49f80a963&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2Fd4c6eb03-96c1-4c7a-abcc-a5a49f80a963%2Fsubmit&figmadelay=1000\")",
       "Bash(cut -d';' -f1)",
-      "Bash(cut -d'\\)' -f1)"
+      "Bash(cut -d'\\)' -f1)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File tokenize.ps1)",
+      "Bash(ForEach-Object { $_.Value })",
+      "Bash(Sort-Object)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File check.ps1)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File tokenize2.ps1)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File verify.ps1)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File verify2.ps1)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File tokenize3.ps1)"
     ]
   }
 }
