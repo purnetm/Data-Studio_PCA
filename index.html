@@ -2295,7 +2295,6 @@
       padding: 0 var(--space-9); height: 56px;
       border-bottom: 1px solid var(--nebula);
       background: linear-gradient(135deg, #fff 0%, var(--bg-light) 100%);
-      border-left: 3px solid var(--teal);
     }
     .ge-topbar-brand { display: flex; align-items: center; gap: var(--space-5); }
     .ge-topbar-title { font-size: var(--font-xl); font-weight: var(--weight-bold); color: var(--dark-teal); letter-spacing: var(--letter-tight); }
@@ -2341,10 +2340,6 @@
       border-radius: 14px; overflow: hidden;
       box-shadow: 0 2px 10px rgba(77,182,172,0.08), 0 1px 3px rgba(0,0,0,0.04);
     }
-    /* Accent top borders per step */
-    #ge-steps-row > .ge-step-card:first-child { border-top: 2.5px solid var(--teal); }
-    #qbs-cols { border-top: 2.5px solid var(--accent-info); }
-    .ge-step-card-ai { border-top: 2.5px solid #A78BFA; }
     .ge-step-hd {
       display: flex; align-items: center; gap: var(--space-5);
       padding: var(--space-7) var(--space-8);
@@ -2423,7 +2418,7 @@
     .ge-main-pane { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
 
     /* AI side panel — full-height independent panel, right side of the row */
-    #nq-col-ai { width: 340px; flex: none; align-self: stretch; display: flex; flex-direction: column; border-radius: 0; border: none; border-left: 1.5px solid var(--nebula); box-shadow: none; background: var(--surface); border-top: 2.5px solid #A78BFA; }
+    #nq-col-ai { width: 340px; flex: none; align-self: stretch; display: flex; flex-direction: column; border-radius: 0; border: none; border-left: 1.5px solid var(--nebula); box-shadow: none; background: var(--surface); }
     /* White header — matches left nav bar, no teal gradient */
     #nq-col-ai .ge-step-hd { height: 56px; padding: 0 var(--space-7) 0 var(--space-8); flex-shrink: 0; background: linear-gradient(135deg, #fff 0%, rgba(167,139,250,0.04) 100%); }
     /* Body: two-zone layout — scrollable conversation above, pinned footer below */
