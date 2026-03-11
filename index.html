@@ -296,25 +296,28 @@
     }
 
     /* ── Notification bell ─────────────────────────────────────── */
-    .notif-wrapper { position: relative; padding: 0 var(--space-3) var(--space-2); }
+    .notif-wrapper { position: relative; display: flex; align-items: center; }
     .notif-btn {
-      position: relative; width: 100%; height: 36px; border-radius: var(--radius-sm);
-      border: none; background: transparent; cursor: pointer; color: var(--cutty-sark);
-      display: flex; align-items: center; gap: var(--space-3); padding: 0 var(--space-3);
-      font-family: 'Inter', sans-serif; font-size: var(--font-sm); transition: background 0.15s, color 0.15s;
+      position: relative; width: 28px; height: 28px; border-radius: 10px;
+      border: 1px solid var(--teal);
+      background: transparent; cursor: pointer; color: var(--cutty-sark);
+      display: flex; align-items: center; justify-content: center; padding: 0;
+      transition: background 0.15s, color 0.15s;
     }
     .notif-btn:hover { background: var(--teal-10); color: var(--teal); }
     .notif-btn:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
-    .notif-btn-label { font-weight: var(--weight-medium); }
+    .notif-btn-label { display: none; }
     .notif-badge {
-      min-width: 18px; height: 18px; background: var(--status-negative);
-      color: #fff; font-size: 10px; font-weight: var(--weight-semibold); border-radius: 9px;
-      display: inline-flex; align-items: center; justify-content: center; padding: 0 var(--space-1);
-      margin-left: auto;
+      position: absolute; top: -4px; right: -4px;
+      min-width: 15px; height: 15px; background: var(--status-negative);
+      color: #fff; font-size: 9px; font-weight: var(--weight-semibold); border-radius: 8px;
+      display: inline-flex; align-items: center; justify-content: center; padding: 0 3px;
+      border: 1.5px solid #fff; pointer-events: none;
     }
     .notif-badge[data-hidden="true"] { display: none; }
     .notif-panel {
-      position: absolute; bottom: calc(100% + 8px); left: 8px; right: 8px;
+      position: absolute; top: calc(100% + 8px); right: 0;
+      width: 320px;
       background: #fff; border: 1px solid var(--nebula); border-radius: var(--radius-md);
       box-shadow: 0 8px 24px rgba(31,65,65,0.14), 0 2px 8px rgba(31,65,65,0.08);
       display: none; flex-direction: column; z-index: 200; overflow: hidden;
@@ -341,7 +344,8 @@
       width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: var(--space-1);
     }
     .notif-dot.error { background: var(--status-negative); }
-    .notif-dot.warn  { background: #F59E0B; }
+    .notif-dot.warn  { background: var(--accent-warning); }
+    .notif-dot.info  { background: var(--accent-info); }
     .notif-item-body { flex: 1; min-width: 0; }
     .notif-item-title { font-size: var(--font-sm); font-weight: var(--weight-medium); color: var(--dark-teal); }
     .notif-item-desc  { font-size: var(--font-xs); color: var(--cutty-sark); margin-top: 2px; line-height: 1.45; }
@@ -529,10 +533,10 @@
       font-weight: var(--weight-medium);
       transition: background 0.2s, border-color 0.2s;
     }
-    .insight-row.level-1 { background: rgba(77,182,172,0.90); border: 1px solid rgba(77,182,172,0.40); color: #fff; }
-    .insight-row.level-2 { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.25); color: var(--dark-teal); }
-    .insight-row.level-3 { background: rgba(220,38,38,0.10); border: 1px solid rgba(220,38,38,0.20); color: var(--dark-teal); }
-    .insight-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; margin-right: var(--space-6); opacity: 0.8; }
+    .insight-row.level-1 { background: rgba(77,182,172,0.82); border: 1px solid rgba(77,182,172,0.35); color: #fff; }
+    .insight-row.level-2 { background: rgba(77,182,172,0.42); border: 1px solid rgba(77,182,172,0.20); color: var(--dark-teal); }
+    .insight-row.level-3 { background: rgba(77,182,172,0.16); border: 1px solid rgba(77,182,172,0.10); color: var(--dark-teal); }
+    .insight-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; margin-right: var(--space-6); opacity: 0.75; }
     .insight-text { font-size: var(--font-sm); font-weight: var(--weight-medium); color: inherit; line-height: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     /* ══════════════════════════════════════════════════════════════
@@ -1922,8 +1926,8 @@
       font-size: var(--font-xs); font-weight: var(--weight-semibold);
       padding: 2px 7px; border-radius: 20px; flex-shrink: 0;
     }
-    .dv-kpi-delta.up   { color: #15803D; background: rgba(22,163,74,0.10); }
-    .dv-kpi-delta.down { color: #B91C1C; background: rgba(220,38,38,0.10); }
+    .dv-kpi-delta.up   { color: var(--accent-success); background: rgba(16,185,129,0.10); }
+    .dv-kpi-delta.down { color: var(--status-negative); background: rgba(220,38,38,0.10); }
     .dv-kpi-val { font-size: 26px; font-weight: var(--weight-bold); color: var(--dark-teal); line-height: 1.15; flex: 1; }
     .dv-kpi-footer {
       display: flex; align-items: flex-end; justify-content: space-between;
@@ -1984,7 +1988,7 @@
     }
     .dv-hbar-fill {
       height: 100%; border-radius: 4px;
-      background: linear-gradient(to right, var(--teal), rgba(77,182,172,0.65));
+      background: var(--teal);
       transition: width 0.55s cubic-bezier(.4,0,.2,1);
     }
     .dv-hbar-val { font-size: var(--font-xs); font-weight: var(--weight-semibold); color: var(--dark-teal); width: 30px; text-align: right; flex-shrink: 0; }
@@ -2003,10 +2007,10 @@
       display: inline-flex; align-items: center;
       padding: 2px var(--space-3); border-radius: 10px; font-size: 10px; font-weight: var(--weight-semibold); white-space: nowrap;
     }
-    .dv-status-badge.open     { background: rgba(77,182,172,0.12); color: var(--teal); }
-    .dv-status-badge.resolved { background: rgba(22,163,74,0.10);  color: #16A34A; }
-    .dv-status-badge.pending  { background: rgba(234,179,8,0.12);   color: #B45309; }
-    .dv-status-badge.escalated{ background: rgba(220,38,38,0.10);   color: #DC2626; }
+    .dv-status-badge.open     { background: rgba(59,130,246,0.10);  color: var(--accent-info); }
+    .dv-status-badge.resolved { background: rgba(16,185,129,0.10);  color: var(--accent-success); }
+    .dv-status-badge.pending  { background: rgba(245,158,11,0.12);  color: var(--accent-warning); }
+    .dv-status-badge.escalated{ background: rgba(220,38,38,0.10);   color: var(--status-negative); }
 
     /* Responsive */
     @media (max-width: 900px) {
@@ -2695,25 +2699,6 @@
       </button>
     </div>
 
-    <!-- Notification bell -->
-    <div class="notif-wrapper" id="notif-wrapper">
-      <button class="notif-btn" id="notif-btn" onclick="toggleNotifPanel()" aria-label="Notifications" aria-expanded="false">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M8 1a5 5 0 0 1 5 5v2.5l1 2H2l1-2V6a5 5 0 0 1 5-5Z"/>
-          <path d="M6.5 13a1.5 1.5 0 0 0 3 0"/>
-        </svg>
-        <span class="notif-btn-label">Notifications</span>
-        <span class="notif-badge" id="notif-badge">3</span>
-      </button>
-      <div class="notif-panel" id="notif-panel" role="dialog" aria-label="Notifications">
-        <div class="notif-panel-header">
-          <span class="notif-panel-title">Notifications</span>
-          <button class="notif-mark-read" onclick="markAllRead()">Mark all read</button>
-        </div>
-        <ul class="notif-list" id="notif-list"></ul>
-      </div>
-    </div>
-
     <!-- Trigger button -->
     <button class="user-menu-btn" id="user-menu-btn" onclick="toggleUserMenu()">
       <div class="user-avatar">W</div>
@@ -2746,12 +2731,23 @@
         <span class="topbar-page-name">Kap AI</span>
       </div>
       <div class="topbar-right">
-        <button class="topbar-btn topbar-btn-wide" onclick="newChat()" aria-label="New Chat">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <path d="M6 1v10M1 6h10"/>
-          </svg>
-          <span>New Chat</span>
-        </button>
+        <div class="notif-wrapper" id="notif-wrapper">
+          <button class="notif-btn" id="notif-btn" onclick="toggleNotifPanel()" aria-label="Notifications" aria-expanded="false">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 1a5 5 0 0 1 5 5v2.5l1 2H2l1-2V6a5 5 0 0 1 5-5Z"/>
+              <path d="M6.5 13a1.5 1.5 0 0 0 3 0"/>
+            </svg>
+            <span class="notif-btn-label">Notifications</span>
+            <span class="notif-badge" id="notif-badge">3</span>
+          </button>
+          <div class="notif-panel" id="notif-panel" role="dialog" aria-label="Notifications">
+            <div class="notif-panel-header">
+              <span class="notif-panel-title">Notifications</span>
+              <button class="notif-mark-read" onclick="markAllRead()">Mark all read</button>
+            </div>
+            <ul class="notif-list" id="notif-list"></ul>
+          </div>
+        </div>
         <button class="topbar-btn" aria-label="History">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round">
             <path d="M1.75 7C1.75 8.03835 2.05791 9.05339 2.63478 9.91674C3.21166 10.7801 4.0316 11.453 4.99091 11.8504C5.95022 12.2477 7.00582 12.3517 8.02422 12.1491C9.04262 11.9466 9.97808 11.4465 10.7123 10.7123C11.4465 9.97808 11.9466 9.04262 12.1491 8.02422C12.3517 7.00582 12.2477 5.95022 11.8504 4.99091C11.453 4.0316 10.7801 3.21166 9.91674 2.63478C9.05339 2.05791 8.03835 1.75 7 1.75C5.53231 1.75552 4.12357 2.32821 3.06833 3.34833L1.75 4.66667"/>
@@ -3812,21 +3808,21 @@
 /* ── SVG helpers ─────────────────────────────────────────────── */
 const SVGS = {
   bar: `<svg width="100%" height="66" viewBox="0 0 180 66" preserveAspectRatio="none">
-    <rect x="5"   y="40" width="20" height="26" rx="3" fill="rgba(77,182,172,0.22)"/>
-    <rect x="33"  y="26" width="20" height="40" rx="3" fill="rgba(77,182,172,0.38)"/>
-    <rect x="61"  y="10" width="20" height="56" rx="3" fill="rgba(77,182,172,0.60)"/>
-    <rect x="89"  y="18" width="20" height="48" rx="3" fill="rgba(77,182,172,0.50)"/>
-    <rect x="117" y="4"  width="20" height="62" rx="3" fill="#4DB6AC"/>
-    <rect x="145" y="22" width="20" height="44" rx="3" fill="rgba(77,182,172,0.40)"/>
+    <rect x="5"   y="40" width="20" height="26" rx="3" fill="#3B82F6" opacity="0.75"/>
+    <rect x="33"  y="26" width="20" height="40" rx="3" fill="#10B981" opacity="0.80"/>
+    <rect x="61"  y="10" width="20" height="56" rx="3" fill="#4DB6AC"/>
+    <rect x="89"  y="18" width="20" height="48" rx="3" fill="#F59E0B" opacity="0.85"/>
+    <rect x="117" y="4"  width="20" height="62" rx="3" fill="#A78BFA"/>
+    <rect x="145" y="22" width="20" height="44" rx="3" fill="#F87171" opacity="0.80"/>
   </svg>`,
 
   bar2: `<svg width="100%" height="66" viewBox="0 0 180 66" preserveAspectRatio="none">
     <rect x="5"   y="20" width="20" height="46" rx="3" fill="#4DB6AC"/>
-    <rect x="33"  y="30" width="20" height="36" rx="3" fill="rgba(77,182,172,0.55)"/>
-    <rect x="61"  y="14" width="20" height="52" rx="3" fill="rgba(77,182,172,0.45)"/>
-    <rect x="89"  y="36" width="20" height="30" rx="3" fill="rgba(77,182,172,0.65)"/>
-    <rect x="117" y="8"  width="20" height="58" rx="3" fill="rgba(77,182,172,0.35)"/>
-    <rect x="145" y="24" width="20" height="42" rx="3" fill="rgba(77,182,172,0.50)"/>
+    <rect x="33"  y="30" width="20" height="36" rx="3" fill="#A78BFA" opacity="0.85"/>
+    <rect x="61"  y="14" width="20" height="52" rx="3" fill="#3B82F6" opacity="0.80"/>
+    <rect x="89"  y="36" width="20" height="30" rx="3" fill="#10B981" opacity="0.85"/>
+    <rect x="117" y="8"  width="20" height="58" rx="3" fill="#F59E0B" opacity="0.80"/>
+    <rect x="145" y="24" width="20" height="42" rx="3" fill="#F87171" opacity="0.75"/>
   </svg>`,
 
   area: `<svg width="100%" height="66" viewBox="0 0 200 66" preserveAspectRatio="none">
@@ -3835,11 +3831,19 @@ const SVGS = {
         <stop offset="0%" stop-color="#4DB6AC" stop-opacity="0.28"/>
         <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0.02"/>
       </linearGradient>
+      <linearGradient id="ag1b" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.16"/>
+        <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.01"/>
+      </linearGradient>
     </defs>
+    <path d="M0 58 C30 56 50 48 70 50 C90 52 120 40 155 36 L200 30 L200 66 L0 66 Z" fill="url(#ag1b)"/>
+    <path d="M0 58 C30 56 50 48 70 50 C90 52 120 40 155 36 L200 30"
+      stroke="#3B82F6" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 3" opacity="0.55"/>
     <path d="M0 55 C30 50 50 36 70 40 C90 44 120 20 155 14 L200 8 L200 66 L0 66 Z" fill="url(#ag1)"/>
     <path d="M0 55 C30 50 50 36 70 40 C90 44 120 20 155 14 L200 8"
       stroke="#4DB6AC" stroke-width="2" fill="none" stroke-linecap="round"/>
     <circle cx="200" cy="8" r="3.5" fill="#4DB6AC"/>
+    <circle cx="200" cy="30" r="2.5" fill="#3B82F6" opacity="0.70"/>
   </svg>`,
 
   area2: `<svg width="100%" height="66" viewBox="0 0 200 66" preserveAspectRatio="none">
@@ -3848,24 +3852,32 @@ const SVGS = {
         <stop offset="0%" stop-color="#4DB6AC" stop-opacity="0.25"/>
         <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0.02"/>
       </linearGradient>
+      <linearGradient id="ag2b" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#A78BFA" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#A78BFA" stop-opacity="0.01"/>
+      </linearGradient>
     </defs>
+    <path d="M0 52 C25 50 40 60 65 56 C90 52 110 42 140 38 C160 34 180 44 200 36 L200 66 L0 66 Z" fill="url(#ag2b)"/>
+    <path d="M0 52 C25 50 40 60 65 56 C90 52 110 42 140 38 C160 34 180 44 200 36"
+      stroke="#A78BFA" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 3" opacity="0.55"/>
     <path d="M0 45 C25 42 40 55 65 50 C90 44 110 28 140 22 C160 18 180 30 200 18 L200 66 L0 66 Z" fill="url(#ag2)"/>
     <path d="M0 45 C25 42 40 55 65 50 C90 44 110 28 140 22 C160 18 180 30 200 18"
       stroke="#4DB6AC" stroke-width="2" fill="none" stroke-linecap="round"/>
     <circle cx="200" cy="18" r="3.5" fill="#4DB6AC"/>
+    <circle cx="200" cy="36" r="2.5" fill="#A78BFA" opacity="0.70"/>
   </svg>`,
 
   donut73: `<svg width="66" height="66" viewBox="0 0 66 66">
-    <circle cx="33" cy="33" r="24" fill="none" stroke="rgba(77,182,172,0.14)" stroke-width="9"/>
-    <circle cx="33" cy="33" r="24" fill="none" stroke="#4DB6AC" stroke-width="9"
+    <circle cx="33" cy="33" r="24" fill="none" stroke="rgba(16,185,129,0.14)" stroke-width="9"/>
+    <circle cx="33" cy="33" r="24" fill="none" stroke="#10B981" stroke-width="9"
       stroke-dasharray="110 41" stroke-linecap="round" transform="rotate(-90 33 33)"/>
     <text x="33" y="37" text-anchor="middle" font-size="12" font-weight="700"
       fill="#1F4141" font-family="Inter,sans-serif">73%</text>
   </svg>`,
 
   donut68: `<svg width="66" height="66" viewBox="0 0 66 66">
-    <circle cx="33" cy="33" r="24" fill="none" stroke="rgba(77,182,172,0.14)" stroke-width="9"/>
-    <circle cx="33" cy="33" r="24" fill="none" stroke="#4DB6AC" stroke-width="9"
+    <circle cx="33" cy="33" r="24" fill="none" stroke="rgba(167,139,250,0.16)" stroke-width="9"/>
+    <circle cx="33" cy="33" r="24" fill="none" stroke="#A78BFA" stroke-width="9"
       stroke-dasharray="102 49" stroke-linecap="round" transform="rotate(-90 33 33)"/>
     <text x="33" y="37" text-anchor="middle" font-size="12" font-weight="700"
       fill="#1F4141" font-family="Inter,sans-serif">68%</text>
@@ -3874,34 +3886,28 @@ const SVGS = {
   hbar: `<svg width="100%" height="66" viewBox="0 0 180 66" preserveAspectRatio="none">
     <line x1="30" y1="2" x2="30" y2="64" stroke="rgba(77,182,172,0.18)" stroke-width="1"/>
     <rect x="32" y="5"  width="118" height="10" rx="2.5" fill="#4DB6AC"/>
-    <rect x="32" y="20" width="82"  height="10" rx="2.5" fill="rgba(77,182,172,0.68)"/>
-    <rect x="32" y="35" width="104" height="10" rx="2.5" fill="rgba(77,182,172,0.52)"/>
-    <rect x="32" y="50" width="58"  height="10" rx="2.5" fill="rgba(77,182,172,0.38)"/>
+    <rect x="32" y="20" width="82"  height="10" rx="2.5" fill="#3B82F6" opacity="0.85"/>
+    <rect x="32" y="35" width="104" height="10" rx="2.5" fill="#10B981" opacity="0.85"/>
+    <rect x="32" y="50" width="58"  height="10" rx="2.5" fill="#A78BFA" opacity="0.80"/>
     <rect x="2" y="7"  width="22" height="4" rx="2" fill="rgba(77,182,172,0.20)"/>
-    <rect x="2" y="22" width="18" height="4" rx="2" fill="rgba(77,182,172,0.16)"/>
-    <rect x="2" y="37" width="20" height="4" rx="2" fill="rgba(77,182,172,0.16)"/>
-    <rect x="2" y="52" width="16" height="4" rx="2" fill="rgba(77,182,172,0.13)"/>
+    <rect x="2" y="22" width="18" height="4" rx="2" fill="rgba(59,130,246,0.18)"/>
+    <rect x="2" y="37" width="20" height="4" rx="2" fill="rgba(16,185,129,0.18)"/>
+    <rect x="2" y="52" width="16" height="4" rx="2" fill="rgba(167,139,250,0.18)"/>
   </svg>`,
 
   scatter: `<svg width="100%" height="66" viewBox="0 0 180 66" preserveAspectRatio="none">
-    <defs>
-      <radialGradient id="rg1" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#4DB6AC" stop-opacity="0.9"/>
-        <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0.3"/>
-      </radialGradient>
-    </defs>
     <line x1="0" y1="16" x2="180" y2="16" stroke="rgba(77,182,172,0.07)" stroke-width="1"/>
     <line x1="0" y1="33" x2="180" y2="33" stroke="rgba(77,182,172,0.07)" stroke-width="1"/>
     <line x1="0" y1="50" x2="180" y2="50" stroke="rgba(77,182,172,0.07)" stroke-width="1"/>
-    <circle cx="18"  cy="50" r="5"   fill="rgba(77,182,172,0.32)"/>
-    <circle cx="42"  cy="37" r="7.5" fill="rgba(77,182,172,0.50)"/>
-    <circle cx="62"  cy="56" r="3.5" fill="rgba(77,182,172,0.28)"/>
-    <circle cx="80"  cy="20" r="9"   fill="url(#rg1)"/>
-    <circle cx="102" cy="43" r="5.5" fill="rgba(77,182,172,0.44)"/>
-    <circle cx="120" cy="10" r="7.5" fill="rgba(77,182,172,0.68)"/>
-    <circle cx="140" cy="30" r="4"   fill="rgba(77,182,172,0.38)"/>
-    <circle cx="160" cy="50" r="6"   fill="#4DB6AC"/>
-    <circle cx="172" cy="18" r="3"   fill="rgba(77,182,172,0.48)"/>
+    <circle cx="18"  cy="50" r="5"   fill="#A78BFA" opacity="0.70"/>
+    <circle cx="42"  cy="37" r="7.5" fill="#3B82F6" opacity="0.75"/>
+    <circle cx="62"  cy="56" r="3.5" fill="#F87171" opacity="0.65"/>
+    <circle cx="80"  cy="20" r="9"   fill="#4DB6AC" opacity="0.88"/>
+    <circle cx="102" cy="43" r="5.5" fill="#F59E0B" opacity="0.75"/>
+    <circle cx="120" cy="10" r="7.5" fill="#10B981" opacity="0.80"/>
+    <circle cx="140" cy="30" r="4"   fill="#3B82F6" opacity="0.60"/>
+    <circle cx="160" cy="50" r="6"   fill="#A78BFA" opacity="0.80"/>
+    <circle cx="172" cy="18" r="3"   fill="#4DB6AC" opacity="0.65"/>
   </svg>`,
 
   multiline: `<svg width="100%" height="66" viewBox="0 0 200 66" preserveAspectRatio="none">
@@ -3910,25 +3916,27 @@ const SVGS = {
     <path d="M0 50 C30 47 52 34 82 28 C112 23 132 38 162 20 L200 13"
       stroke="#4DB6AC" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M0 58 C28 54 46 49 76 44 C102 39 132 53 166 38 L200 33"
-      stroke="rgba(77,182,172,0.42)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 3"/>
+      stroke="#3B82F6" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 3" opacity="0.70"/>
+    <path d="M0 42 C32 38 60 52 90 36 C118 22 148 44 200 24"
+      stroke="#A78BFA" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.60"/>
     <circle cx="82"  cy="28" r="2.5" fill="#4DB6AC"/>
     <circle cx="162" cy="20" r="2.5" fill="#4DB6AC"/>
     <circle cx="200" cy="13" r="3"   fill="#4DB6AC"/>
-    <circle cx="76"  cy="44" r="2"   fill="rgba(77,182,172,0.55)"/>
-    <circle cx="200" cy="33" r="2"   fill="rgba(77,182,172,0.55)"/>
+    <circle cx="76"  cy="44" r="2"   fill="#3B82F6" opacity="0.70"/>
+    <circle cx="200" cy="33" r="2"   fill="#3B82F6" opacity="0.70"/>
   </svg>`,
 
   step: `<svg width="100%" height="66" viewBox="0 0 180 66" preserveAspectRatio="none">
     <line x1="0" y1="62" x2="180" y2="62" stroke="rgba(77,182,172,0.20)" stroke-width="1"/>
-    <rect x="4"   y="54" width="21" height="8"  rx="1.5" fill="rgba(77,182,172,0.22)"/>
-    <rect x="29"  y="40" width="21" height="22" rx="1.5" fill="rgba(77,182,172,0.38)"/>
-    <rect x="54"  y="22" width="21" height="40" rx="1.5" fill="rgba(77,182,172,0.60)"/>
+    <rect x="4"   y="54" width="21" height="8"  rx="1.5" fill="#A78BFA" opacity="0.55"/>
+    <rect x="29"  y="40" width="21" height="22" rx="1.5" fill="#3B82F6" opacity="0.70"/>
+    <rect x="54"  y="22" width="21" height="40" rx="1.5" fill="#10B981" opacity="0.80"/>
     <rect x="79"  y="10" width="21" height="52" rx="1.5" fill="#4DB6AC"/>
-    <rect x="104" y="26" width="21" height="36" rx="1.5" fill="rgba(77,182,172,0.52)"/>
-    <rect x="129" y="46" width="21" height="16" rx="1.5" fill="rgba(77,182,172,0.32)"/>
-    <rect x="154" y="57" width="22" height="5"  rx="1.5" fill="rgba(77,182,172,0.18)"/>
+    <rect x="104" y="26" width="21" height="36" rx="1.5" fill="#F59E0B" opacity="0.75"/>
+    <rect x="129" y="46" width="21" height="16" rx="1.5" fill="#F87171" opacity="0.65"/>
+    <rect x="154" y="57" width="22" height="5"  rx="1.5" fill="#A78BFA" opacity="0.45"/>
     <path d="M4 56 C30 46 55 16 90 10 C120 10 150 44 176 59"
-      stroke="rgba(77,182,172,0.30)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      stroke="rgba(77,182,172,0.35)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
   </svg>`,
 };
 
@@ -4722,6 +4730,9 @@ function setHomeTab(tab) {
 ══════════════════════════════════════════════════════════════ */
 
 /* Per-dashboard config data */
+/* ── Chart colour palette ─────────────────────────────────────── */
+const CHART_PALETTE = ['#4DB6AC','#3B82F6','#10B981','#F59E0B','#A78BFA','#F87171'];
+
 const DV_CONFIGS = {
   default: {
     kpis: [
@@ -4734,9 +4745,9 @@ const DV_CONFIGS = {
     donutTitle:'Channel Breakdown', donutSub:'Tickets by source channel',
     donutData:[
       { label:'Chat',  val:'42%', color:'#4DB6AC' },
-      { label:'Email', val:'28%', color:'#80CBC4' },
-      { label:'Voice', val:'18%', color:'#B2DFDB' },
-      { label:'Other', val:'12%', color:'#CFE8E6' },
+      { label:'Email', val:'28%', color:'#3B82F6' },
+      { label:'Voice', val:'18%', color:'#10B981' },
+      { label:'Other', val:'12%', color:'#A78BFA' },
     ],
     barTitle:'Agent Performance', barSub:'Tickets resolved · last 7 days',
     barData:[
@@ -4759,10 +4770,10 @@ const DV_CONFIGS = {
     areaTitle:'AI Resolution Trend', areaSub:'AI-handled vs human-escalated tickets over time',
     donutTitle:'Resolution Method', donutSub:'Auto-resolved vs handoff breakdown',
     donutData:[
-      { label:'AI Resolved',  val:'57%', color:'#4DB6AC' },
-      { label:'Human Handoff',val:'25%', color:'#80CBC4' },
-      { label:'Hybrid',       val:'13%', color:'#B2DFDB' },
-      { label:'Escalated',    val:'5%',  color:'#CFE8E6' },
+      { label:'AI Resolved',  val:'57%', color:'#10B981' },
+      { label:'Human Handoff',val:'25%', color:'#4DB6AC' },
+      { label:'Hybrid',       val:'13%', color:'#3B82F6' },
+      { label:'Escalated',    val:'5%',  color:'#F87171' },
     ],
     barTitle:'AI Confidence by Category', barSub:'Classification confidence score per category',
     barData:[
@@ -4786,9 +4797,9 @@ const DV_CONFIGS = {
     donutTitle:'Handling Mode Split', donutSub:'How tickets were resolved this period',
     donutData:[
       { label:'Manual',  val:'38%', color:'#4DB6AC' },
-      { label:'AI Auto', val:'35%', color:'#80CBC4' },
-      { label:'Hybrid',  val:'20%', color:'#B2DFDB' },
-      { label:'Pending', val:'7%',  color:'#CFE8E6' },
+      { label:'AI Auto', val:'35%', color:'#A78BFA' },
+      { label:'Hybrid',  val:'20%', color:'#3B82F6' },
+      { label:'Pending', val:'7%',  color:'#F59E0B' },
     ],
     barTitle:'Team Throughput', barSub:'Tickets handled per team · this week',
     barData:[
@@ -4845,18 +4856,18 @@ function dvAreaChart(xLabels) {
         <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0.01"/>
       </linearGradient>
       <linearGradient id="dvg2" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#4DB6AC" stop-opacity="0.07"/>
-        <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0"/>
+        <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.08"/>
+        <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
       </linearGradient>
     </defs>
-    <line x1="0" y1="24" x2="556" y2="24" stroke="rgba(77,182,172,0.09)" stroke-width="1" stroke-dasharray="4 3"/>
-    <line x1="0" y1="48" x2="556" y2="48" stroke="rgba(77,182,172,0.09)" stroke-width="1" stroke-dasharray="4 3"/>
-    <line x1="0" y1="72" x2="556" y2="72" stroke="rgba(77,182,172,0.09)" stroke-width="1" stroke-dasharray="4 3"/>
-    <line x1="0" y1="96" x2="556" y2="96" stroke="rgba(77,182,172,0.09)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="0" y1="24" x2="556" y2="24" stroke="rgba(77,182,172,0.08)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="0" y1="48" x2="556" y2="48" stroke="rgba(77,182,172,0.08)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="0" y1="72" x2="556" y2="72" stroke="rgba(77,182,172,0.08)" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="0" y1="96" x2="556" y2="96" stroke="rgba(77,182,172,0.08)" stroke-width="1" stroke-dasharray="4 3"/>
     <!-- Previous period -->
     <path d="M0 78 C70 70 130 60 200 66 C270 72 330 50 400 54 C450 57 510 42 556 46 L556 110 L0 110 Z" fill="url(#dvg2)"/>
     <path d="M0 78 C70 70 130 60 200 66 C270 72 330 50 400 54 C450 57 510 42 556 46"
-      stroke="rgba(77,182,172,0.28)" stroke-width="1.5" fill="none" stroke-dasharray="5 4" stroke-linecap="round"/>
+      stroke="rgba(59,130,246,0.45)" stroke-width="1.5" fill="none" stroke-dasharray="5 4" stroke-linecap="round"/>
     <!-- Current period -->
     <path d="M0 72 C70 60 130 40 200 46 C270 52 330 24 400 28 C450 31 510 12 556 14 L556 110 L0 110 Z" fill="url(#dvg1)"/>
     <path d="M0 72 C70 60 130 40 200 46 C270 52 330 24 400 28 C450 31 510 12 556 14"
@@ -4907,11 +4918,12 @@ function dvDonutChart(donutData) {
 
 function dvHbarChart(barData) {
   const maxVal = Math.max(...barData.map(d => d.val));
-  return barData.map(d => {
+  return barData.map((d, i) => {
     const pct = ((d.val / maxVal) * 100).toFixed(1);
+    const color = d.color || CHART_PALETTE[i % CHART_PALETTE.length];
     return `<div class="dv-hbar-row">
       <div class="dv-hbar-name" title="${d.name}">${d.name}</div>
-      <div class="dv-hbar-track"><div class="dv-hbar-fill" style="width:${pct}%"></div></div>
+      <div class="dv-hbar-track"><div class="dv-hbar-fill" style="width:${pct}%;background:${color}"></div></div>
       <div class="dv-hbar-val">${d.val}</div>
     </div>`;
   }).join('');
@@ -4978,7 +4990,7 @@ function renderDashboardView(d) {
                 <span class="dv-legend-line" style="background:#4DB6AC"></span>This period
               </div>
               <div class="dv-legend-item">
-                <span class="dv-legend-dashed" style="border-color:rgba(77,182,172,0.38)"></span>Last period
+                <span class="dv-legend-dashed" style="border-color:rgba(59,130,246,0.50)"></span>Last period
               </div>
             </div>
             <button class="dv-chart-btn" title="Expand">
